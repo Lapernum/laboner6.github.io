@@ -1,0 +1,124 @@
+.Photography {
+    display: flex;
+    height: 100vh;
+}
+
+.logoPage {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5rem;
+    min-width: 33vw;
+    box-sizing: border-box;
+}
+
+.logoPageLoaded {
+    transform: translateX(0rem) !important;
+    opacity: 1 !important;
+}
+
+.logoImg {
+    transform: translateX(10rem);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+.logoPage > h1 {
+    margin: 0;
+    line-height: 100%;
+    font-size: 1.15rem;
+}
+
+.subline {
+    line-height: 150% !important;
+    font-weight: 900;
+    color: #335778;
+    transform: translateX(10rem);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.2s;
+}
+
+.englishTitle {
+    font-size: 1rem !important;
+    font-weight: 500;
+}
+
+.mainline {
+    font-size: 8rem !important;
+    font-weight: 900;
+    writing-mode: vertical-rl;
+    transform: translateX(10rem);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.1s;
+}
+
+.mainline > span {
+    font-weight: 100;
+}
+
+.introPageContainer {
+    position: absolute;
+    width: 33vw;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(0%);
+}
+
+.introPageContainerLoaded {
+    opacity: 1;
+    transform: translateY(-80px);
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
+}
+
+.introPage {
+    position: absolute;
+    width: 33vw;
+    height: 100%;
+    background-color: #33577800;
+    transform: translateY(100%);
+    transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
+}
+
+.introPageOpened {
+    background-color: #335778FF;
+    transform: translateY(80px);
+    transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s;
+}
+
+.introText > p {
+    color: white;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 150%;
+    margin: 0;
+}
+
+.introText {
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.introLogoImg {
+    margin-bottom: 4rem;
+    filter: brightness(1000);
+}
+
+.englishIntro {
+    font-size: 0.8rem !important;
+}
+
+.introText > a {
+    color: white;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 100%;
+}
+
+.introArrow {
+    transition: all 0.2s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
+}
