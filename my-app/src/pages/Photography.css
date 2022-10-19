@@ -12,6 +12,7 @@
     padding: 0 5rem;
     min-width: 33vw;
     box-sizing: border-box;
+    height: 100vh;
 }
 
 .logoPageLoaded {
@@ -61,29 +62,29 @@
 .introPageContainer {
     position: absolute;
     width: 33vw;
-    height: 100%;
+    height: calc(100vh - 80px);
     opacity: 0;
-    transform: translateY(0%);
+    bottom: 0;
+    overflow-y: hidden;
 }
 
 .introPageContainerLoaded {
     opacity: 1;
-    transform: translateY(-80px);
+    height: 100vh;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
 }
 
 .introPage {
-    position: absolute;
     width: 33vw;
-    height: 100%;
+    height: 100vh;
     background-color: #33577800;
-    transform: translateY(100%);
+    transform: translateY(calc(100% - 80px));
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
 }
 
 .introPageOpened {
     background-color: #335778FF;
-    transform: translateY(80px);
+    transform: translateY(0);
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s;
 }
 

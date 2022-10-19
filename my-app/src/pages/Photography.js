@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import logo from '../assets/logo_transparent_blue.png';
+import PhotoFlow from './PhotoFlow';
 import './Photography.css';
 
 function Photography() {
@@ -51,6 +52,7 @@ function Photography() {
           </div>
         </div>
       </div>
+      <PhotoFlow/>
     </div>
   );
 }
