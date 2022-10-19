@@ -36,6 +36,8 @@ body {
 .logoImg {
     transform: translateX(10rem);
     opacity: 0;
+    position: unset;
+    pointer-events: none;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
@@ -197,7 +199,7 @@ body {
 .photo {
     opacity: 0;
     margin-left: 100px;
-    height: 30vh;
+    position: relative;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
@@ -206,6 +208,30 @@ body {
     margin-left: 0;
 }
 
-.photo:hover {
-    height: 25vh;
+img {
+    margin: 0;
+    position: absolute;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+/* img:hover {
+    height: 28vh;
+} */
+
+.imageBackground {
+    background-color: #335778;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+.photo:hover > img {
+    height: 29vh;
+}
+
+.photo:hover > div {
+    margin-top: 1vh;
+    height: 29vh;
 }

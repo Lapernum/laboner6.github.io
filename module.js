@@ -44,7 +44,7 @@ for (let i = 0; i < 20; i++) {
         element.classList.add("photoLoaded");
       }
     });
-  }, 10);
+  }, 1000);
   if(i == 5) {
     document.getElementById("mouseReminder").setAttribute("id", "mouseReminderLoaded");
   }
@@ -58,31 +58,37 @@ async function addImage() {
   childContainer.style.height = "30vh";
   let child = document.createElement("img");
   child.setAttribute("height", "100%");
+  let background = document.createElement("div");
+  background.setAttribute("class", "imageBackground");
 
   // Get the download URL
   await getDownloadURL(gsReference)
     .then((url) => {
       // Insert url into an <img> tag to "download"
       if (flow1Length <= flow2Length) {
-        let flow = document.getElementById("flow1");
-        child.setAttribute("src", url);
-        childContainer.appendChild(child);
-        flow.appendChild(childContainer);
         let img = new Image();
         img.src = url;
         img.onload = function () {
           flow1Length += (this.width / this.height);
+          childContainer.style.width = "calc(30vh * " + (this.width / this.height) + ")";
         }
-      } else {
-        let flow = document.getElementById("flow2");
+        let flow = document.getElementById("flow1");
         child.setAttribute("src", url);
         childContainer.appendChild(child);
+        childContainer.appendChild(background);
         flow.appendChild(childContainer);
+      } else {
         let img = new Image();
         img.src = url;
         img.onload = function () {
           flow2Length += (this.width / this.height);
+          childContainer.style.width = "calc(30vh * " + (this.width / this.height) + ")";
         }
+        let flow = document.getElementById("flow2");
+        child.setAttribute("src", url);
+        childContainer.appendChild(child);
+        childContainer.appendChild(background);
+        flow.appendChild(childContainer);
       }
     })
     .catch((error) => {
@@ -135,7 +141,7 @@ async function addImagesAuto() {
             element.classList.add("photoLoaded");
           }
         });
-      }, 10);
+      }, 1000);
       if (imageLoadedNum < 0) {
         break;
       }
