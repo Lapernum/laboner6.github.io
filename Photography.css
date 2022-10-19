@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Noto Serif SC', 'Outfit', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+  margin: 0;
+  background-color: #f0f5fa;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .Photography {
     display: flex;
     height: 100vh;
@@ -78,6 +91,10 @@
     width: 33vw;
     height: 100vh;
     background-color: #33577800;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     transform: translateY(calc(100% - 80px));
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
 }
@@ -120,6 +137,75 @@
     line-height: 100%;
 }
 
+.introArrowContainer {
+    transform: rotate(0deg); 
+    transition: all 0.2s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
+}
+
+.introArrowContainerOpened {
+    transform: rotate(-180deg);
+}
+
 .introArrow {
     transition: all 0.2s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
+}
+
+.photoFlow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 30px;
+    padding-right: 100px;
+}
+
+#mouseReminder {
+    position: absolute;
+    line-height: 50% !important;
+    font-weight: 400;
+    font-size: 0.8rem;
+    opacity: 0;
+    margin: 0;
+    padding-bottom: 68vh;
+    padding-left: 15px;
+    color: #335778;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+#mouseReminderLoaded {
+    position: absolute;
+    line-height: 50% !important;
+    font-weight: 400;
+    font-size: 0.8rem;
+    opacity: 1;
+    margin: 0;
+    padding-bottom: 68vh;
+    padding-left: 15px;
+    color: #335778;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+#flow1, #flow2 {
+    display: flex;
+    gap: 15px;
+}
+
+#flow1 {
+    margin-bottom: 15px;
+}
+
+.photo {
+    opacity: 0;
+    margin-left: 100px;
+    height: 30vh;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+.photoLoaded {
+    opacity: 1;
+    margin-left: 0;
+}
+
+.photo:hover {
+    height: 25vh;
 }

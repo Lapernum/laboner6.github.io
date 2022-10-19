@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="./assets/lapernum_logo.ico">
+  <meta name="description" content="Lapernum is a Star Citizen who loves photography.">
+  <title>Lapernum</title>
+  <link rel="stylesheet" href="./Photography.css">
+  <script src="./index.js"></script>
+  <script type="module" src="./module.js"></script>
+</head>
+
+<body onload="init()">
+  <div class="Photography">
+    <div class="logoPage">
+      <img src="./assets/logo_transparent_blue.png" width="100px" class="logoImg" />
+      <h1 class="mainline"><span>「</span>影記<span>」</span></h1>
+      <h1 class="subline">拉邦那</h1>
+      <h1 class="subline">星际公民</h1>
+      <h1 class="subline englishTitle">A Star Citizen Photography,</h1>
+      <h1 class="subline englishTitle">By Lapernum.</h1>
+      <div class="introPageContainer">
+        <div class="introPage">
+          <div class="introArrowContainer" onclick="toggleIntro()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#335778"
+              class="bi bi-arrow-up-short introArrow" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+            </svg>
+          </div>
+          <div class='introText'>
+            <img src="./assets/logo_transparent_blue.png" width="50px" class="introLogoImg" />
+            <p>我是拉邦那。</p>
+            <p class='englishIntro'>I'm Lapernum.</p>
+            <br />
+            <p>一名星际公民，一位摄影爱好者，一位up主。</p>
+            <p class='englishIntro'>A Star Citizen, A Photographer, A Content Creator.</p>
+            <br />
+            <p>哔哩哔哩</p>
+            <p class='englishIntro'>Bilibili</p>
+            <a target='_blank' href='https://space.bilibili.com/57234212'>@拉邦那Lapernum</a>
+            <p><br />YouTube</p>
+            <a target='_blank' href='https://www.youtube.com/channel/UCPEzUOCC_9COTUwx4HA5_Gw'>@Lapernum</a>
+            <p><br />推特</p>
+            <p class='englishIntro'>Twitter</p>
+            <a target='_blank' href='https://twitter.com/laboner233'>@laboner233</a>
+            <p><br />QQ讨论群</p>
+            <p class='englishIntro'>QQ Group Chat</p>
+            <p>1004915015</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="photoFlow">
+      <div id="mouseReminder">
+        <p>按住Shift滚动鼠标滚轮</p>
+        <p>Hold SHIFT and use the mouse wheel</p>
+      </div>
+      <div id="flow1">
+        <div class="placeholder" style="height: 30vh;"></div>
+      </div>
+      <div id="flow2">
+        <div class="placeholder" style="height: 30vh;"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
