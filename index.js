@@ -37,3 +37,13 @@ function toggleIntro() {
     document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#335778");
   }
 };
+
+function closeLargeImage() {
+  if(document.getElementsByClassName("cover")[0].classList.contains("coverOn")) {
+    document.getElementsByClassName("cover")[0].classList.remove("coverOn");
+  }
+  if(document.getElementsByClassName("largeImage")[0].classList.contains("largeImageOn")) {
+    document.getElementsByClassName("largeImage")[0].classList.remove("largeImageOn");
+  }
+  document.getElementById("largeImageContainer").remove();
+}
