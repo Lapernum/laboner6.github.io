@@ -126,6 +126,8 @@ body {
 .introLogoImg {
     margin-bottom: 4rem;
     filter: brightness(1000);
+    position: unset;
+    pointer-events: none;
 }
 
 .englishIntro {
