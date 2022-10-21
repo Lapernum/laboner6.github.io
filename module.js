@@ -167,20 +167,20 @@ async function addImagesAuto() {
   //   console.log("11111");
   //   console.log(scrollPosition + windowWidth);
   // }
-  if (Math.abs(scrollOldValue - scrollPosition) > 200) {
+  if (Math.abs(scrollOldValue - scrollPosition) > 500) {
     scrollOldValue = scrollPosition;
     console.log("New Images Loading");
-    console.log(leftBoundary);
-    console.log(rightBoundary);
+    // console.log(leftBoundary);
+    // console.log(rightBoundary);
     let flow1LeftIndex = findImageIndex(flow1Index, 0, imageInfo.Flow1Num - 1, leftBoundary, true);
     let flow2LeftIndex = findImageIndex(flow2Index, 0, imageInfo.Flow2Num - 1, leftBoundary, true);
     let flow1RightIndex = findImageIndex(flow1Index, 0, imageInfo.Flow1Num - 1, rightBoundary, false);
     let flow2RightIndex = findImageIndex(flow2Index, 0, imageInfo.Flow2Num - 1, rightBoundary, false);
     // console.log(flow1LeftIndex);
-    console.log(flow1Index[flow1LeftIndex]);
-    console.log(flow1Index[flow1RightIndex]);
-    console.log(flow2Index[flow2LeftIndex]);
-    console.log(flow2Index[flow2RightIndex]);
+    // console.log(flow1Index[flow1LeftIndex]);
+    // console.log(flow1Index[flow1RightIndex]);
+    // console.log(flow2Index[flow2LeftIndex]);
+    // console.log(flow2Index[flow2RightIndex]);
     for (let i = flow1LeftIndex; i <= flow1RightIndex; i++) {
       await addImage(flow1Index[i]);
       // imageLoadedNum++;
@@ -217,7 +217,7 @@ function findImageIndex(arr, l, r, boundary, isLeft) {
 }
 
 async function loadLargeImage(index) {
-  console.log("checkcheck");
+  // console.log("checkcheck");
   if (!document.getElementsByClassName("cover")[0].classList.contains("coverOn")) {
     document.getElementsByClassName("cover")[0].classList.add("coverOn");
   }
