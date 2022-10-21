@@ -22,6 +22,9 @@ body {
 
 .largeImage {
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     z-index: -1;
@@ -38,23 +41,26 @@ body {
 
 .largeImageCloseButton {
     float: right;
-    margin-right: 10vw;
-    margin-top: 10vh;
+    position: fixed;
+    right: 10vw;
+    top: 10vh;
     z-index: 13;
 }
 
 #largeImageContainer {
-    display: block;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     z-index: 13;
     opacity: 0;
+    padding: 12px;
     background-color: #f0f5fa;
-    transition: all 0.5s;
+    transform: translateY(20vh);
+    transition: opacity 0.5s, transform 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
 #largeImageInside {
     display: block;
-    margin: auto;
     opacity: 0;
     transition: all 0.5s;
 }
@@ -70,6 +76,7 @@ body {
 }
 
 .largeImageLoaded {
+    transform: translateY(0) !important;
     opacity: 1 !important;
 }
 

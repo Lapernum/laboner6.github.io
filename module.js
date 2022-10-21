@@ -228,6 +228,11 @@ async function loadLargeImage(index) {
   const gsReference = ref(storage, 'PNG/' + imageInfo.ImageInfo[index].Name + '.png');
   let childContainer = document.createElement("div");
   childContainer.setAttribute("id", "largeImageContainer");
+  let infoElementContainer = document.createElement("div");
+  infoElementContainer.style.display = "flex";
+  infoElementContainer.style.flexDirection = "row";
+  infoElementContainer.style.justifyContent = "space-between";
+  infoElementContainer.style.alignItems = "end";
   let infoElement = document.createElement("p");
   let logo = document.createElement("img");
   logo.setAttribute("src", "./assets/logo_transparent_blue.png");
@@ -241,9 +246,8 @@ async function loadLargeImage(index) {
   infoElement.style.fontSize = "1rem";
   infoElement.style.fontWeight = "900";
   infoElement.style.color = "#335778";
-  infoElement.style.float = "right";
-  infoElement.style.marginRight = "12px";
-  infoElement.style.marginTop = "5.3vh";
+  infoElement.style.lineHeight = "150%";
+  infoElement.style.margin = "0";
   infoElement.setAttribute("class", "infoElement");
   let noticeElement = document.createElement("p");
   let noticeNodeCN = document.createTextNode("完整分辨率版本");
@@ -255,9 +259,11 @@ async function loadLargeImage(index) {
   noticeElement.style.fontSize = "0.7rem";
   noticeElement.style.fontWeight = "600";
   noticeElement.style.color = "#335778";
-  noticeElement.style.float = "left";
-  noticeElement.style.marginLeft = "12px";
-  noticeElement.style.marginTop = "6.4vh";
+  noticeElement.style.display = "flex";
+  noticeElement.style.margin = "0";
+  noticeElement.style.flexDirection = "column";
+  noticeElement.style.justifyContent = "end";
+  // noticeElement.style.transform = "translateY(-6px)";
   noticeElement.setAttribute("class", "noticeElement");
   await getDownloadURL(gsReference)
     .then((url) => {
@@ -268,26 +274,25 @@ async function loadLargeImage(index) {
           img.style.width = "70vw";
           childContainer.style.width = "70vw";
           childContainer.style.setProperty("height", "calc((70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 10vh)");
-          childContainer.style.setProperty("margin-top", "calc((90vh - (70vw / " + imageInfo.ImageInfo[index].WHRatio + ")) / 2)");
         } else {
           img.style.height = "70vh";
           childContainer.style.height = "80vh";
           childContainer.style.setProperty("width", "calc(70vh * " + imageInfo.ImageInfo[index].WHRatio + ")");
-          childContainer.style.setProperty("margin-top", "10vh");
         }
         childContainer.appendChild(img);
-        childContainer.appendChild(infoElement);
-        childContainer.appendChild(noticeElement);
+        infoElementContainer.appendChild(noticeElement);
+        infoElementContainer.appendChild(infoElement);
+        childContainer.appendChild(infoElementContainer);
         let largeImage = document.getElementsByClassName("largeImage")[0];
         largeImage.appendChild(childContainer);
         setTimeout(() => {
           childContainer.classList.add("largeImageLoaded");
-          img.classList.add("largeImageLoaded");
-        }, 100);
-        setTimeout(() => {
           infoElement.classList.add("largeImageLoaded");
           noticeElement.classList.add("largeImageLoaded");
-        }, 500);
+        }, 1);
+        setTimeout(() => {
+          img.classList.add("largeImageLoaded");
+        }, 600);
       }
       img.src = url;
     })
