@@ -45,5 +45,7 @@ function closeLargeImage() {
   if(document.getElementsByClassName("largeImage")[0].classList.contains("largeImageOn")) {
     document.getElementsByClassName("largeImage")[0].classList.remove("largeImageOn");
   }
-  document.getElementById("largeImageContainer").remove();
+  Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
+    element.remove();
+  })
 }

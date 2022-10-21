@@ -216,8 +216,15 @@ function findImageIndex(arr, l, r, boundary, isLeft) {
   }
 }
 
+function reformatDate(date) {
+  return date.substring(0, 4) + "." + date.substring(5, 7) + "." + date.substring(8, 13) + ":" + date.substring(14, 16) + ":" + date.substring(17, 19);
+}
+
 async function loadLargeImage(index) {
   // console.log("checkcheck");
+  Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
+    element.remove();
+  })
   if (!document.getElementsByClassName("cover")[0].classList.contains("coverOn")) {
     document.getElementsByClassName("cover")[0].classList.add("coverOn");
   }
@@ -227,7 +234,7 @@ async function loadLargeImage(index) {
   const storage = getStorage();
   const gsReference = ref(storage, 'PNG/' + imageInfo.ImageInfo[index].Name + '.png');
   let childContainer = document.createElement("div");
-  childContainer.setAttribute("id", "largeImageContainer");
+  childContainer.setAttribute("class", "largeImageContainer");
   let infoElementContainer = document.createElement("div");
   infoElementContainer.style.display = "flex";
   infoElementContainer.style.flexDirection = "row";
@@ -239,7 +246,7 @@ async function loadLargeImage(index) {
   logo.setAttribute("width", "15rem");
   logo.style.float = "right";
   let br1 = document.createElement("br");
-  let infoNode = document.createTextNode("拍摄于 Shot at " + imageInfo.ImageInfo[index].DateModified);
+  let infoNode = document.createTextNode("拍摄时间 Shot on " + reformatDate(imageInfo.ImageInfo[index].DateModified));
   infoElement.appendChild(logo);
   infoElement.appendChild(br1);
   infoElement.appendChild(infoNode);
@@ -269,7 +276,7 @@ async function loadLargeImage(index) {
     .then((url) => {
       let img = new Image();
       img.onload = function () {
-        img.setAttribute("id", "largeImageInside");
+        img.setAttribute("class", "largeImageInside");
         if(imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
           img.style.width = "70vw";
           childContainer.style.width = "70vw";
@@ -284,6 +291,9 @@ async function loadLargeImage(index) {
         infoElementContainer.appendChild(infoElement);
         childContainer.appendChild(infoElementContainer);
         let largeImage = document.getElementsByClassName("largeImage")[0];
+        Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
+          element.remove();
+        })
         largeImage.appendChild(childContainer);
         setTimeout(() => {
           childContainer.classList.add("largeImageLoaded");

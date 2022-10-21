@@ -44,10 +44,11 @@ body {
     position: fixed;
     right: 10vw;
     top: 10vh;
-    z-index: 13;
+    cursor: pointer;
+    z-index: 14;
 }
 
-#largeImageContainer {
+.largeImageContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -59,7 +60,7 @@ body {
     transition: opacity 0.5s, transform 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
-#largeImageInside {
+.largeImageInside {
     display: block;
     opacity: 0;
     transition: all 0.5s;
