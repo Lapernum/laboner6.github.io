@@ -25,9 +25,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-var imageLoadedNum = 0;
-var minimumScroll = 0;
-var loadFinished = true;
+// var imageLoadedNum = 0;
+// var minimumScroll = 0;
+// var loadFinished = true;
 
 let scrollPosition = window.scrollX;
 let windowWidth = window.innerWidth;
@@ -35,11 +35,8 @@ let viewHeight = 0.3 * window.innerHeight;
 let introPageWidth = windowWidth * 0.33 + 30;
 let flow1Index = [];
 let flow2Index = [];
+let scrollOldValue = 0;
 // const imageGroup = new Map();
-
-console.log(windowWidth);
-console.log(viewHeight);
-console.log(introPageWidth);
 
 // document.getElementsByClassName("photoFlow").style.width = "calc(30vh * " + imageInfo.FlowLength + ")";
 let photoNum = imageInfo.Flow1Num + imageInfo.Flow2Num;
@@ -67,7 +64,7 @@ for (let i = 0; i < photoNum; i++) {
 
 for (let i = 0; i < 10; i++) {
   await addImage(i);
-  imageLoadedNum++;
+  // imageLoadedNum++;
   if (i == 4) {
     document.getElementById("mouseReminder").setAttribute("id", "mouseReminderLoaded");
   }
@@ -108,6 +105,10 @@ async function addImage(index) {
             setTimeout(() => {
               childContainer.classList.add("photoLoaded");
             }, 10);
+          } else {
+            img.remove();
+            background.remove();
+            childContainer.remove();
           }
         }
         img.src = url;
@@ -124,6 +125,10 @@ async function addImage(index) {
             setTimeout(() => {
               childContainer.classList.add("photoLoaded");
             }, 10);
+          } else {
+            img.remove();
+            background.remove();
+            childContainer.remove();
           }
         }
         img.src = url;
@@ -156,15 +161,14 @@ async function addImagesAuto() {
   scrollPosition = window.scrollX;
   let leftBoundary = scrollPosition;
   let rightBoundary = scrollPosition + windowWidth;
-
+  // console.log(scrollPosition);
 
   // if (scrollPosition %  == 0) {
   //   console.log("11111");
   //   console.log(scrollPosition + windowWidth);
   // }
-
-
-  if (imageLoadedNum <= photoNum && scrollPosition % 100 == 0) {
+  if (Math.abs(scrollOldValue - scrollPosition) > 200) {
+    scrollOldValue = scrollPosition;
     console.log("New Images Loading");
     console.log(leftBoundary);
     console.log(rightBoundary);
@@ -179,11 +183,11 @@ async function addImagesAuto() {
     console.log(flow2Index[flow2RightIndex]);
     for (let i = flow1LeftIndex; i <= flow1RightIndex; i++) {
       await addImage(flow1Index[i]);
-      imageLoadedNum++;
+      // imageLoadedNum++;
     }
     for (let j = flow2LeftIndex; j <= flow2RightIndex; j++) {
       await addImage(flow2Index[j]);
-      imageLoadedNum++;
+      // imageLoadedNum++;
     }
   }
 }

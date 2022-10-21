@@ -226,6 +226,7 @@ body {
 }
 
 .introArrow {
+    cursor: pointer;
     transition: all 0.2s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
 }
 
@@ -290,6 +291,7 @@ body {
     position: absolute;
     z-index: 7;
     transform: translateY(0);
+    cursor: pointer;
     transition: all 0.3s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
