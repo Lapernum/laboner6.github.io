@@ -235,9 +235,11 @@ async function addImagesAuto(changeDate) {
     if (changeDate) {
       document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flow1Index[flow1LeftIndex]);
       document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flow1Index[flow1LeftIndex]);
+      console.log(reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]));
+      console.log(flowJump[flowJumpIndex].jumpDate);
       if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) > flowJump[flowJumpIndex].jumpDate) {
         flowJumpIndex--;
-      } else if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) > flowJump[flowJumpIndex].jumpDate) {
+      } else if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) < flowJump[flowJumpIndex].jumpDate) {
         flowJumpIndex++;
       }
     }
