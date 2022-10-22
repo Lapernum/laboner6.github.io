@@ -36,16 +36,31 @@ let introPageWidth = windowWidth * 0.33 + 30;
 let flow1Index = [];
 let flow2Index = [];
 let scrollOldValue = 0;
+let autoLoadImage = true;
 // const imageGroup = new Map();
 
 // document.getElementsByClassName("photoFlow").style.width = "calc(30vh * " + imageInfo.FlowLength + ")";
 let photoNum = imageInfo.Flow1Num + imageInfo.Flow2Num;
 let flow1 = document.getElementById("flow1");
 let flow2 = document.getElementById("flow2");
+let flowJump = [];
+let flowJumpMarker = reformatDateWithYear(0) + reformatDateWithMonth(0);
+let flowJumpIndex = 0;
+
+const scrollContainer = document.querySelector("html");
+scrollContainer.addEventListener("wheel", (evt) => {
+    evt.preventDefault();
+    scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
+}, { passive: false });
 
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 }
+
+flowJump.push({
+  "jumpDate": flowJumpMarker,
+  "jumpImageIndex": 0,
+});
 
 for (let i = 0; i < photoNum; i++) {
   let thisdiv = document.createElement("div");
@@ -60,6 +75,13 @@ for (let i = 0; i < photoNum; i++) {
     flow2Index.push(i);
     flow2.appendChild(thisdiv);
   }
+  if (reformatDateWithYear(i) + reformatDateWithMonth(i) < flowJumpMarker) {
+    flowJumpMarker = reformatDateWithYear(i) + reformatDateWithMonth(i);
+    flowJump.push({
+      "jumpDate": flowJumpMarker,
+      "jumpImageIndex": i,
+    });
+  }
 }
 
 for (let i = 0; i < 10; i++) {
@@ -67,11 +89,43 @@ for (let i = 0; i < 10; i++) {
   // imageLoadedNum++;
   if (i == 4) {
     document.getElementById("mouseReminder").setAttribute("id", "mouseReminderLoaded");
+    let dateDisplayContainer = document.getElementById("dateDisplayText");
+    let dateDisplayYear = document.createElement("span");
+    let dateDisplayMonth = document.createElement("b");
+    dateDisplayYear.innerText = reformatDateWithYear(0);
+    dateDisplayMonth.innerText = reformatDateWithMonth(0)
+    dateDisplayYear.setAttribute("id", "dateDisplayYear");
+    dateDisplayMonth.setAttribute("id", "dateDisplayMonth");
+    dateDisplayContainer.appendChild(dateDisplayYear);
+    dateDisplayContainer.appendChild(dateDisplayMonth);
+    setTimeout(() => {
+      document.getElementById("dateDisplay").classList.add("dateDisplayLoaded");
+      document.getElementById("scrollbar").classList.add("scrollbarLoaded");
+      scrollbarResize();
+    }, 100)
   }
 }
 
+function scrollbarResize() {
+  let scrollbar = document.getElementById("scrollbar");
+  let scrollbarInsideWidth = window.innerWidth * parseInt(window.getComputedStyle(scrollbar).width.slice(0, -2)) / document.body.scrollWidth;
+  let scrollbarInside = document.getElementById("scrollbarInside");
+  scrollbarInside.style.width = scrollbarInsideWidth + "px";
+}
+
+function scrollbarRelocate() {
+  scrollPosition = window.scrollX;
+  let scrollbarInside = document.getElementById("scrollbarInside");
+  scrollbarInside.style.marginLeft = scrollPosition * parseInt(window.getComputedStyle(scrollbar).width.slice(0, -2)) / document.body.scrollWidth + "px";
+}
+
+window.onresize = scrollbarResize;
+
 setTimeout(() => {
   document.getElementById("mouseReminderLoaded").setAttribute("id", "mouseReminder");
+  Array.from(document.getElementsByClassName("dateArrow")).forEach((element) => {
+    element.style.opacity = "0";
+  })
 }, 10000);
 
 async function addImage(index) {
@@ -154,10 +208,11 @@ async function addImage(index) {
     });
 }
 
-async function addImagesAuto() {
-  // if(loadFinished == false) {
-  //   return;
-  // }
+async function addImagesAuto(changeDate) {
+  scrollbarRelocate();
+  if (autoLoadImage == false) {
+    return;
+  }
   scrollPosition = window.scrollX;
   let leftBoundary = scrollPosition;
   let rightBoundary = scrollPosition + windowWidth;
@@ -176,6 +231,16 @@ async function addImagesAuto() {
     let flow2LeftIndex = findImageIndex(flow2Index, 0, imageInfo.Flow2Num - 1, leftBoundary, true);
     let flow1RightIndex = findImageIndex(flow1Index, 0, imageInfo.Flow1Num - 1, rightBoundary, false);
     let flow2RightIndex = findImageIndex(flow2Index, 0, imageInfo.Flow2Num - 1, rightBoundary, false);
+
+    if (changeDate) {
+      document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flow1Index[flow1LeftIndex]);
+      document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flow1Index[flow1LeftIndex]);
+      if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) > flowJump[flowJumpIndex].jumpDate) {
+        flowJumpIndex--;
+      } else if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) > flowJump[flowJumpIndex].jumpDate) {
+        flowJumpIndex++;
+      }
+    }
     // console.log(flow1LeftIndex);
     // console.log(flow1Index[flow1LeftIndex]);
     // console.log(flow1Index[flow1RightIndex]);
@@ -218,6 +283,16 @@ function findImageIndex(arr, l, r, boundary, isLeft) {
 
 function reformatDate(date) {
   return date.substring(0, 4) + "." + date.substring(5, 7) + "." + date.substring(8, 13) + ":" + date.substring(14, 16) + ":" + date.substring(17, 19);
+}
+
+function reformatDateWithYear(index) {
+  let thisDate = imageInfo.ImageInfo[index].DateModified;
+  return thisDate.substring(0, 4) + " ";
+}
+
+function reformatDateWithMonth(index) {
+  let thisDate = imageInfo.ImageInfo[index].DateModified;
+  return thisDate.substring(5, 7);
 }
 
 async function loadLargeImage(index) {
@@ -277,7 +352,7 @@ async function loadLargeImage(index) {
       let img = new Image();
       img.onload = function () {
         img.setAttribute("class", "largeImageInside");
-        if(imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
+        if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
           img.style.width = "70vw";
           childContainer.style.width = "70vw";
           childContainer.style.setProperty("height", "calc((70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 10vh)");
@@ -335,5 +410,64 @@ Array.from(allPhotoContainers).forEach((pc) => {
   });
 })
 
+document.getElementById("dateArrowLeft2").addEventListener("click", () => {
+  autoLoadImage = false;
+  flowJumpIndex = 0;
+  window.scrollTo({ left: 0, behavior: 'smooth' });
+  scrollbarRelocate();
+  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flow1Index[0]);
+  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flow1Index[0]);
+  setTimeout(async () => {
+    autoLoadImage = true;
+  }, 800);
+})
+
+document.getElementById("dateArrowRight2").addEventListener("click", () => {
+  autoLoadImage = false;
+  flowJumpIndex = flowJump.length - 1;
+  document.getElementById("endPage").scrollIntoView({ behavior: 'smooth' });
+  scrollbarRelocate();
+  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(photoNum - 1);
+  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(photoNum - 1);
+  setTimeout(async () => {
+    autoLoadImage = true;
+    for (let i = photoNum - 1; i > photoNum - 11; i--) {
+      await addImage(i);
+    }
+  }, 800);
+})
+
+document.getElementById("dateArrowLeft1").addEventListener("click", () => {
+  autoLoadImage = false;
+  if (flowJumpIndex == 0) {
+    return;
+  }
+  flowJumpIndex--;
+  window.scrollTo({ left: imageInfo.ImageInfo[flowJump[flowJumpIndex].jumpImageIndex].PositionL * viewHeight + (imageInfo.ImageInfo[flowJump[flowJumpIndex].jumpImageIndex].Num - 1) * viewHeight / 15 + introPageWidth, behavior: 'smooth' });
+  scrollbarRelocate();
+  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flowJump[flowJumpIndex].jumpImageIndex);
+  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flowJump[flowJumpIndex].jumpImageIndex);
+  setTimeout(async () => {
+    autoLoadImage = true;
+    addImagesAuto(false);
+  }, 800);
+})
+
+document.getElementById("dateArrowRight1").addEventListener("click", () => {
+  autoLoadImage = false;
+  if (flowJumpIndex == flowJump.length - 1) {
+    return;
+  }
+  flowJumpIndex++;
+  window.scrollTo({ left: imageInfo.ImageInfo[flowJump[flowJumpIndex].jumpImageIndex].PositionL * viewHeight + (imageInfo.ImageInfo[flowJump[flowJumpIndex].jumpImageIndex].Num - 1) * viewHeight / 15 + introPageWidth, behavior: 'smooth' });
+  scrollbarRelocate();
+  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flowJump[flowJumpIndex].jumpImageIndex);
+  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flowJump[flowJumpIndex].jumpImageIndex);
+  setTimeout(async () => {
+    autoLoadImage = true;
+    addImagesAuto(false);
+  }, 800);
+})
+
 // document.addEventListener('scroll', () => addImagesAuto());
-window.onscroll = addImagesAuto;
+window.onscroll = () => addImagesAuto(true);

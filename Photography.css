@@ -247,6 +247,86 @@ body {
     padding-right: 100px;
 }
 
+#scrollbar {
+    background-color: #b4c2cf;
+    position: fixed;
+    top: 9vh;
+    width: 25rem;
+    max-width: 20vw;
+    height: 5px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-9vh);
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99)
+}
+
+#scrollbarInside {
+    background-color: #335778;
+    min-width: 6px;
+    height: 5px;
+}
+
+.scrollbarLoaded {
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+}
+
+#dateDisplay {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 100;
+    color: #335778;
+    position: fixed;
+    bottom: 6vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(9vh);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+#dateDisplay:hover > .dateArrow {
+    opacity: 1 !important;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+#dateDisplayText {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: #78848f;
+    font-family: "Outfit", sans-serif;
+}
+
+#dateDisplayText > b {
+    color: #335778;
+    font-weight: 800;
+}
+
+.dateArrow {
+    transform: translateX(0);
+    margin: 1rem 1rem;
+    opacity: 1;
+    cursor: default;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+.dateArrowLeft:hover {
+    transform: translateX(-2px);
+}
+
+.dateArrowRight:hover {
+    transform: translateX(2px);
+}
+
+.dateDisplayLoaded {
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+}
+
 #mouseReminder {
     position: absolute;
     line-height: 50% !important;
@@ -255,7 +335,7 @@ body {
     opacity: 0;
     margin: 0;
     padding-bottom: 68vh;
-    padding-left: 3vh;
+    padding-left: 5vh;
     color: #335778;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
@@ -321,4 +401,8 @@ body {
 
 .photo:hover > .imageBackground {
     margin-top: 0.5vh;
+}
+
+#endPageStarCitizenLogo {
+    margin-top: 50px;
 }
