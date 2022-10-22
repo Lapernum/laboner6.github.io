@@ -407,5 +407,6 @@ body {
 }
 
 #endPageStarCitizenLogo {
+    opacity: 0;
     margin-top: 50px;
 }

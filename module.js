@@ -99,6 +99,7 @@ for (let i = 0; i < 10; i++) {
     dateDisplayContainer.appendChild(dateDisplayYear);
     dateDisplayContainer.appendChild(dateDisplayMonth);
     setTimeout(() => {
+      document.getElementById("endPageStarCitizenLogo").style.opacity = "1";
       document.getElementById("dateDisplay").classList.add("dateDisplayLoaded");
       document.getElementById("scrollbar").classList.add("scrollbarLoaded");
       scrollbarResize();
