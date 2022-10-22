@@ -107,10 +107,15 @@ for (let i = 0; i < 10; i++) {
 }
 
 function scrollbarResize() {
+  scrollPosition = window.scrollX;
+  windowWidth = window.innerWidth;
+  viewHeight = 0.3 * window.innerHeight;
+  introPageWidth = windowWidth * 0.33 + 30;
   let scrollbar = document.getElementById("scrollbar");
   let scrollbarInsideWidth = window.innerWidth * parseInt(window.getComputedStyle(scrollbar).width.slice(0, -2)) / document.body.scrollWidth;
   let scrollbarInside = document.getElementById("scrollbarInside");
   scrollbarInside.style.width = scrollbarInsideWidth + "px";
+  addImagesAuto(true);
 }
 
 function scrollbarRelocate() {
