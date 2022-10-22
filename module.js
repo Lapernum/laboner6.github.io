@@ -452,6 +452,7 @@ dateArrowLeft1.addEventListener("click", () => {
   dateArrowLeft1.style.pointerEvents = "none";
   autoLoadImage = false;
   if (flowJumpIndex == 0) {
+    dateArrowLeft1.style.pointerEvents = "all";
     return;
   }
   flowJumpIndex--;
@@ -470,6 +471,7 @@ dateArrowRight1.addEventListener("click", () => {
   dateArrowRight1.style.pointerEvents = "none";
   autoLoadImage = false;
   if (flowJumpIndex == flowJump.length - 1) {
+    dateArrowRight1.style.pointerEvents = "all";
     return;
   }
   flowJumpIndex++;

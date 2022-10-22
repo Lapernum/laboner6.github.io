@@ -36,6 +36,13 @@ function toggleIntro() {
   } else {
     document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#335778");
   }
+  if (window.getComputedStyle(document.getElementsByClassName("introText")[0]).opacity == "0") {
+    document.getElementsByClassName("introText")[0].style.opacity = "1";
+  } else {
+    setTimeout(() => {
+      document.getElementsByClassName("introText")[0].style.opacity = "0";
+    }, 1000);
+  }
 };
 
 function closeLargeImage() {

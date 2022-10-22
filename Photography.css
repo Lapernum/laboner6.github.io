@@ -204,6 +204,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    opacity: 0;
 }
 
 .introLogoImg {
