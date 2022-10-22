@@ -29,6 +29,7 @@ body {
     height: 100vh;
     z-index: -1;
     opacity: 0;
+    backdrop-filter: none;
     pointer-events: none;
     transition: all 0.5s;
 }
@@ -36,6 +37,7 @@ body {
 .largeImageOn {
     z-index: 12;
     opacity: 1;
+    backdrop-filter: blur(32px);
     pointer-events: all;
 }
 
@@ -93,7 +95,7 @@ body {
 }
 
 .coverOn {
-    opacity: 0.8;
+    opacity: 0.75;
     z-index: 11;
 }
 
