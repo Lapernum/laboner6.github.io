@@ -410,7 +410,13 @@ Array.from(allPhotoContainers).forEach((pc) => {
   });
 })
 
-document.getElementById("dateArrowLeft2").addEventListener("click", () => {
+let dateArrowLeft1 = document.getElementById("dateArrowLeft1");
+let dateArrowLeft2 = document.getElementById("dateArrowLeft2");
+let dateArrowRight1 = document.getElementById("dateArrowRight1");
+let dateArrowRight2 = document.getElementById("dateArrowRight2");
+
+dateArrowLeft2.addEventListener("click", () => {
+  dateArrowLeft2.style.pointerEvents = "none";
   autoLoadImage = false;
   flowJumpIndex = 0;
   window.scrollTo({ left: 0, behavior: 'smooth' });
@@ -419,10 +425,12 @@ document.getElementById("dateArrowLeft2").addEventListener("click", () => {
   document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flow1Index[0]);
   setTimeout(async () => {
     autoLoadImage = true;
+    dateArrowLeft2.style.pointerEvents = "all";
   }, 800);
 })
 
-document.getElementById("dateArrowRight2").addEventListener("click", () => {
+dateArrowRight2.addEventListener("click", () => {
+  dateArrowRight2.style.pointerEvents = "none";
   autoLoadImage = false;
   flowJumpIndex = flowJump.length - 1;
   document.getElementById("endPage").scrollIntoView({ behavior: 'smooth' });
@@ -431,13 +439,15 @@ document.getElementById("dateArrowRight2").addEventListener("click", () => {
   document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(photoNum - 1);
   setTimeout(async () => {
     autoLoadImage = true;
+    dateArrowRight2.style.pointerEvents = "all";
     for (let i = photoNum - 1; i > photoNum - 11; i--) {
       await addImage(i);
     }
   }, 800);
 })
 
-document.getElementById("dateArrowLeft1").addEventListener("click", () => {
+dateArrowLeft1.addEventListener("click", () => {
+  dateArrowLeft1.style.pointerEvents = "none";
   autoLoadImage = false;
   if (flowJumpIndex == 0) {
     return;
@@ -449,11 +459,13 @@ document.getElementById("dateArrowLeft1").addEventListener("click", () => {
   document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flowJump[flowJumpIndex].jumpImageIndex);
   setTimeout(async () => {
     autoLoadImage = true;
+    dateArrowLeft1.style.pointerEvents = "all";
     addImagesAuto(false);
   }, 800);
 })
 
-document.getElementById("dateArrowRight1").addEventListener("click", () => {
+dateArrowRight1.addEventListener("click", () => {
+  dateArrowRight1.style.pointerEvents = "none";
   autoLoadImage = false;
   if (flowJumpIndex == flowJump.length - 1) {
     return;
@@ -465,6 +477,7 @@ document.getElementById("dateArrowRight1").addEventListener("click", () => {
   document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flowJump[flowJumpIndex].jumpImageIndex);
   setTimeout(async () => {
     autoLoadImage = true;
+    dateArrowRight1.style.pointerEvents = "all";
     addImagesAuto(false);
   }, 800);
 })
