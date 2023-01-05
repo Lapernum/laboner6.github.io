@@ -60,6 +60,17 @@ body {
     background-color: #f0f5fa;
     transform: translateY(20vh);
     transition: opacity 0.5s, transform 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    overflow: hidden;
+}
+
+#largeImageLoadingText {
+    color: white;
+    position: fixed;
+    font-size: 1.2rem;
+    line-height: 100%;
+    text-align: center;
+    opacity: 1;
+    transition: all 0.5s;
 }
 
 .largeImageInside {
@@ -68,9 +79,14 @@ body {
     transition: all 0.5s;
 }
 
+.largeImageInfoOn {
+    filter: blur(16px) opacity(0.4) saturate(1.5);
+}
+
 .infoElement {
     opacity: 0;
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 .noticeElement {
@@ -80,6 +96,10 @@ body {
 
 .largeImageLoaded {
     transform: translateY(0) !important;
+    opacity: 1 !important;
+}
+
+.infoElement:hover > #moreDetailsText {
     opacity: 1 !important;
 }
 

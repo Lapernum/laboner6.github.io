@@ -55,4 +55,7 @@ function closeLargeImage() {
   Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
     element.remove();
   })
+  setTimeout(() => {
+    document.getElementById("largeImageLoadingText").style.opacity = "1";
+  }, 500)
 }

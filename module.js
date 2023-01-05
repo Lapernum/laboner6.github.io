@@ -318,27 +318,44 @@ async function loadLargeImage(index) {
   const gsReference = ref(storage, 'PNG/' + imageInfo.ImageInfo[index].Name + '.png');
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "largeImageContainer");
+  let imgWithInfo = document.createElement("div");
+  imgWithInfo.setAttribute("id", "largeImageWithInfo");
   let infoElementContainer = document.createElement("div");
   infoElementContainer.style.display = "flex";
   infoElementContainer.style.flexDirection = "row";
   infoElementContainer.style.justifyContent = "space-between";
   infoElementContainer.style.alignItems = "end";
+  let infoNode = document.createElement("div");
   let infoElement = document.createElement("p");
   let logo = document.createElement("img");
   logo.setAttribute("src", "./assets/logo_transparent_blue.png");
-  logo.setAttribute("width", "15rem");
-  logo.style.float = "right";
+  logo.setAttribute("width", "25rem");
   let br1 = document.createElement("br");
-  let infoNode = document.createTextNode("拍摄时间 Shot on " + reformatDate(imageInfo.ImageInfo[index].DateModified));
-  infoElement.appendChild(logo);
+  let infoNodeCN = document.createTextNode("详细信息");
+  let infoNodeEN = document.createTextNode("More Details");
+  infoElement.appendChild(infoNodeCN);
   infoElement.appendChild(br1);
-  infoElement.appendChild(infoNode);
-  infoElement.style.fontSize = "1rem";
-  infoElement.style.fontWeight = "900";
-  infoElement.style.color = "#335778";
-  infoElement.style.lineHeight = "150%";
-  infoElement.style.margin = "0";
-  infoElement.setAttribute("class", "infoElement");
+  infoElement.appendChild(infoNodeEN);
+  infoElement.style.opacity = "0";
+  infoElement.style.textAlign = "end";
+  infoElement.style.margin = "0 0.5rem 0 0";
+  infoElement.style.pointerEvents = "none";
+  infoElement.style.transition = "all 0.5s";
+  infoElement.setAttribute("id", "moreDetailsText");
+  infoNode.appendChild(infoElement);
+  infoNode.appendChild(logo);
+  infoNode.style.fontSize = "0.7rem";
+  infoNode.style.fontWeight = "900";
+  infoNode.style.color = "#335778";
+  infoNode.style.lineHeight = "150%";
+  infoNode.style.margin = "0";
+  infoNode.style.display = "flex";
+  infoNode.style.flexDirection = "row";
+  infoNode.style.alignItems = "center";
+  infoNode.setAttribute("class", "infoElement");
+  infoNode.setAttribute("id", "moreDetails");
+  logo.style.opacity = "0";
+  logo.setAttribute("id", "moreDetailsLogo");
   let noticeElement = document.createElement("p");
   let noticeNodeCN = document.createTextNode("完整分辨率版本");
   let br = document.createElement("br");
@@ -369,23 +386,59 @@ async function loadLargeImage(index) {
           childContainer.style.height = "80vh";
           childContainer.style.setProperty("width", "calc(70vh * " + imageInfo.ImageInfo[index].WHRatio + ")");
         }
-        childContainer.appendChild(img);
+        imgWithInfo.appendChild(img);
+        childContainer.appendChild(imgWithInfo);
         infoElementContainer.appendChild(noticeElement);
-        infoElementContainer.appendChild(infoElement);
+        infoElementContainer.appendChild(infoNode);
         childContainer.appendChild(infoElementContainer);
         let largeImage = document.getElementsByClassName("largeImage")[0];
         Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
           element.remove();
         })
         largeImage.appendChild(childContainer);
+
+        infoNode.addEventListener("click", () => {
+          let thisImage = document.getElementsByClassName("largeImageInside")[0];
+          if(thisImage.classList.contains("largeImageInfoOn")) {
+            thisImage.classList.remove("largeImageInfoOn");
+            let imgInfo = document.getElementById("largeImageInfo");
+            imgInfo.remove();
+          } else {
+            thisImage.classList.add("largeImageInfoOn");
+            let imgInfo = document.createElement("div");
+            imgInfo.style.color = "#335778";
+            imgInfo.style.margin = "0 0 0 50px";
+            imgInfo.style.position = "absolute";
+            imgInfo.style.fontWeight = "900";
+            imgInfo.style.transition = "all 0.5s";
+            imgInfo.style.fontSize = "1.2rem";
+            imgInfo.setAttribute("id", "largeImageInfo");
+            let imgInfoDate = document.createElement("p");
+            let imgInfoDateNode = document.createTextNode("拍摄于 Shot On " + reformatDate(imageInfo.ImageInfo[index].DateModified));
+            if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
+              imgInfo.style.setProperty("transform", "translateY(calc((-70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 50px))");
+            } else {
+              imgInfo.style.setProperty("transform", "translateY(calc(-70vh + 50px)");
+            }
+            imgInfoDate.appendChild(imgInfoDateNode);
+            imgInfo.appendChild(imgInfoDate);
+            imgWithInfo.appendChild(imgInfo);
+          }
+        });
+        document.getElementById("largeImageLoadingText").style.opacity = "0";
         setTimeout(() => {
           childContainer.classList.add("largeImageLoaded");
-          infoElement.classList.add("largeImageLoaded");
+          infoNode.classList.add("largeImageLoaded");
+          logo.classList.add("largeImageLoaded");
           noticeElement.classList.add("largeImageLoaded");
         }, 1);
         setTimeout(() => {
           img.classList.add("largeImageLoaded");
+          infoElement.classList.add("largeImageLoaded");
         }, 600);
+        setTimeout(() => {
+          infoElement.classList.remove("largeImageLoaded");
+        }, 5000);
       }
       img.src = url;
     })
@@ -422,6 +475,7 @@ let dateArrowLeft1 = document.getElementById("dateArrowLeft1");
 let dateArrowLeft2 = document.getElementById("dateArrowLeft2");
 let dateArrowRight1 = document.getElementById("dateArrowRight1");
 let dateArrowRight2 = document.getElementById("dateArrowRight2");
+// let infoElementNode = document.getElementById("moreDetails");
 
 dateArrowLeft2.addEventListener("click", () => {
   dateArrowLeft2.style.pointerEvents = "none";
@@ -435,7 +489,7 @@ dateArrowLeft2.addEventListener("click", () => {
     autoLoadImage = true;
     dateArrowLeft2.style.pointerEvents = "all";
   }, 800);
-})
+});
 
 dateArrowRight2.addEventListener("click", () => {
   dateArrowRight2.style.pointerEvents = "none";
@@ -452,7 +506,7 @@ dateArrowRight2.addEventListener("click", () => {
       await addImage(i);
     }
   }, 800);
-})
+});
 
 dateArrowLeft1.addEventListener("click", () => {
   dateArrowLeft1.style.pointerEvents = "none";
@@ -471,7 +525,7 @@ dateArrowLeft1.addEventListener("click", () => {
     dateArrowLeft1.style.pointerEvents = "all";
     addImagesAuto(false);
   }, 800);
-})
+});
 
 dateArrowRight1.addEventListener("click", () => {
   dateArrowRight1.style.pointerEvents = "none";
@@ -490,7 +544,7 @@ dateArrowRight1.addEventListener("click", () => {
     dateArrowRight1.style.pointerEvents = "all";
     addImagesAuto(false);
   }, 800);
-})
+});
 
 // document.addEventListener('scroll', () => addImagesAuto());
 window.onscroll = () => addImagesAuto(true);
