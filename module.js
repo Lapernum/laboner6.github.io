@@ -5,7 +5,10 @@ import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
 import { collection, getDocs, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
 import { query, orderBy, limit, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
-import imageInfo from './ImageInfo.json' assert {type: 'json'};
+
+const res = await fetch('./ImageInfo.json');
+const imageInfo = await res.json();
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
