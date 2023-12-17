@@ -14,6 +14,8 @@ const imageInfo = await res.json();
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// for release
 const firebaseConfig = {
   apiKey: "AIzaSyBrj8-BGIyD7AUPaX_LuGy7XL7kcC4tQxY",
   authDomain: "lapergraphy-22beb.firebaseapp.com",
@@ -23,6 +25,17 @@ const firebaseConfig = {
   appId: "1:876429412626:web:520b74ad91432797a58bcb",
   measurementId: "G-83W09R6F7H"
 };
+
+// // for testing
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCZV_XLJJKY3BNRYjTsPd0UwatySYyFDFA",
+//   authDomain: "lapergraphy.firebaseapp.com",
+//   projectId: "lapergraphy",
+//   storageBucket: "lapergraphy.appspot.com",
+//   messagingSenderId: "608555494889",
+//   appId: "1:608555494889:web:7331cee4601cf66ae46f78",
+//   measurementId: "G-FENPGB90Z1"
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -47,7 +60,7 @@ let photoNum = imageInfo.Flow1Num + imageInfo.Flow2Num;
 let flow1 = document.getElementById("flow1");
 let flow2 = document.getElementById("flow2");
 let flowJump = [];
-let flowJumpMarker = reformatDateWithYear(0) + reformatDateWithMonth(0);
+let flowJumpMarker = reformatDateWithYear(photoNum - 1) + reformatDateWithMonth(photoNum - 1);
 let flowJumpIndex = 0;
 
 const scrollContainer = document.querySelector("html");
@@ -65,7 +78,7 @@ flowJump.push({
   "jumpImageIndex": 0,
 });
 
-for (let i = 0; i < photoNum; i++) {
+for (let i = photoNum - 1; i >= 0; i--) {
   let thisdiv = document.createElement("div");
   thisdiv.style.height = "30vh";
   thisdiv.style.width = "calc(30vh * " + imageInfo.ImageInfo[i].WHRatio + ")";
@@ -87,16 +100,16 @@ for (let i = 0; i < photoNum; i++) {
   }
 }
 
-for (let i = 0; i < 10; i++) {
+for (let i = photoNum - 1; i >= photoNum - 10; i--) {
   await addImage(i);
   // imageLoadedNum++;
-  if (i == 4) {
+  if (i == photoNum - 4) {
     document.getElementById("mouseReminder").setAttribute("id", "mouseReminderLoaded");
     let dateDisplayContainer = document.getElementById("dateDisplayText");
     let dateDisplayYear = document.createElement("span");
     let dateDisplayMonth = document.createElement("b");
-    dateDisplayYear.innerText = reformatDateWithYear(0);
-    dateDisplayMonth.innerText = reformatDateWithMonth(0)
+    dateDisplayYear.innerText = reformatDateWithYear(photoNum - 1);
+    dateDisplayMonth.innerText = reformatDateWithMonth(photoNum - 1);
     dateDisplayYear.setAttribute("id", "dateDisplayYear");
     dateDisplayMonth.setAttribute("id", "dateDisplayMonth");
     dateDisplayContainer.appendChild(dateDisplayYear);
@@ -233,7 +246,7 @@ async function addImagesAuto(changeDate) {
   // }
   if (Math.abs(scrollOldValue - scrollPosition) > 500) {
     scrollOldValue = scrollPosition;
-    console.log("New Images Loading");
+    // console.log("New Images Loading");
     // console.log(leftBoundary);
     // console.log(rightBoundary);
     let flow1LeftIndex = findImageIndex(flow1Index, 0, imageInfo.Flow1Num - 1, leftBoundary, true);
@@ -241,11 +254,15 @@ async function addImagesAuto(changeDate) {
     let flow1RightIndex = findImageIndex(flow1Index, 0, imageInfo.Flow1Num - 1, rightBoundary, false);
     let flow2RightIndex = findImageIndex(flow2Index, 0, imageInfo.Flow2Num - 1, rightBoundary, false);
 
+    if (flow1LeftIndex == -1) {
+      return;
+    }
+
     if (changeDate) {
       document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(flow1Index[flow1LeftIndex]);
       document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(flow1Index[flow1LeftIndex]);
-      console.log(reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]));
-      console.log(flowJump[flowJumpIndex].jumpDate);
+      // console.log(reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]));
+      // console.log(flowJump[flowJumpIndex].jumpDate);
       if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) > flowJump[flowJumpIndex].jumpDate) {
         flowJumpIndex--;
       } else if (reformatDateWithYear(flow1Index[flow1LeftIndex]) + reformatDateWithMonth(flow1Index[flow1LeftIndex]) < flowJump[flowJumpIndex].jumpDate) {
@@ -500,12 +517,12 @@ dateArrowRight2.addEventListener("click", () => {
   flowJumpIndex = flowJump.length - 1;
   document.getElementById("endPage").scrollIntoView({ behavior: 'smooth' });
   scrollbarRelocate();
-  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(photoNum - 1);
-  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(photoNum - 1);
+  document.getElementById("dateDisplayYear").innerText = reformatDateWithYear(0);
+  document.getElementById("dateDisplayMonth").innerText = reformatDateWithMonth(0);
   setTimeout(async () => {
     autoLoadImage = true;
     dateArrowRight2.style.pointerEvents = "all";
-    for (let i = photoNum - 1; i > photoNum - 11; i--) {
+    for (let i = 0; i < 10; i++) {
       await addImage(i);
     }
   }, 800);
