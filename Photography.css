@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  font-family: 'Noto Serif SC', 'Outfit', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Sans SC', 'Outfit', 'Noto Sans TC', sans-serif;
   margin: 0;
   background-color: #f0f5fa;
 }
@@ -159,16 +159,27 @@ body {
     transform: translateX(10rem);
     opacity: 0;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.2s;
+    font-family: 'Noto Sans SC', "Outfit", sans-serif;
+}
+
+.englishMainTitle {
+    margin-top: -60px !important;
+    margin-bottom: 40px !important;
+    font-size: 1rem !important;
+    font-weight: 900 !important;
+    font-family: "Outfit", sans-serif;
 }
 
 .englishTitle {
     font-size: 1rem !important;
     font-weight: 500;
+    font-family: "Outfit", sans-serif;
 }
 
 .mainline {
     font-size: 8rem !important;
     font-weight: 900;
+    letter-spacing: 6px;
     writing-mode: vertical-rl;
     transform: translateX(10rem);
     opacity: 0;
@@ -215,7 +226,7 @@ body {
 .introText > p {
     color: white;
     font-weight: 400;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     line-height: 150%;
     margin: 0;
 }
@@ -237,13 +248,14 @@ body {
 }
 
 .englishIntro {
-    font-size: 1rem !important;
+    font-size: 1.15rem !important;
+    font-family: 'Outfit', sans-serif;
 }
 
 .introText a {
     color: white;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 100%;
 }
 
