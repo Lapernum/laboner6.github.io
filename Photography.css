@@ -140,10 +140,60 @@ body {
 .logoImg {
     transform: translateX(10rem);
     opacity: 0;
-    position: unset;
+    position: relative;
     pointer-events: none;
     z-index: 0;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    width: 100px;
+    height: 100px;
+}
+
+.logoImg > img {
+    position: absolute;
+    width: 100px;
+}
+
+@-moz-keyframes spin { 
+    100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+}
+
+#arc0 {
+    -webkit-animation:spin 8s linear infinite;
+    -moz-animation:spin 8s linear infinite;
+    animation:spin 8s linear infinite;
+}
+
+#arc1 {
+    -webkit-animation:spin 16s linear infinite;
+    -moz-animation:spin 16s linear infinite;
+    animation:spin 16s linear infinite;
+    -webkit-animation-direction: reverse;
+    -moz-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+#arc2 {
+    -webkit-animation:spin 32s linear infinite;
+    -moz-animation:spin 32s linear infinite;
+    animation:spin 32s linear infinite;
+}
+
+#arc3 {
+    -webkit-animation:spin 64s linear infinite;
+    -moz-animation:spin 64s linear infinite;
+    animation:spin 64s linear infinite;
+    -webkit-animation-direction: reverse;
+    -moz-animation-direction: reverse;
+    animation-direction: reverse;
 }
 
 .logoPage > h1 {
