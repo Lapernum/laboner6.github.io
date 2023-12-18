@@ -273,7 +273,7 @@ body {
 #scrollbar {
     background-color: #b4c2cf;
     position: fixed;
-    top: 9vh;
+    top: 6vh;
     width: 25rem;
     max-width: 20vw;
     height: 5px;
@@ -301,7 +301,7 @@ body {
     font-weight: 100;
     color: #335778;
     position: fixed;
-    bottom: 6vh;
+    bottom: 3vh;
     left: 50%;
     transform: translateX(-50%) translateY(9vh);
     opacity: 0;
@@ -357,7 +357,7 @@ body {
     font-size: 1rem;
     opacity: 0;
     margin: 0;
-    padding-bottom: 68vh;
+    padding-bottom: 78vh;
     padding-left: 5vh;
     color: #335778;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
@@ -370,7 +370,7 @@ body {
     font-size: 1rem;
     opacity: 1;
     margin: 0;
-    padding-bottom: 68vh;
+    padding-bottom: 78vh;
     padding-left: 2vh;
     color: #335778;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);

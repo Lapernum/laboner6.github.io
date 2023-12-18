@@ -47,7 +47,7 @@ const analytics = getAnalytics(app);
 
 let scrollPosition = window.scrollX;
 let windowWidth = window.innerWidth;
-let viewHeight = 0.3 * window.innerHeight;
+let viewHeight = 0.35 * window.innerHeight;
 let introPageWidth = windowWidth * 0.33 + 30;
 let flow1Index = [];
 let flow2Index = [];
@@ -81,8 +81,8 @@ flowJump.push({
 
 for (let i = photoNum - 1; i >= 0; i--) {
   let thisdiv = document.createElement("div");
-  thisdiv.style.height = "30vh";
-  thisdiv.style.width = "calc(30vh * " + imageInfo.ImageInfo[i].WHRatio + ")";
+  thisdiv.style.height = "35vh";
+  thisdiv.style.width = "calc(35vh * " + imageInfo.ImageInfo[i].WHRatio + ")";
   thisdiv.setAttribute("id", "photoContainer" + i);
   thisdiv.setAttribute("class", "photoContainer");
   if (imageInfo.ImageInfo[i].Flow == 1) {
@@ -127,7 +127,7 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
 function scrollbarResize() {
   scrollPosition = window.scrollX;
   windowWidth = window.innerWidth;
-  viewHeight = 0.3 * window.innerHeight;
+  viewHeight = 0.35 * window.innerHeight;
   introPageWidth = windowWidth * 0.33 + 30;
   let scrollbar = document.getElementById("scrollbar");
   let scrollbarInsideWidth = window.innerWidth * parseInt(window.getComputedStyle(scrollbar).width.slice(0, -2)) / document.body.scrollWidth;
@@ -161,7 +161,7 @@ async function addImage(index) {
   const gsReference = ref(storage, 'JPG/' + imageInfo.ImageInfo[index].Name + '.jpg');
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "photo");
-  childContainer.style.height = "30vh";
+  childContainer.style.height = "35vh";
   let background = document.createElement("div");
   background.setAttribute("class", "imageBackground");
 
