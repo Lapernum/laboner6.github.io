@@ -62,6 +62,7 @@ let flow2 = document.getElementById("flow2");
 let flowJump = [];
 let flowJumpMarker = reformatDateWithYear(photoNum - 1) + reformatDateWithMonth(photoNum - 1);
 let flowJumpIndex = 0;
+let currIndex = 0;
 
 const scrollContainer = document.querySelector("html");
 scrollContainer.addEventListener("wheel", (evt) => {
@@ -349,7 +350,7 @@ async function loadLargeImage(index) {
   let infoElement = document.createElement("p");
   let logo = document.createElement("img");
   logo.setAttribute("src", "./assets/logo_transparent_blue.png");
-  logo.setAttribute("width", "25rem");
+  logo.setAttribute("width", "24px");
   let br1 = document.createElement("br");
   let infoNodeCN = document.createTextNode("详细信息");
   let infoNodeEN = document.createTextNode("More Details");
@@ -376,10 +377,18 @@ async function loadLargeImage(index) {
   infoNode.setAttribute("id", "moreDetails");
   logo.style.opacity = "0";
   logo.setAttribute("id", "moreDetailsLogo");
+
+  let download = document.createElement("img");
+  download.setAttribute("src", "./assets/download_icon.svg");
+  download.setAttribute("width", "32px");
+  download.setAttribute("id", "downloadIcon");
+  let downloadHref = document.createElement("a")
+  let noticeNode = document.createElement("div");
   let noticeElement = document.createElement("p");
   let noticeNodeCN = document.createTextNode("完整分辨率版本");
   let br = document.createElement("br");
   let noticeNodeEN = document.createTextNode("Full Resolution Version")
+  noticeElement.appendChild(download);
   noticeElement.appendChild(noticeNodeCN);
   noticeElement.appendChild(br);
   noticeElement.appendChild(noticeNodeEN);
@@ -392,6 +401,20 @@ async function loadLargeImage(index) {
   noticeElement.style.justifyContent = "end";
   // noticeElement.style.transform = "translateY(-6px)";
   noticeElement.setAttribute("class", "noticeElement");
+  downloadHref.appendChild(download);
+  downloadHref.style.marginRight = "3px";
+  downloadHref.style.marginBottom = "-1px"
+  downloadHref.style.height = "30px";
+  getDownloadURL(gsReference).then((url) => {
+    downloadHref.setAttribute("href", url);
+    downloadHref.setAttribute("target", "_blank");
+    downloadHref.setAttribute("download", imageInfo.ImageInfo[index].Name + '.png');
+    noticeNode.appendChild(downloadHref);
+    noticeNode.appendChild(noticeElement);
+    noticeNode.style.display = "flex";
+    noticeNode.style.flexDirection = "row";
+  });
+
   await getDownloadURL(gsReference)
     .then((url) => {
       let img = new Image();
@@ -408,7 +431,7 @@ async function loadLargeImage(index) {
         }
         imgWithInfo.appendChild(img);
         childContainer.appendChild(imgWithInfo);
-        infoElementContainer.appendChild(noticeElement);
+        infoElementContainer.appendChild(noticeNode);
         infoElementContainer.appendChild(infoNode);
         childContainer.appendChild(infoElementContainer);
         let largeImage = document.getElementsByClassName("largeImage")[0];
@@ -487,6 +510,7 @@ let allPhotoContainers = document.getElementsByClassName("photoContainer");
 Array.from(allPhotoContainers).forEach((pc) => {
   pc.addEventListener("click", () => {
     let index = parseInt(pc.getAttribute("id").substring(14));
+    currIndex = index;
     loadLargeImage(index);
   });
 })
