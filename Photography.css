@@ -484,6 +484,23 @@ body {
     transform: translateY(-0.5vh);
 }
 
+.fullscreenIcon {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    transform: none;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    filter: drop-shadow(0 6px 0 #335778);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+}
+
+.photo:hover > .fullscreenIcon {
+    transform: translateY(-0.5vh);
+    opacity: 1;
+}
+
 .photo:hover > .imageBackground {
     margin-top: 0.5vh;
 }

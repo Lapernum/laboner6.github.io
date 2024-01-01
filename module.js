@@ -174,7 +174,15 @@ async function addImage(index) {
         img.onload = function () {
           img.setAttribute("height", "100%");
           img.setAttribute("class", "imageInside");
+
+          let iconFullscreen = document.createElement("img");
+          iconFullscreen.setAttribute("src", "./assets/fullscreen_image.svg");
+          iconFullscreen.setAttribute("width", "60px");
+          iconFullscreen.setAttribute("class", "fullscreenIcon");
+
           childContainer.appendChild(img);
+          childContainer.appendChild(iconFullscreen);
+
           let flowContainer = document.getElementById("photoContainer" + index);
           childContainer.appendChild(background);
           if (!document.getElementById("photoContainer" + index).hasChildNodes()) {
@@ -194,7 +202,15 @@ async function addImage(index) {
         img.onload = function () {
           img.setAttribute("height", "100%");
           img.setAttribute("class", "imageInside");
+
+          let iconFullscreen = document.createElement("img");
+          iconFullscreen.setAttribute("src", "./assets/fullscreen_image.svg");
+          iconFullscreen.setAttribute("width", "60px");
+          iconFullscreen.setAttribute("class", "fullscreenIcon");
+
           childContainer.appendChild(img);
+          childContainer.appendChild(iconFullscreen);
+          
           let flowContainer = document.getElementById("photoContainer" + index);
           childContainer.appendChild(background);
           if (!document.getElementById("photoContainer" + index).hasChildNodes()) {
