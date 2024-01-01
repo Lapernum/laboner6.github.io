@@ -157,94 +157,48 @@ async function addImage(index) {
   // if (imageCheck) {
   //   return;
   // }
-  const storage = getStorage();
-  const gsReference = ref(storage, 'JPG/' + imageInfo.ImageInfo[index].Name + '.jpg');
+
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "photo");
   childContainer.style.height = "35vh";
   let background = document.createElement("div");
   background.setAttribute("class", "imageBackground");
 
-  // Get the download URL
-  await getDownloadURL(gsReference)
-    .then((url) => {
-      // Insert url into an <img> tag to "download"
-      if (imageInfo.ImageInfo[index].Flow == 1) {
-        let img = new Image();
-        img.onload = function () {
-          img.setAttribute("height", "100%");
-          img.setAttribute("class", "imageInside");
+  // Define the B2 URL for the image
+  const b2Url = 'https://pub-d51c8820c553472aa15c054facbd369a.r2.dev/jpg/' + imageInfo.ImageInfo[index].Name + '.jpg';
 
-          let iconFullscreen = document.createElement("img");
-          iconFullscreen.setAttribute("src", "./assets/fullscreen_image.svg");
-          iconFullscreen.setAttribute("width", "60px");
-          iconFullscreen.setAttribute("class", "fullscreenIcon");
+  // Create an image element
+  let img = new Image();
+  img.onload = function () {
+    img.setAttribute("height", "100%");
+    img.setAttribute("class", "imageInside");
 
-          childContainer.appendChild(img);
-          childContainer.appendChild(iconFullscreen);
+    let iconFullscreen = document.createElement("img");
+    iconFullscreen.setAttribute("src", "./assets/fullscreen_image.svg");
+    iconFullscreen.setAttribute("width", "60px");
+    iconFullscreen.setAttribute("class", "fullscreenIcon");
 
-          let flowContainer = document.getElementById("photoContainer" + index);
-          childContainer.appendChild(background);
-          if (!document.getElementById("photoContainer" + index).hasChildNodes()) {
-            flowContainer.appendChild(childContainer);
-            setTimeout(() => {
-              childContainer.classList.add("photoLoaded");
-            }, 10);
-          } else {
-            img.remove();
-            background.remove();
-            childContainer.remove();
-          }
-        }
-        img.src = url;
-      } else if ((imageInfo.ImageInfo[index].Flow == 2)) {
-        let img = new Image();
-        img.onload = function () {
-          img.setAttribute("height", "100%");
-          img.setAttribute("class", "imageInside");
+    childContainer.appendChild(img);
+    childContainer.appendChild(iconFullscreen);
 
-          let iconFullscreen = document.createElement("img");
-          iconFullscreen.setAttribute("src", "./assets/fullscreen_image.svg");
-          iconFullscreen.setAttribute("width", "60px");
-          iconFullscreen.setAttribute("class", "fullscreenIcon");
-
-          childContainer.appendChild(img);
-          childContainer.appendChild(iconFullscreen);
-          
-          let flowContainer = document.getElementById("photoContainer" + index);
-          childContainer.appendChild(background);
-          if (!document.getElementById("photoContainer" + index).hasChildNodes()) {
-            flowContainer.appendChild(childContainer);
-            setTimeout(() => {
-              childContainer.classList.add("photoLoaded");
-            }, 10);
-          } else {
-            img.remove();
-            background.remove();
-            childContainer.remove();
-          }
-        }
-        img.src = url;
-      }
-    })
-    .catch((error) => {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.code) {
-        case 'storage/object-not-found':
-          // File doesn't exist
-          break;
-        case 'storage/unauthorized':
-          // User doesn't have permission to access the object
-          break;
-        case 'storage/canceled':
-          // User canceled the upload
-          break;
-        case 'storage/unknown':
-          // Unknown error occurred, inspect the server response
-          break;
-      }
-    });
+    let flowContainer = document.getElementById("photoContainer" + index);
+    childContainer.appendChild(background);
+    if (!document.getElementById("photoContainer" + index).hasChildNodes()) {
+      flowContainer.appendChild(childContainer);
+      setTimeout(() => {
+        childContainer.classList.add("photoLoaded");
+      }, 10);
+    } else {
+      img.remove();
+      background.remove();
+      childContainer.remove();
+    }
+  }
+  img.onerror = function (error) {
+    // Handle errors like file not found, etc.
+    console.error("Error loading image: ", error);
+  };
+  img.src = b2Url;
 }
 
 async function addImagesAuto(changeDate) {
@@ -351,8 +305,9 @@ async function loadLargeImage(index) {
   if (!document.getElementsByClassName("largeImage")[0].classList.contains("largeImageOn")) {
     document.getElementsByClassName("largeImage")[0].classList.add("largeImageOn");
   }
-  const storage = getStorage();
-  const gsReference = ref(storage, 'PNG/' + imageInfo.ImageInfo[index].Name + '.png');
+
+  const b2Url = 'https://pub-d51c8820c553472aa15c054facbd369a.r2.dev/png/' + imageInfo.ImageInfo[index].Name + '.png';
+
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "largeImageContainer");
   let imgWithInfo = document.createElement("div");
@@ -421,104 +376,81 @@ async function loadLargeImage(index) {
   downloadHref.style.marginRight = "3px";
   downloadHref.style.marginBottom = "-1px"
   downloadHref.style.height = "30px";
-  getDownloadURL(gsReference).then((url) => {
-    downloadHref.setAttribute("href", url);
-    downloadHref.setAttribute("target", "_blank");
-    downloadHref.setAttribute("download", imageInfo.ImageInfo[index].Name + '.png');
-    noticeNode.appendChild(downloadHref);
-    noticeNode.appendChild(noticeElement);
-    noticeNode.style.display = "flex";
-    noticeNode.style.flexDirection = "row";
-  });
+  downloadHref.setAttribute("href", b2Url);
+  downloadHref.setAttribute("target", "_blank");
+  downloadHref.setAttribute("download", imageInfo.ImageInfo[index].Name + '.png');
+  noticeNode.appendChild(downloadHref);
+  noticeNode.appendChild(noticeElement);
+  noticeNode.style.display = "flex";
+  noticeNode.style.flexDirection = "row";
 
-  await getDownloadURL(gsReference)
-    .then((url) => {
-      let img = new Image();
-      img.onload = function () {
-        img.setAttribute("class", "largeImageInside");
-        if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
-          img.style.width = "70vw";
-          childContainer.style.width = "70vw";
-          childContainer.style.setProperty("height", "calc((70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 10vh)");
-        } else {
-          img.style.height = "70vh";
-          childContainer.style.height = "80vh";
-          childContainer.style.setProperty("width", "calc(70vh * " + imageInfo.ImageInfo[index].WHRatio + ")");
-        }
-        imgWithInfo.appendChild(img);
-        childContainer.appendChild(imgWithInfo);
-        infoElementContainer.appendChild(noticeNode);
-        infoElementContainer.appendChild(infoNode);
-        childContainer.appendChild(infoElementContainer);
-        let largeImage = document.getElementsByClassName("largeImage")[0];
-        Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
-          element.remove();
-        })
-        largeImage.appendChild(childContainer);
-
-        infoNode.addEventListener("click", () => {
-          let thisImage = document.getElementsByClassName("largeImageInside")[0];
-          if(thisImage.classList.contains("largeImageInfoOn")) {
-            thisImage.classList.remove("largeImageInfoOn");
-            let imgInfo = document.getElementById("largeImageInfo");
-            imgInfo.remove();
-          } else {
-            thisImage.classList.add("largeImageInfoOn");
-            let imgInfo = document.createElement("div");
-            imgInfo.style.color = "#335778";
-            imgInfo.style.margin = "0 0 0 50px";
-            imgInfo.style.position = "absolute";
-            imgInfo.style.fontWeight = "900";
-            imgInfo.style.transition = "all 0.5s";
-            imgInfo.style.fontSize = "1.2rem";
-            imgInfo.setAttribute("id", "largeImageInfo");
-            let imgInfoDate = document.createElement("p");
-            let imgInfoDateNode = document.createTextNode("拍摄于 Shot On " + reformatDate(imageInfo.ImageInfo[index].DateModified));
-            if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
-              imgInfo.style.setProperty("transform", "translateY(calc((-70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 50px))");
-            } else {
-              imgInfo.style.setProperty("transform", "translateY(calc(-70vh + 50px)");
-            }
-            imgInfoDate.appendChild(imgInfoDateNode);
-            imgInfo.appendChild(imgInfoDate);
-            imgWithInfo.appendChild(imgInfo);
-          }
-        });
-        document.getElementById("largeImageLoadingText").style.opacity = "0";
-        setTimeout(() => {
-          childContainer.classList.add("largeImageLoaded");
-          infoNode.classList.add("largeImageLoaded");
-          logo.classList.add("largeImageLoaded");
-          noticeElement.classList.add("largeImageLoaded");
-        }, 1);
-        setTimeout(() => {
-          img.classList.add("largeImageLoaded");
-          infoElement.classList.add("largeImageLoaded");
-        }, 600);
-        setTimeout(() => {
-          infoElement.classList.remove("largeImageLoaded");
-        }, 5000);
-      }
-      img.src = url;
+  let img = new Image();
+  img.onload = function () {
+    img.setAttribute("class", "largeImageInside");
+    if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
+      img.style.width = "70vw";
+      childContainer.style.width = "70vw";
+      childContainer.style.setProperty("height", "calc((70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 10vh)");
+    } else {
+      img.style.height = "70vh";
+      childContainer.style.height = "80vh";
+      childContainer.style.setProperty("width", "calc(70vh * " + imageInfo.ImageInfo[index].WHRatio + ")");
+    }
+    imgWithInfo.appendChild(img);
+    childContainer.appendChild(imgWithInfo);
+    infoElementContainer.appendChild(noticeNode);
+    infoElementContainer.appendChild(infoNode);
+    childContainer.appendChild(infoElementContainer);
+    let largeImage = document.getElementsByClassName("largeImage")[0];
+    Array.from(document.getElementsByClassName("largeImageContainer")).forEach((element) => {
+      element.remove();
     })
-    .catch((error) => {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.code) {
-        case 'storage/object-not-found':
-          // File doesn't exist
-          break;
-        case 'storage/unauthorized':
-          // User doesn't have permission to access the object
-          break;
-        case 'storage/canceled':
-          // User canceled the upload
-          break;
-        case 'storage/unknown':
-          // Unknown error occurred, inspect the server response
-          break;
+    largeImage.appendChild(childContainer);
+
+    infoNode.addEventListener("click", () => {
+      let thisImage = document.getElementsByClassName("largeImageInside")[0];
+      if(thisImage.classList.contains("largeImageInfoOn")) {
+        thisImage.classList.remove("largeImageInfoOn");
+        let imgInfo = document.getElementById("largeImageInfo");
+        imgInfo.remove();
+      } else {
+        thisImage.classList.add("largeImageInfoOn");
+        let imgInfo = document.createElement("div");
+        imgInfo.style.color = "#335778";
+        imgInfo.style.margin = "0 0 0 50px";
+        imgInfo.style.position = "absolute";
+        imgInfo.style.fontWeight = "900";
+        imgInfo.style.transition = "all 0.5s";
+        imgInfo.style.fontSize = "1.2rem";
+        imgInfo.setAttribute("id", "largeImageInfo");
+        let imgInfoDate = document.createElement("p");
+        let imgInfoDateNode = document.createTextNode("拍摄于 Shot On " + reformatDate(imageInfo.ImageInfo[index].DateModified));
+        if (imageInfo.ImageInfo[index].WHRatio >= window.innerWidth / window.innerHeight) {
+          imgInfo.style.setProperty("transform", "translateY(calc((-70vw / " + imageInfo.ImageInfo[index].WHRatio + ") + 50px))");
+        } else {
+          imgInfo.style.setProperty("transform", "translateY(calc(-70vh + 50px)");
+        }
+        imgInfoDate.appendChild(imgInfoDateNode);
+        imgInfo.appendChild(imgInfoDate);
+        imgWithInfo.appendChild(imgInfo);
       }
     });
+    document.getElementById("largeImageLoadingText").style.opacity = "0";
+    setTimeout(() => {
+      childContainer.classList.add("largeImageLoaded");
+      infoNode.classList.add("largeImageLoaded");
+      logo.classList.add("largeImageLoaded");
+      noticeElement.classList.add("largeImageLoaded");
+    }, 1);
+    setTimeout(() => {
+      img.classList.add("largeImageLoaded");
+      infoElement.classList.add("largeImageLoaded");
+    }, 600);
+    setTimeout(() => {
+      infoElement.classList.remove("largeImageLoaded");
+    }, 5000);
+  }
+  img.src = b2Url;
 }
 
 let allPhotoContainers = document.getElementsByClassName("photoContainer");
