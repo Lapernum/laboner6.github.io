@@ -15,32 +15,6 @@ const imageInfo = await res.json();
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-// for release
-const firebaseConfig = {
-  apiKey: "AIzaSyBrj8-BGIyD7AUPaX_LuGy7XL7kcC4tQxY",
-  authDomain: "lapergraphy-22beb.firebaseapp.com",
-  projectId: "lapergraphy-22beb",
-  storageBucket: "lapergraphy-22beb.appspot.com",
-  messagingSenderId: "876429412626",
-  appId: "1:876429412626:web:520b74ad91432797a58bcb",
-  measurementId: "G-83W09R6F7H"
-};
-
-// // for testing
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCZV_XLJJKY3BNRYjTsPd0UwatySYyFDFA",
-//   authDomain: "lapergraphy.firebaseapp.com",
-//   projectId: "lapergraphy",
-//   storageBucket: "lapergraphy.appspot.com",
-//   messagingSenderId: "608555494889",
-//   appId: "1:608555494889:web:7331cee4601cf66ae46f78",
-//   measurementId: "G-FENPGB90Z1"
-// };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 // var imageLoadedNum = 0;
 // var minimumScroll = 0;
 // var loadFinished = true;
