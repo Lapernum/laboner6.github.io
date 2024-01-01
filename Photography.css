@@ -66,6 +66,7 @@ body {
 #largeImageLoadingText {
     color: white;
     position: fixed;
+    transform: translate(-32px, -32px);
     font-size: 1.2rem;
     line-height: 100%;
     text-align: center;
@@ -153,6 +154,13 @@ body {
     width: 100px;
 }
 
+#largeImageLoadingText > img {
+    position: absolute;
+    width: 64px;
+    filter: brightness(100);
+    opacity: 0.8;
+}
+
 @-moz-keyframes spin { 
     100% { -moz-transform: rotate(360deg); } 
 }
@@ -191,6 +199,36 @@ body {
     -webkit-animation:spin 64s linear infinite;
     -moz-animation:spin 64s linear infinite;
     animation:spin 64s linear infinite;
+    -webkit-animation-direction: reverse;
+    -moz-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+#arc0Loading {
+    -webkit-animation:spin 16s linear infinite;
+    -moz-animation:spin 16s linear infinite;
+    animation:spin 16s linear infinite;
+}
+
+#arc1Loading {
+    -webkit-animation:spin 8s linear infinite;
+    -moz-animation:spin 8s linear infinite;
+    animation:spin 8s linear infinite;
+    -webkit-animation-direction: reverse;
+    -moz-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+#arc2Loading {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+#arc3Loading {
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
     -webkit-animation-direction: reverse;
     -moz-animation-direction: reverse;
     animation-direction: reverse;
