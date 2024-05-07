@@ -107,14 +107,6 @@ function init() {
   Array.from(document.getElementsByClassName("introPageContainer")).forEach(element => {
     element.classList.add("introPageContainerLoaded");
   });
-
-  const targetId = getElementIdFromUrl();
-  if (targetId) {
-    console.log("Target ID is present. About to scroll to:", targetId);
-    scrollToElementById(targetId);
-  } else {
-    console.log("No Target ID provided in URL.");
-  }
 }
 
 function toggleIntro() {

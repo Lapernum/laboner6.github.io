@@ -75,6 +75,40 @@ for (let i = photoNum - 1; i >= 0; i--) {
   }
 }
 
+function getElementIdFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetId = urlParams.get('targetId');
+  console.log("Obtained Element ID from URL:", targetId); // Log the element ID to the console
+  return targetId;
+}
+
+function scrollToElementById(elementId) {
+  // let dateArrowLeft1 = document.getElementById("dateArrowLeft1");
+  // let dateArrowLeft2 = document.getElementById("dateArrowLeft2");
+  // let dateArrowRight1 = document.getElementById("dateArrowRight1");
+  // let dateArrowRight2 = document.getElementById("dateArrowRight2");
+
+  const targetElement = document.getElementById("photoContainer" + elementId);
+  if (targetElement) {
+    // dateArrowLeft2.style.pointerEvents = "none";
+    // autoLoadImage = false;
+    console.log("Element found, attempting to scroll:", "photoContainer" + elementId);
+    // window.location.hash = elementId;
+    const xOffset = targetElement.offsetLeft; // 获取元素的顶部位置
+    window.scrollTo({left: xOffset, behavior: 'instant'});
+  } else {
+    console.log('Element not found. Ensure the element ID is correct and the element is loaded on the page.');
+  }
+}
+
+const targetId = getElementIdFromUrl();
+if (targetId) {
+  console.log("Target ID is present. About to scroll to:", targetId);
+  scrollToElementById(targetId);
+} else {
+  console.log("No Target ID provided in URL.");
+}
+
 for (let i = photoNum - 1; i >= photoNum - 10; i--) {
   await addImage(i);
   // imageLoadedNum++;
@@ -96,13 +130,6 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
       scrollbarResize();
     }, 100)
   }
-}
-
-function getElementIdFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const targetId = urlParams.get('targetId');
-  console.log("Obtained Element ID from URL:", targetId); // Log the element ID to the console
-  return targetId;
 }
 
 function scrollbarResize() {
@@ -138,7 +165,6 @@ window.copyToClipboard = copyToClipboard;
 
 window.onresize = scrollbarResize;
 
-let targetId = getElementIdFromUrl();
 if (targetId != null) {
   setTimeout(() => {
     loadLargeImage(targetId);
