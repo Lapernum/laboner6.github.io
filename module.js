@@ -132,6 +132,15 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
   }
 }
 
+let f = flowJump.length - 1;
+while (f >= 0) {
+  if (reformatDateWithYear(targetId) + reformatDateWithMonth(targetId) <= flowJump[f].jumpDate) {
+    flowJumpIndex = f;
+    break;
+  }
+  f--;
+}
+
 function scrollbarResize() {
   scrollPosition = window.scrollX;
   windowWidth = window.innerWidth;
