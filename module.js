@@ -98,6 +98,13 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
   }
 }
 
+function getElementIdFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetId = urlParams.get('targetId');
+  console.log("Obtained Element ID from URL:", targetId); // Log the element ID to the console
+  return targetId;
+}
+
 function scrollbarResize() {
   scrollPosition = window.scrollX;
   windowWidth = window.innerWidth;
@@ -116,7 +123,27 @@ function scrollbarRelocate() {
   scrollbarInside.style.marginLeft = scrollPosition * parseInt(window.getComputedStyle(scrollbar).width.slice(0, -2)) / document.body.scrollWidth + "px";
 }
 
+function copyToClipboard(index) {
+  navigator.clipboard.writeText("https://lapernum.site/?targetId=" + index);
+
+  let linkIcon = document.getElementById("linkIcon");
+  linkIcon.setAttribute("src", "./assets/check_icon.svg");
+
+  setTimeout(() => {
+    linkIcon.setAttribute("src", "./assets/link_icon.svg");
+  }, 5000);
+}
+
+window.copyToClipboard = copyToClipboard;
+
 window.onresize = scrollbarResize;
+
+let targetId = getElementIdFromUrl();
+if (targetId != null) {
+  setTimeout(() => {
+    loadLargeImage(targetId);
+  }, 2000);
+}
 
 setTimeout(() => {
   document.getElementById("mouseReminderLoaded").setAttribute("id", "mouseReminder");
@@ -139,7 +166,7 @@ async function addImage(index) {
   background.setAttribute("class", "imageBackground");
 
   // Define the B2 URL for the image
-  const b2Url = 'https://pub-d51c8820c553472aa15c054facbd369a.r2.dev/jpg/' + imageInfo.ImageInfo[index].Name + '.jpg';
+  const b2Url = 'https://img.lapernum.site/jpg/' + imageInfo.ImageInfo[index].Name + '.jpg';
 
   // Create an image element
   let img = new Image();
@@ -280,7 +307,7 @@ async function loadLargeImage(index) {
     document.getElementsByClassName("largeImage")[0].classList.add("largeImageOn");
   }
 
-  const b2Url = 'https://pub-d51c8820c553472aa15c054facbd369a.r2.dev/png/' + imageInfo.ImageInfo[index].Name + '.png';
+  const b2Url = 'https://img.lapernum.site/png/' + imageInfo.ImageInfo[index].Name + '.png';
 
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "largeImageContainer");
@@ -323,13 +350,20 @@ async function loadLargeImage(index) {
   logo.style.opacity = "0";
   logo.setAttribute("id", "moreDetailsLogo");
 
+  let leftNodes = document.createElement("div");
+
   let download = document.createElement("img");
   download.setAttribute("src", "./assets/download_icon.svg");
   download.setAttribute("width", "32px");
   download.setAttribute("id", "downloadIcon");
   let downloadHref = document.createElement("a")
   let noticeNode = document.createElement("div");
-  let noticeElement = document.createElement("p");
+  noticeNode.setAttribute("class", "noticeNode");
+  let noticeElement = document.createElement("a");
+  noticeElement.setAttribute("href", b2Url);
+  noticeElement.setAttribute("target", "_blank");
+  noticeElement.style.textDecoration = "none";
+  noticeElement.style.cursor = "pointer";
   let noticeNodeCN = document.createTextNode("完整分辨率版本");
   let br = document.createElement("br");
   let noticeNodeEN = document.createTextNode("Full Resolution Version")
@@ -337,7 +371,7 @@ async function loadLargeImage(index) {
   noticeElement.appendChild(noticeNodeCN);
   noticeElement.appendChild(br);
   noticeElement.appendChild(noticeNodeEN);
-  noticeElement.style.fontSize = "0.7rem";
+  noticeElement.style.fontSize = "0.65rem";
   noticeElement.style.fontWeight = "600";
   noticeElement.style.color = "#335778";
   noticeElement.style.display = "flex";
@@ -345,7 +379,8 @@ async function loadLargeImage(index) {
   noticeElement.style.flexDirection = "column";
   noticeElement.style.justifyContent = "end";
   // noticeElement.style.transform = "translateY(-6px)";
-  noticeElement.setAttribute("class", "noticeElement");
+  // noticeElement.style.opacity = "0";
+  noticeElement.setAttribute("id", "noticeElement");
   downloadHref.appendChild(download);
   downloadHref.style.marginRight = "3px";
   downloadHref.style.marginBottom = "-1px"
@@ -353,10 +388,51 @@ async function loadLargeImage(index) {
   downloadHref.setAttribute("href", b2Url);
   downloadHref.setAttribute("target", "_blank");
   downloadHref.setAttribute("download", imageInfo.ImageInfo[index].Name + '.png');
+  downloadHref.setAttribute("id", "downloadIconHref");
+
   noticeNode.appendChild(downloadHref);
   noticeNode.appendChild(noticeElement);
   noticeNode.style.display = "flex";
   noticeNode.style.flexDirection = "row";
+
+  let linkShareNode = document.createElement("div");
+  linkShareNode.setAttribute("class", "linkShareNode");
+  linkShareNode.style.marginBottom = "10px";
+  let share = document.createElement("img");
+  share.setAttribute("src", "./assets/link_icon.svg");
+  share.setAttribute("width", "32px");
+  share.setAttribute("id", "linkIcon");
+  share.setAttribute("onclick", "copyToClipboard(" + index + ")");
+  share.style.cursor = "pointer";
+  share.style.marginRight = "3px";
+  share.style.marginBottom = "-1px";
+  share.style.height = "30px";
+
+  let linkElement = document.createElement("p");
+  linkElement.setAttribute("id", "linkElement");
+  linkElement.setAttribute("onclick", "copyToClipboard(" + index + ")");
+  linkElement.style.cursor = "pointer";
+  let linkNodeCN = document.createTextNode("复制分享链接");
+  let br2 = document.createElement("br");
+  let linkNodeEN = document.createTextNode("Copy Link to Share")
+  linkElement.appendChild(linkNodeCN);
+  linkElement.appendChild(br2);
+  linkElement.appendChild(linkNodeEN);
+  linkElement.style.fontSize = "0.65rem";
+  linkElement.style.fontWeight = "600";
+  linkElement.style.color = "#335778";
+  linkElement.style.display = "flex";
+  linkElement.style.margin = "0";
+  linkElement.style.flexDirection = "column";
+  linkElement.style.justifyContent = "end";
+  // linkElement.style.transform = "translateY(-6px)";
+  // linkElement.style.opacity = "0";
+  linkElement.setAttribute("id", "noticeElement");
+
+  linkShareNode.appendChild(share);
+  linkShareNode.appendChild(linkElement);
+  linkShareNode.style.display = "flex";
+  linkShareNode.style.flexDirection = "row";
 
   let img = new Image();
   img.onload = function () {
@@ -372,7 +448,9 @@ async function loadLargeImage(index) {
     }
     imgWithInfo.appendChild(img);
     childContainer.appendChild(imgWithInfo);
-    infoElementContainer.appendChild(noticeNode);
+    leftNodes.appendChild(linkShareNode);
+    leftNodes.appendChild(noticeNode);
+    infoElementContainer.appendChild(leftNodes);
     infoElementContainer.appendChild(infoNode);
     childContainer.appendChild(infoElementContainer);
     let largeImage = document.getElementsByClassName("largeImage")[0];
@@ -414,14 +492,17 @@ async function loadLargeImage(index) {
       childContainer.classList.add("largeImageLoaded");
       infoNode.classList.add("largeImageLoaded");
       logo.classList.add("largeImageLoaded");
-      noticeElement.classList.add("largeImageLoaded");
     }, 1);
     setTimeout(() => {
       img.classList.add("largeImageLoaded");
       infoElement.classList.add("largeImageLoaded");
+      noticeElement.classList.add("largeImageLoaded");
+      linkElement.classList.add("largeImageLoaded");
     }, 600);
     setTimeout(() => {
       infoElement.classList.remove("largeImageLoaded");
+      noticeElement.classList.remove("largeImageLoaded");
+      linkElement.classList.remove("largeImageLoaded");
     }, 5000);
   }
   img.src = b2Url;
