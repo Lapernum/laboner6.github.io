@@ -346,6 +346,7 @@ async function loadLargeImage(index) {
 
   let childContainer = document.createElement("div");
   childContainer.setAttribute("class", "largeImageContainer");
+  childContainer.style.userSelect = "none";
   let imgWithInfo = document.createElement("div");
   imgWithInfo.setAttribute("id", "largeImageWithInfo");
   let infoElementContainer = document.createElement("div");
