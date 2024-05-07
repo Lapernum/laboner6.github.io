@@ -105,6 +105,15 @@ const targetId = getElementIdFromUrl();
 if (targetId) {
   console.log("Target ID is present. About to scroll to:", targetId);
   scrollToElementById(targetId);
+
+  let f = flowJump.length - 1;
+  while (f >= 0) {
+    if (reformatDateWithYear(targetId) + reformatDateWithMonth(targetId) <= flowJump[f].jumpDate) {
+      flowJumpIndex = f;
+      break;
+    }
+    f--;
+  }
 } else {
   console.log("No Target ID provided in URL.");
 }
@@ -130,15 +139,6 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
       scrollbarResize();
     }, 100)
   }
-}
-
-let f = flowJump.length - 1;
-while (f >= 0) {
-  if (reformatDateWithYear(targetId) + reformatDateWithMonth(targetId) <= flowJump[f].jumpDate) {
-    flowJumpIndex = f;
-    break;
-  }
-  f--;
 }
 
 function scrollbarResize() {
