@@ -53,6 +53,28 @@ flowJump.push({
   "jumpImageIndex": 0,
 });
 
+// 已有的获取图片信息的函数
+function getImageInfoById(id) {
+  const b2Url1 = 'https://img.lapernum.site/jpg/' + imageInfo.ImageInfo[id].Name + '.jpg';
+  console.log(b2Url1)
+  return b2Url1 || null; // 返回找到的图片信息或null
+}
+
+// 已有的更新meta标签的函数
+function updateMetaTags(imageUrl) {
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (!ogImage) {
+    // Create the meta tag if it does not exist
+    ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    document.getElementsByTagName('head')[0].appendChild(ogImage);
+  }
+  // Set the content of the meta tag to the new image URL
+  ogImage.setAttribute('content', imageUrl);
+}
+
+
+
 for (let i = photoNum - 1; i >= 0; i--) {
   let thisdiv = document.createElement("div");
   thisdiv.style.height = "35vh";
@@ -75,12 +97,6 @@ for (let i = photoNum - 1; i >= 0; i--) {
   }
 }
 
-function getElementIdFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const targetId = urlParams.get('targetId');
-  console.log("Obtained Element ID from URL:", targetId); // Log the element ID to the console
-  return targetId;
-}
 
 function scrollToElementById(elementId) {
   // let dateArrowLeft1 = document.getElementById("dateArrowLeft1");
@@ -116,6 +132,19 @@ if (targetId) {
   }
 } else {
   console.log("No Target ID provided in URL.");
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const targetId1 = urlParams.get('targetId'); // 从URL获取targetId
+if (targetId1) {
+  const imageInfo = getImageInfoById(targetId1); // 根据ID获取图片信息
+  if (imageInfo) {
+    updateMetaTags(imageInfo); // 使用图片信息更新meta标签
+  } else {
+    console.log("No image found for the provided ID.");
+  }
+} else {
+  console.log("No target ID provided in the URL.");
 }
 
 for (let i = photoNum - 1; i >= photoNum - 10; i--) {
