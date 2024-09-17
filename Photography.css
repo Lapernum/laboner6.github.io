@@ -122,7 +122,7 @@ body {
 
 @media (orientation: portrait) {
     .logoPage {
-        font-size: 1rem;
+        font-size: 0.5rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -358,26 +358,34 @@ body {
         align-items: center;
         opacity: 0;
         z-index: 10;
+        text-align: center;
     }
 
     .introText > p {
         color: white;
         font-weight: 400;
-        font-size: 0.915rem;
-        line-height: 150%;
+        font-size: 0.85rem;
+        line-height: 130%;
         margin: 0;
     }
 
     .englishIntro {
-        font-size: 0.9rem !important;
+        font-size: 0.835rem !important;
         font-family: 'Outfit', sans-serif;
     }
 
     .introText a {
         color: white;
         font-weight: 400;
-        font-size: 0.915rem;
-        line-height: 100%;
+        font-size: 0.85rem;
+        line-height: 180%;
+    }
+
+    .introLogoImg {
+        margin-bottom: 2.5rem;
+        filter: brightness(1000);
+        position: unset;
+        pointer-events: none;
     }
 }
 
@@ -414,6 +422,7 @@ body {
         align-items: center;
         opacity: 0;
         z-index: 10;
+        text-align: center;
     }
 
     .introText > p {
@@ -435,6 +444,13 @@ body {
         font-size: 1.1rem;
         line-height: 100%;
     }
+
+    .introLogoImg {
+        margin-bottom: 4rem;
+        filter: brightness(1000);
+        position: unset;
+        pointer-events: none;
+    }
 }
 
 .introPageContainerLoaded {
@@ -447,13 +463,6 @@ body {
     background-color: #335778FF;
     transform: translateY(0);
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s;
-}
-
-.introLogoImg {
-    margin-bottom: 4rem;
-    filter: brightness(1000);
-    position: unset;
-    pointer-events: none;
 }
 
 .introArrowContainer {
