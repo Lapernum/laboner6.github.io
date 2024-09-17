@@ -134,6 +134,11 @@ body {
         z-index: 1;
         background-color: #f0f5fa;
     }
+
+    #largeImageInfo {
+        margin: 0px 0px 0px 20px !important;
+        font-size: 0.9rem !important;
+    }
 }
 
 @media (orientation: landscape) {
