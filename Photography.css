@@ -120,17 +120,36 @@ body {
     z-index: 11;
 }
 
-.logoPage {
-    font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 5rem;
-    min-width: 33vw;
-    box-sizing: border-box;
-    height: 100vh;
-    z-index: 1;
+@media (orientation: portrait) {
+    .logoPage {
+        font-size: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5rem;
+        min-width: 60vw;
+        box-sizing: border-box;
+        height: 100vh;
+        z-index: 1;
+        background-color: #f0f5fa;
+    }
+}
+
+@media (orientation: landscape) {
+    .logoPage {
+        font-size: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5rem;
+        min-width: 33vw;
+        box-sizing: border-box;
+        height: 100vh;
+        z-index: 1;
+        background-color: #f0f5fa;
+    }
 }
 
 .logoPageLoaded {
@@ -250,41 +269,172 @@ body {
     font-family: 'Noto Sans SC', "Outfit", sans-serif;
 }
 
-.englishMainTitle {
-    margin-top: -60px !important;
-    margin-bottom: 40px !important;
-    font-size: 1rem !important;
-    font-weight: 900 !important;
-    font-family: "Outfit", sans-serif;
+@media (orientation: portrait) {
+    .mainline {
+        font-size: 5rem !important;
+        font-weight: 900;
+        letter-spacing: 6px;
+        writing-mode: vertical-rl;
+        transform: translateX(10rem);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.1s;
+    }
+
+    .englishMainTitle {
+        margin-top: -40px !important;
+        margin-bottom: 40px !important;
+        font-size: 0.8rem !important;
+        font-weight: 900 !important;
+        font-family: "Outfit", sans-serif;
+    }
+    
+    .englishTitle {
+        font-size: 0.8rem !important;
+        font-weight: 500;
+        font-family: "Outfit", sans-serif;
+    }
 }
 
-.englishTitle {
-    font-size: 1rem !important;
-    font-weight: 500;
-    font-family: "Outfit", sans-serif;
-}
+@media (orientation: landscape) {
+    .mainline {
+        font-size: 8rem !important;
+        font-weight: 900;
+        letter-spacing: 6px;
+        writing-mode: vertical-rl;
+        transform: translateX(10rem);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.1s;
+    }
 
-.mainline {
-    font-size: 8rem !important;
-    font-weight: 900;
-    letter-spacing: 6px;
-    writing-mode: vertical-rl;
-    transform: translateX(10rem);
-    opacity: 0;
-    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.1s;
+    .englishMainTitle {
+        margin-top: -60px !important;
+        margin-bottom: 40px !important;
+        font-size: 1rem !important;
+        font-weight: 900 !important;
+        font-family: "Outfit", sans-serif;
+    }
+    
+    .englishTitle {
+        font-size: 1rem !important;
+        font-weight: 500;
+        font-family: "Outfit", sans-serif;
+    }
 }
 
 .mainline > span {
     font-weight: 100;
 }
 
-.introPageContainer {
-    position: absolute;
-    width: 33vw;
-    height: calc(100vh - 80px);
-    opacity: 0;
-    bottom: 0;
-    overflow-y: hidden;
+@media (orientation: portrait)  {
+    .introPageContainer {
+        position: absolute;
+        height: calc(100vh - 80px);
+        opacity: 0;
+        bottom: 0;
+        overflow-y: hidden;
+        z-index: 10;
+    }
+
+    .introPage {
+        position: relative;
+        height: 100vh;
+        background-color: #33577800;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(calc(100% - 80px));
+        transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
+        z-index: 10;
+    }
+
+    .introText {
+        height: calc(100% - 80px);
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        z-index: 10;
+    }
+
+    .introText > p {
+        color: white;
+        font-weight: 400;
+        font-size: 0.915rem;
+        line-height: 150%;
+        margin: 0;
+    }
+
+    .englishIntro {
+        font-size: 0.9rem !important;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .introText a {
+        color: white;
+        font-weight: 400;
+        font-size: 0.915rem;
+        line-height: 100%;
+    }
+}
+
+@media (orientation: landscape) {
+    .introPageContainer {
+        position: absolute;
+        width: 33vw;
+        height: calc(100vh - 80px);
+        opacity: 0;
+        bottom: 0;
+        overflow-y: hidden;
+        z-index: 10;
+    }
+
+    .introPage {
+        position: relative;
+        width: 33vw;
+        height: 100vh;
+        background-color: #33577800;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(calc(100% - 80px));
+        transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
+        z-index: 10;
+    }
+
+    .introText {
+        height: calc(100% - 80px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        z-index: 10;
+    }
+
+    .introText > p {
+        color: white;
+        font-weight: 400;
+        font-size: 1.3rem;
+        line-height: 150%;
+        margin: 0;
+    }
+
+    .englishIntro {
+        font-size: 1.15rem !important;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .introText a {
+        color: white;
+        font-weight: 400;
+        font-size: 1.1rem;
+        line-height: 100%;
+    }
 }
 
 .introPageContainerLoaded {
@@ -293,39 +443,10 @@ body {
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
 }
 
-.introPage {
-    width: 33vw;
-    height: 100vh;
-    background-color: #33577800;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(calc(100% - 80px));
-    transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s 0.7s;
-}
-
 .introPageOpened {
     background-color: #335778FF;
     transform: translateY(0);
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s;
-}
-
-.introText > p {
-    color: white;
-    font-weight: 400;
-    font-size: 1.3rem;
-    line-height: 150%;
-    margin: 0;
-}
-
-.introText {
-    height: calc(100% - 80px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
 }
 
 .introLogoImg {
@@ -333,18 +454,6 @@ body {
     filter: brightness(1000);
     position: unset;
     pointer-events: none;
-}
-
-.englishIntro {
-    font-size: 1.15rem !important;
-    font-family: 'Outfit', sans-serif;
-}
-
-.introText a {
-    color: white;
-    font-weight: 400;
-    font-size: 1.1rem;
-    line-height: 100%;
 }
 
 .introArrowContainer {
@@ -370,17 +479,34 @@ body {
     padding-right: 100px;
 }
 
-#scrollbar {
-    background-color: #b4c2cf;
-    position: fixed;
-    top: 6vh;
-    width: 25rem;
-    max-width: 20vw;
-    height: 5px;
-    left: 50%;
-    opacity: 0;
-    transform: translateX(-50%) translateY(-9vh);
-    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99)
+@media (orientation: portrait) {
+    #scrollbar {
+        background-color: #b4c2cf;
+        position: fixed;
+        top: 6vh;
+        width: 25rem;
+        max-width: 20vw;
+        height: 5px;
+        left: 50%;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-9vh);
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+}
+
+@media (orientation: landscape) {
+    #scrollbar {
+        background-color: #b4c2cf;
+        position: fixed;
+        top: 6vh;
+        width: 25rem;
+        max-width: 20vw;
+        height: 5px;
+        left: 50%;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-9vh);
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
 }
 
 #scrollbarInside {
@@ -394,18 +520,54 @@ body {
     opacity: 1 !important;
 }
 
-#dateDisplay {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: 100;
-    color: #335778;
-    position: fixed;
-    bottom: 3vh;
-    left: 50%;
-    transform: translateX(-50%) translateY(9vh);
-    opacity: 0;
-    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+@media (orientation: portrait) {
+    #dateDisplay {
+        display: flex;
+        align-items: center;
+        font-size: 1.6rem;
+        font-weight: 100;
+        color: #335778;
+        position: fixed;
+        bottom: 3vh;
+        left: 50%;
+        transform: translateX(-50%) translateY(9vh);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+
+    #dateDisplayText {
+        font-size: 1.6rem;
+        font-weight: 300;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        color: #78848f;
+        font-family: "Outfit", sans-serif;
+    }
+}
+
+@media (orientation: landscape) {
+    #dateDisplay {
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: 100;
+        color: #335778;
+        position: fixed;
+        bottom: 3vh;
+        left: 50%;
+        transform: translateX(-50%) translateY(9vh);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+
+    #dateDisplayText {
+        font-size: 2rem;
+        font-weight: 300;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        color: #78848f;
+        font-family: "Outfit", sans-serif;
+    }    
 }
 
 #dateDisplay:hover > .dateArrow {
@@ -414,27 +576,31 @@ body {
     pointer-events: all;
 }
 
-#dateDisplayText {
-    font-size: 2rem;
-    font-weight: 300;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    color: #78848f;
-    font-family: "Outfit", sans-serif;
-}
-
 #dateDisplayText > b {
     color: #335778;
     font-weight: 800;
 }
 
-.dateArrow {
-    transform: translateX(0);
-    margin: 1rem 1rem;
-    opacity: 1;
-    cursor: default;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+@media (orientation: portrait) {
+    .dateArrow {
+        transform: translateX(0);
+        margin: 1rem 1rem;
+        opacity: 0;
+        cursor: default;
+        pointer-events: none;
+        transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+}
+
+@media (orientation: landscape) {
+    .dateArrow {
+        transform: translateX(0);
+        margin: 1rem 1rem;
+        opacity: 1;
+        cursor: default;
+        pointer-events: none;
+        transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
 }
 
 .dateArrowLeft:hover {
@@ -450,30 +616,60 @@ body {
     opacity: 1 !important;
 }
 
-#mouseReminder {
-    position: absolute;
-    line-height: 50% !important;
-    font-weight: 400;
-    font-size: 1rem;
-    opacity: 0;
-    margin: 0;
-    padding-bottom: 78vh;
-    padding-left: 5vh;
-    color: #335778;
-    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+@media (orientation: portrait) {
+    #mouseReminder {
+        position: absolute;
+        line-height: 95% !important;
+        font-weight: 400;
+        font-size: 0.7rem;
+        opacity: 0;
+        margin: 0;
+        padding-bottom: 78vh;
+        padding-left: 5vh;
+        color: #335778;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+
+    #mouseReminderLoaded {
+        position: absolute;
+        line-height: 95% !important;
+        font-weight: 400;
+        font-size: 0.7rem;
+        opacity: 1;
+        margin: 0;
+        padding-bottom: 78vh;
+        padding-left: 2vh;
+        color: #335778;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
 }
 
-#mouseReminderLoaded {
-    position: absolute;
-    line-height: 50% !important;
-    font-weight: 400;
-    font-size: 1rem;
-    opacity: 1;
-    margin: 0;
-    padding-bottom: 78vh;
-    padding-left: 2vh;
-    color: #335778;
-    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+@media (orientation: landscape) {
+    #mouseReminder {
+        position: absolute;
+        line-height: 50% !important;
+        font-weight: 400;
+        font-size: 1rem;
+        opacity: 0;
+        margin: 0;
+        padding-bottom: 78vh;
+        padding-left: 5vh;
+        color: #335778;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
+
+    #mouseReminderLoaded {
+        position: absolute;
+        line-height: 50% !important;
+        font-weight: 400;
+        font-size: 1rem;
+        opacity: 1;
+        margin: 0;
+        padding-bottom: 78vh;
+        padding-left: 2vh;
+        color: #335778;
+        transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    }
 }
 
 #flow1, #flow2 {
