@@ -349,7 +349,7 @@ body {
     }
 
     .introText {
-        height: calc(100% - 80px);
+        height: calc(100% - 150px);
         margin-left: 10px;
         margin-right: 10px;
         display: flex;
@@ -382,14 +382,14 @@ body {
     }
 
     .introLogoImg {
-        margin-bottom: 2.5rem;
+        margin-bottom: 1.5rem;
         filter: brightness(1000);
         position: unset;
         pointer-events: none;
     }
 
     .introArrowContainerOpened {
-        transform: translateY(60px) rotate(-180deg) !important;
+        transform: translateY(50px) rotate(-180deg) !important;
         z-index: 11;
     }
 }
