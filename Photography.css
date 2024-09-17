@@ -387,6 +387,11 @@ body {
         position: unset;
         pointer-events: none;
     }
+
+    .introArrowContainerOpened {
+        transform: translateY(60px) rotate(-180deg) !important;
+        z-index: 11;
+    }
 }
 
 @media (orientation: landscape) {
@@ -451,6 +456,10 @@ body {
         position: unset;
         pointer-events: none;
     }
+
+    .introArrowContainerOpened {
+        transform: rotate(-180deg);
+    }
 }
 
 .introPageContainerLoaded {
@@ -468,10 +477,6 @@ body {
 .introArrowContainer {
     transform: rotate(0deg); 
     transition: all 0.2s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.8s;
-}
-
-.introArrowContainerOpened {
-    transform: rotate(-180deg);
 }
 
 .introArrow {
