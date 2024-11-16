@@ -95,6 +95,17 @@ function scrollToElementById(elementId) {
 
 function init() {
   console.log("Initialization started.");
+  const savedTheme = localStorage.getItem('theme');
+  console.log(savedTheme);
+  if (savedTheme === 'light') {
+    const style = document.createElement('style');
+    style.innerHTML = `* {
+        transition: none !important;
+    }`;
+    document.head.appendChild(style);
+    switchToLight();
+    document.head.removeChild(style);
+  }
   Array.from(document.getElementsByClassName("logoImg")).forEach(element => {
     element.classList.add("logoPageLoaded");
   });
@@ -120,10 +131,12 @@ function toggleIntro() {
   } else {
     document.getElementsByClassName("introArrowContainer")[0].classList.add("introArrowContainerOpened");
   }
-  if (document.getElementsByClassName("introArrow")[0].getAttribute("fill") == "#335778") {
-    document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#FFF");
+  if (document.getElementsByClassName("introPage")[0].classList.contains("introPageOpened")) {
+    document.getElementById("introOpener").style.fill = "var(--background-color)";
+    // document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#FFF");
   } else {
-    document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#335778");
+    document.getElementById("introOpener").style.fill = "var(--main-color)";
+    // document.getElementsByClassName("introArrow")[0].setAttribute("fill", "#335778");
   }
   if (window.getComputedStyle(document.getElementsByClassName("introText")[0]).opacity == "0") {
     document.getElementsByClassName("introText")[0].style.opacity = "1";
@@ -148,3 +161,57 @@ function closeLargeImage() {
     document.getElementById("largeImageLoadingText").style.opacity = "1";
   }, 500)
 }
+
+function switchToLight() {
+  const body = document.body;
+  body.classList.toggle('light-theme');
+  document.getElementById('lightModeButton').style.display = "none";
+  document.getElementById('darkModeButton').style.display = "initial";
+  document.getElementById('lightModeButton').style.pointerEvents = "none";
+  document.getElementById('darkModeButton').style.pointerEvents = "all";
+  document.getElementById('endSCLogo').setAttribute('src', './assets/STARCITIZEN_BLACK.png');
+  document.getElementById('introPageSCLogo').setAttribute('src', './assets/STARCITIZEN_WHITE.png');
+  document.getElementById('introPageMyLogo').setAttribute('src', './assets/logo_white.png');
+  localStorage.setItem('theme', 'light');
+}
+
+function switchToDark() {
+  const body = document.body;
+  body.classList.toggle('light-theme');
+  document.getElementById('darkModeButton').style.display = "none";
+  document.getElementById('lightModeButton').style.display = "initial";
+  document.getElementById('darkModeButton').style.pointerEvents = "none";
+  document.getElementById('lightModeButton').style.pointerEvents = "all";
+  document.getElementById('endSCLogo').setAttribute('src', './assets/STARCITIZEN_WHITE.png');
+  document.getElementById('introPageSCLogo').setAttribute('src', './assets/STARCITIZEN_BLACK.png');
+  document.getElementById('introPageMyLogo').setAttribute('src', './assets/logo_black.png');
+  localStorage.setItem('theme', 'dark');
+}
+
+// function switchColor() {
+//   const lightModeButton = document.getElementById('lightModeButton');
+//   const darkModeButton = document.getElementById('darkModeButton');
+//   const body = document.body;
+
+//   lightModeButton.addEventListener('click', () => {
+//       body.classList.toggle('dark-theme');
+//       // Optional: Save the user's preference in localStorage
+//       // const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+//       // localStorage.setItem('theme', currentTheme);
+//   });
+
+//   darkModeButton.addEventListener('click', () => {
+//       body.classList.toggle('light-theme');
+//       // Optional: Save the user's preference in localStorage
+//       // const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+//       // localStorage.setItem('theme', currentTheme);
+//   });
+
+//   // // On page load, check for the saved theme
+//   // window.addEventListener('DOMContentLoaded', () => {
+//   //     const savedTheme = localStorage.getItem('theme');
+//   //     if (savedTheme === 'dark') {
+//   //         body.classList.add('dark-theme');
+//   //     }
+//   // });
+// }

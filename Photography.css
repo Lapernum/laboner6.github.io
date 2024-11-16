@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --background-color: #202122;
+    --cover-color: #4c5f70;
+    --maintransparent-color: #7598b900;
+    --main-color: #97b3ce;
+    --scrollbar-color: #515b64;
+    --date-color: #95a0aa;
+    --mainline-color: #c7c7c7;
+    --logo-filter: invert(76%) sepia(48%) saturate(266%) hue-rotate(179deg) brightness(86%) contrast(86%);
+}
+
+.light-theme {
+    --background-color: #f0f5fa;
+    --cover-color: #081d30;
+    --maintransparent-color: #33577800;
+    --main-color: #335778FF;
+    --scrollbar-color: #b4c2cf;
+    --date-color: #78848f;
+    --mainline-color: black;
+    --logo-filter: invert(29%) sepia(14%) saturate(1752%) hue-rotate(167deg) brightness(98%) contrast(87%);
+}
+
 html {
     font-size: 13px;
 }
@@ -7,7 +29,8 @@ html {
 body {
   font-family: 'Noto Sans SC', 'Outfit', 'Noto Sans TC', sans-serif;
   margin: 0;
-  background-color: #f0f5fa;
+  background-color: var(--background-color);
+  transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
 
 ::-webkit-scrollbar {
@@ -57,14 +80,14 @@ body {
     z-index: 13;
     opacity: 0;
     padding: 12px;
-    background-color: #f0f5fa;
+    background-color: var(--background-color);
     transform: translateY(20vh);
     transition: opacity 0.5s, transform 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
     overflow: hidden;
 }
 
 #largeImageLoadingText {
-    color: white;
+    color: var(--background-color);
     position: fixed;
     transform: translate(-32px, -32px);
     font-size: 1.2rem;
@@ -88,9 +111,11 @@ body {
     opacity: 0;
     transition: all 0.5s;
     cursor: pointer;
+    color: var(--main-color);
 }
 
 #noticeElement {
+    color: var(--main-color);
     opacity: 0;
     transition: all 0.5s;
 }
@@ -104,11 +129,15 @@ body {
     opacity: 1 !important;
 }
 
+#moreDetailsLogo {
+    filter: var(--logo-filter);
+}
+
 .cover {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: #081d30;
+    background-color: var(--cover-color);
     z-index: -1;
     opacity: 0;
     pointer-events: none;
@@ -132,12 +161,13 @@ body {
         box-sizing: border-box;
         height: 100vh;
         z-index: 1;
-        background-color: #f0f5fa;
+        /* background-color: var(--background-color); */
     }
 
     #largeImageInfo {
         margin: 0px 0px 0px 20px !important;
         font-size: 0.9rem !important;
+        color: var(--main-color);
     }
 }
 
@@ -153,7 +183,11 @@ body {
         box-sizing: border-box;
         height: 100vh;
         z-index: 1;
-        background-color: #f0f5fa;
+        /* background-color: var(--background-color); */
+    }
+
+    #largeImageInfo {
+        color: var(--main-color);
     }
 }
 
@@ -173,12 +207,12 @@ body {
     height: 100px;
 }
 
-.logoImg > img {
+.logoImg > svg {
     position: absolute;
     width: 100px;
 }
 
-#largeImageLoadingText > img {
+#largeImageLoadingText > svg {
     position: absolute;
     width: 64px;
     filter: brightness(100);
@@ -267,7 +301,7 @@ body {
 .subline {
     line-height: 150% !important;
     font-weight: 900;
-    color: #335778;
+    color: var(--main-color);
     transform: translateX(10rem);
     opacity: 0;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.2s;
@@ -276,6 +310,7 @@ body {
 
 @media (orientation: portrait) {
     .mainline {
+        color: var(--mainline-color);
         font-size: 5rem !important;
         font-weight: 900;
         letter-spacing: 6px;
@@ -302,6 +337,7 @@ body {
 
 @media (orientation: landscape) {
     .mainline {
+        color: var(--mainline-color);
         font-size: 8rem !important;
         font-weight: 900;
         letter-spacing: 6px;
@@ -343,7 +379,7 @@ body {
     .introPage {
         position: relative;
         height: 100vh;
-        background-color: #33577800;
+        background-color: var(--maintransparent-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -367,7 +403,7 @@ body {
     }
 
     .introText > p {
-        color: white;
+        color: var(--background-color);
         font-weight: 400;
         font-size: 0.85rem;
         line-height: 130%;
@@ -380,7 +416,7 @@ body {
     }
 
     .introText a {
-        color: white;
+        color: var(--background-color);
         font-weight: 400;
         font-size: 0.85rem;
         line-height: 180%;
@@ -414,7 +450,7 @@ body {
         position: relative;
         width: 33vw;
         height: 100vh;
-        background-color: #33577800;
+        background-color: var(--maintransparent-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -436,7 +472,7 @@ body {
     }
 
     .introText > p {
-        color: white;
+        color: var(--background-color);
         font-weight: 400;
         font-size: 1.3rem;
         line-height: 150%;
@@ -449,7 +485,7 @@ body {
     }
 
     .introText a {
-        color: white;
+        color: var(--background-color);
         font-weight: 400;
         font-size: 1.1rem;
         line-height: 100%;
@@ -475,7 +511,7 @@ body {
 }
 
 .introPageOpened {
-    background-color: #335778FF;
+    background-color: var(--main-color);
     transform: translateY(0);
     transition: transform 1s cubic-bezier(0.56, 0.01, 0.08, 0.99), background-color 0.3s;
 }
@@ -501,7 +537,7 @@ body {
 
 @media (orientation: portrait) {
     #scrollbar {
-        background-color: #b4c2cf;
+        background-color: var(--scrollbar-color);
         position: fixed;
         top: 6vh;
         width: 25rem;
@@ -516,7 +552,7 @@ body {
 
 @media (orientation: landscape) {
     #scrollbar {
-        background-color: #b4c2cf;
+        background-color: var(--scrollbar-color);
         position: fixed;
         top: 6vh;
         width: 25rem;
@@ -530,7 +566,7 @@ body {
 }
 
 #scrollbarInside {
-    background-color: #335778;
+    background-color: var(--main-color);
     min-width: 6px;
     height: 5px;
 }
@@ -546,7 +582,7 @@ body {
         align-items: center;
         font-size: 1.6rem;
         font-weight: 100;
-        color: #335778;
+        color: var(--main-color);
         position: fixed;
         bottom: 3vh;
         left: 50%;
@@ -571,7 +607,7 @@ body {
         align-items: center;
         font-size: 2rem;
         font-weight: 100;
-        color: #335778;
+        color: var(--main-color);
         position: fixed;
         bottom: 3vh;
         left: 50%;
@@ -585,7 +621,7 @@ body {
         font-weight: 300;
         margin-left: 1rem;
         margin-right: 1rem;
-        color: #78848f;
+        color: var(--date-color);
         font-family: "Outfit", sans-serif;
     }    
 }
@@ -597,7 +633,7 @@ body {
 }
 
 #dateDisplayText > b {
-    color: #335778;
+    color: var(--main-color);
     font-weight: 800;
 }
 
@@ -646,7 +682,7 @@ body {
         margin: 0;
         padding-bottom: 78vh;
         padding-left: 5vh;
-        color: #335778;
+        color: var(--main-color);
         transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
     }
 
@@ -659,7 +695,7 @@ body {
         margin: 0;
         padding-bottom: 78vh;
         padding-left: 2vh;
-        color: #335778;
+        color: var(--main-color);
         transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
     }
 }
@@ -674,7 +710,7 @@ body {
         margin: 0;
         padding-bottom: 78vh;
         padding-left: 5vh;
-        color: #335778;
+        color: var(--main-color);
         transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
     }
 
@@ -687,7 +723,7 @@ body {
         margin: 0;
         padding-bottom: 78vh;
         padding-left: 2vh;
-        color: #335778;
+        color: var(--main-color);
         transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
     }
 }
@@ -727,7 +763,7 @@ body {
 } */
 
 .imageBackground {
-    background-color: #335778;
+    background-color: var(--main-color);
     position: absolute;
     height: 100%;
     width: 100%;
@@ -745,7 +781,7 @@ body {
     transform: none;
     left: calc(50% - 30px);
     top: calc(50% - 30px);
-    filter: drop-shadow(0 6px 0 #335778);
+    filter: drop-shadow(0 6px 0 var(--main-color));
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.56, 0.01, 0.08, 0.99);
 }
@@ -770,4 +806,59 @@ body {
 
 .linkShareNode:hover > #noticeElement {
     opacity: 1 !important;
+}
+
+.arcsLoading {
+    fill: var(--cover-color);
+    transition: all 0.5s;
+}
+
+.arcsLarge {
+    fill: var(--main-color);
+    transition: all 0.5s;
+}
+
+#linkIcon {
+    fill: var(--main-color);
+    transition: all 0.5s;
+    display: initial;
+}
+
+#downloadIcon {
+    fill: var(--main-color);
+    transition: all 0.5s;
+}
+
+#checkIcon {
+    display: none;
+    transition: all 0.5s;
+}
+
+#introOpener {
+    fill: var(--main-color);
+    transition: all 0.5s;
+}
+
+#lightModeButton {
+    position: fixed;
+    top: calc(6vh - 9px);
+    left: calc(50% + 10vw + 2.5rem);
+    display: initial;
+    pointer-events: all;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-9vh);
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    cursor: pointer;
+}
+
+#darkModeButton {
+    position: fixed;
+    top: calc(6vh - 9px);
+    left: calc(50% + 10vw + 2.5rem);
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-9vh);
+    transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
+    cursor: pointer;
 }

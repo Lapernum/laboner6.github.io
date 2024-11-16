@@ -136,6 +136,8 @@ for (let i = photoNum - 1; i >= photoNum - 10; i--) {
       document.getElementById("endPageStarCitizenLogo").style.opacity = "1";
       document.getElementById("dateDisplay").classList.add("dateDisplayLoaded");
       document.getElementById("scrollbar").classList.add("scrollbarLoaded");
+      document.getElementById("lightModeButton").classList.add("scrollbarLoaded");
+      document.getElementById("darkModeButton").classList.add("scrollbarLoaded");
       scrollbarResize();
     }, 100)
   }
@@ -163,10 +165,13 @@ function copyToClipboard(index) {
   navigator.clipboard.writeText("https://lapernum.site/?targetId=" + index);
 
   let linkIcon = document.getElementById("linkIcon");
-  linkIcon.setAttribute("src", "./assets/check_icon.svg");
+  let checkIcon = document.getElementById("checkIcon");
+  linkIcon.style.display = "none";
+  checkIcon.style.display = "initial";
 
   setTimeout(() => {
-    linkIcon.setAttribute("src", "./assets/link_icon.svg");
+    linkIcon.style.display = "initial";
+    checkIcon.style.display = "none";
   }, 5000);
 }
 
@@ -357,7 +362,7 @@ async function loadLargeImage(index) {
   let infoNode = document.createElement("div");
   let infoElement = document.createElement("p");
   let logo = document.createElement("img");
-  logo.setAttribute("src", "./assets/logo_transparent_blue.png");
+  logo.setAttribute("src", "./assets/logo_black.png");
   logo.setAttribute("width", "24px");
   let br1 = document.createElement("br");
   let infoNodeCN = document.createTextNode("详细信息");
@@ -375,7 +380,6 @@ async function loadLargeImage(index) {
   infoNode.appendChild(logo);
   infoNode.style.fontSize = "0.7rem";
   infoNode.style.fontWeight = "900";
-  infoNode.style.color = "#335778";
   infoNode.style.lineHeight = "150%";
   infoNode.style.margin = "0";
   infoNode.style.display = "flex";
@@ -388,10 +392,11 @@ async function loadLargeImage(index) {
 
   let leftNodes = document.createElement("div");
 
-  let download = document.createElement("img");
-  download.setAttribute("src", "./assets/download_icon.svg");
-  download.setAttribute("width", "32px");
-  download.setAttribute("id", "downloadIcon");
+  let download = '<svg id="downloadIcon" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>';
+  // let download = document.createElement("img");
+  // download.setAttribute("src", "./assets/download_icon.svg");
+  // download.setAttribute("width", "32px");
+  // download.setAttribute("id", "downloadIcon");
   let downloadHref = document.createElement("a")
   let noticeNode = document.createElement("div");
   noticeNode.setAttribute("class", "noticeNode");
@@ -403,13 +408,13 @@ async function loadLargeImage(index) {
   let noticeNodeCN = document.createTextNode("完整分辨率版本");
   let br = document.createElement("br");
   let noticeNodeEN = document.createTextNode("Full Resolution Version")
-  noticeElement.appendChild(download);
+  // noticeElement.appendChild(download);
   noticeElement.appendChild(noticeNodeCN);
   noticeElement.appendChild(br);
   noticeElement.appendChild(noticeNodeEN);
+  // noticeElement.insertAdjacentHTML('afterbegin', download);
   noticeElement.style.fontSize = "0.65rem";
   noticeElement.style.fontWeight = "600";
-  noticeElement.style.color = "#335778";
   noticeElement.style.display = "flex";
   noticeElement.style.margin = "0";
   noticeElement.style.flexDirection = "column";
@@ -417,7 +422,8 @@ async function loadLargeImage(index) {
   // noticeElement.style.transform = "translateY(-6px)";
   // noticeElement.style.opacity = "0";
   noticeElement.setAttribute("id", "noticeElement");
-  downloadHref.appendChild(download);
+  // downloadHref.appendChild(download);
+  downloadHref.insertAdjacentHTML('afterbegin', download);
   downloadHref.style.marginRight = "3px";
   downloadHref.style.marginBottom = "-1px"
   downloadHref.style.height = "30px";
@@ -434,15 +440,17 @@ async function loadLargeImage(index) {
   let linkShareNode = document.createElement("div");
   linkShareNode.setAttribute("class", "linkShareNode");
   linkShareNode.style.marginBottom = "10px";
-  let share = document.createElement("img");
-  share.setAttribute("src", "./assets/link_icon.svg");
-  share.setAttribute("width", "32px");
-  share.setAttribute("id", "linkIcon");
-  share.setAttribute("onclick", "copyToClipboard(" + index + ")");
-  share.style.cursor = "pointer";
-  share.style.marginRight = "3px";
-  share.style.marginBottom = "-1px";
-  share.style.height = "30px";
+  let share = '<svg id="linkIcon" xmlns="http://www.w3.org/2000/svg" height="32px" width="32px" style="cursor:pointer;marginRight:3px;marginBottom:-1px;height:30px" onclick="copyToClipboard(' + index + ')" viewBox="0 0 24 24"><path d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z" /></svg>'
+  // let share = document.createElement("img");
+  // share.setAttribute("src", "./assets/link_icon.svg");
+  // share.setAttribute("width", "32px");
+  // share.setAttribute("id", "linkIcon");
+  // share.setAttribute("onclick", "copyToClipboard(" + index + ")");
+  // share.style.cursor = "pointer";
+  // share.style.marginRight = "3px";
+  // share.style.marginBottom = "-1px";
+  // share.style.height = "30px";
+  let check = '<svg id="checkIcon" xmlns="http://www.w3.org/2000/svg" fill="#2ea349" height="32px" width="32px" style="marginRight:3px;marginBottom:-1px;height:30px" viewBox="0 -960 960 960" width="24px"><path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>'
 
   let linkElement = document.createElement("p");
   linkElement.setAttribute("id", "linkElement");
@@ -456,7 +464,6 @@ async function loadLargeImage(index) {
   linkElement.appendChild(linkNodeEN);
   linkElement.style.fontSize = "0.65rem";
   linkElement.style.fontWeight = "600";
-  linkElement.style.color = "#335778";
   linkElement.style.display = "flex";
   linkElement.style.margin = "0";
   linkElement.style.flexDirection = "column";
@@ -465,7 +472,9 @@ async function loadLargeImage(index) {
   // linkElement.style.opacity = "0";
   linkElement.setAttribute("id", "noticeElement");
 
-  linkShareNode.appendChild(share);
+  // linkShareNode.appendChild(share);
+  linkShareNode.insertAdjacentHTML('afterbegin', check);
+  linkShareNode.insertAdjacentHTML('afterbegin', share);
   linkShareNode.appendChild(linkElement);
   linkShareNode.style.display = "flex";
   linkShareNode.style.flexDirection = "row";
@@ -504,7 +513,6 @@ async function loadLargeImage(index) {
       } else {
         thisImage.classList.add("largeImageInfoOn");
         let imgInfo = document.createElement("div");
-        imgInfo.style.color = "#335778";
         imgInfo.style.margin = "0 0 0 50px";
         imgInfo.style.position = "absolute";
         imgInfo.style.fontWeight = "900";
