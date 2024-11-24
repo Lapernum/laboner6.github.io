@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
 
 :root {
     --background-color: #202122;
@@ -22,12 +22,36 @@
     --logo-filter: invert(29%) sepia(14%) saturate(1752%) hue-rotate(167deg) brightness(98%) contrast(87%);
 }
 
+@font-face {
+    font-family: 'Noto Sans SC';
+    src: url('assets/fonts/NotoSansSC-VariableFont_wght.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('assets/fonts/Outfit-VariableFont_wght.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans TC';
+    src: url('assets/fonts/NotoSansTC-VariableFont_wght.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 html {
     font-size: 13px;
 }
 
 body {
-  font-family: 'Noto Sans SC', 'Outfit', 'Noto Sans TC', sans-serif;
+  font-family: 'Outfit', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
   margin: 0;
   background-color: var(--background-color);
   transition: all 0.5s cubic-bezier(0.56, 0.01, 0.08, 0.99);
@@ -305,7 +329,7 @@ body {
     transform: translateX(10rem);
     opacity: 0;
     transition: all 1.5s cubic-bezier(0.56, 0.01, 0.08, 0.99) 0.2s;
-    font-family: 'Noto Sans SC', "Outfit", sans-serif;
+    font-family: "Outfit", 'Noto Sans SC', sans-serif;
 }
 
 @media (orientation: portrait) {

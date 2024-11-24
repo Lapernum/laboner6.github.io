@@ -466,6 +466,7 @@ async function loadLargeImage(index) {
   linkElement.style.fontWeight = "600";
   linkElement.style.display = "flex";
   linkElement.style.margin = "0";
+  linkElement.style.marginLeft = "3px";
   linkElement.style.flexDirection = "column";
   linkElement.style.justifyContent = "end";
   // linkElement.style.transform = "translateY(-6px)";
