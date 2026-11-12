@@ -3,7 +3,7 @@
  * base speed. Clicks during the slow-down add speed again. */
 
 const BASE_DEGREES_PER_SECOND = [45, -22.5, 11.25, -5.625];
-const MAX_RATE = 64;
+const MAX_RATE = 128;
 const HOLD_MS = 3000;
 const DECEL_MS = 3000;
 
