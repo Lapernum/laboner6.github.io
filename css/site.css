@@ -596,7 +596,7 @@ html[data-theme="light"] .icon-btn .icon-sun {
   margin-bottom: clamp(1.4rem, 3vh, 2.6rem);
   color: var(--accent);
   cursor: pointer;
-  transition: scale 0.35s var(--ease-spring);
+  transition: scale 0.35s var(--ease-spring), filter 0.45s var(--ease);
 }
 
 .intro-logo:hover {
@@ -604,7 +604,8 @@ html[data-theme="light"] .icon-btn .icon-sun {
 }
 
 .intro-logo.is-poked {
-  scale: 1.07;
+  scale: 1.12;
+  filter: drop-shadow(0 0 18px var(--accent));
 }
 
 .intro-logo:focus-visible {

@@ -96,7 +96,7 @@ export function initLogoEgg(element) {
     pulse();
 
     if (decaying) {
-      rate = Math.min(MAX_RATE, Math.max(rate * 1.28, rate + 1.2));
+      rate = Math.min(MAX_RATE, Math.max(rate * 1.5, rate + 1.2));
       apply(rate);
       // Restart the slow-down from the newly boosted speed.
       decelFrom = rate;
@@ -110,7 +110,7 @@ export function initLogoEgg(element) {
       return;
     }
 
-    rate = Math.min(MAX_RATE, rate * 1.55);
+    rate = Math.min(MAX_RATE, rate * 2);
     apply(rate);
     if (rate >= MAX_RATE - 0.05) scheduleSlowDown();
   }
