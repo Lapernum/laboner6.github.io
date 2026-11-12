@@ -579,6 +579,7 @@ html[data-theme="light"] .icon-btn .icon-sun {
 
 .intro-main {
   position: relative;
+  top: clamp(10px, 2vh, 24px);
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -812,7 +813,7 @@ body.is-ready .intro-main > :nth-child(6) {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 0 0 clamp(1.6rem, 3vh, 2.4rem);
+  margin: 0 0 clamp(2.3rem, 4.5vh, 3.2rem);
   color: var(--about-muted);
   font-size: 8px;
   font-weight: 600;
@@ -861,6 +862,11 @@ html[data-theme="light"] .logo-when-dark {
   font-size: clamp(0.78rem, 0.95vw, 0.9rem);
   line-height: 1.75;
   letter-spacing: 0.02em;
+}
+
+/* `p` above would otherwise reset the kicker's bottom margin. */
+.about-scroll > .about-kicker {
+  margin: 0 0 clamp(2.3rem, 4.5vh, 3.2rem);
 }
 
 .about-en {
@@ -2095,6 +2101,10 @@ body.has-admin .admin-only {
 }
 
 @media (orientation: landscape) and (max-height: 620px) {
+  .intro-main {
+    top: 0;
+  }
+
   .intro {
     padding: 0 2vw;
   }
