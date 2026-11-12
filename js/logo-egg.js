@@ -2,7 +2,7 @@
  * cap, clicks do nothing; three seconds later the rings ease back to their
  * base speed. Clicks during the slow-down add speed again. */
 
-const BASE_DURATIONS = [8, 16, 32, 64];
+const BASE_DEGREES_PER_SECOND = [45, -22.5, 11.25, -5.625];
 const MAX_RATE = 24;
 const HOLD_MS = 3000;
 const DECEL_MS = 3000;
@@ -28,14 +28,28 @@ export function initLogoEgg(element) {
   element.setAttribute("tabindex", "0");
   element.setAttribute("aria-label", "点击加速旋转 Logo");
 
+  const arcs = [0, 1, 2, 3]
+    .map((index) => element.querySelector(`.arc-${index}`))
+    .filter(Boolean);
+  const angles = arcs.map(() => 0);
+  let lastFrame = performance.now();
+
+  // Rotate the paths ourselves. CSS animation-duration changes preserve the
+  // animation's start time, which makes the rings jump to a new phase; adding
+  // degrees frame by frame keeps them exactly where they are.
+  function frame(now) {
+    const dt = Math.min(64, now - lastFrame) / 1000;
+    lastFrame = now;
+    for (let i = 0; i < arcs.length; i += 1) {
+      angles[i] += BASE_DEGREES_PER_SECOND[i] * rate * dt;
+      arcs[i].style.transform = `rotate(${angles[i]}deg)`;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
   function apply(value) {
     element.dataset.spinRate = value.toFixed(2);
-    for (let i = 0; i < BASE_DURATIONS.length; i += 1) {
-      element.style.setProperty(
-        `--arc${i}-duration`,
-        `${(BASE_DURATIONS[i] / value).toFixed(4)}s`
-      );
-    }
   }
 
   function pulse() {

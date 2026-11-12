@@ -280,6 +280,13 @@ body.has-error .boot {
   animation: arc-spin var(--arc3-duration, 64s) linear infinite reverse;
 }
 
+/* The intro mark is driven by requestAnimationFrame so speed changes never
+ * reset the current rotation angle. Other arc marks keep the CSS animation. */
+.intro-logo .arc {
+  animation: none;
+  will-change: transform;
+}
+
 .arcs-small {
   width: 44px;
   height: 44px;
