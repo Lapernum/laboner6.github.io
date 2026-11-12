@@ -169,9 +169,9 @@ function switchToLight() {
   document.getElementById('darkModeButton').style.display = "initial";
   document.getElementById('lightModeButton').style.pointerEvents = "none";
   document.getElementById('darkModeButton').style.pointerEvents = "all";
-  document.getElementById('endSCLogo').setAttribute('src', './assets/STARCITIZEN_BLACK.png');
-  document.getElementById('introPageSCLogo').setAttribute('src', './assets/STARCITIZEN_WHITE.png');
-  document.getElementById('introPageMyLogo').setAttribute('src', './assets/logo_white.png');
+  document.getElementById('endSCLogo').setAttribute('src', '../assets/STARCITIZEN_BLACK.png');
+  document.getElementById('introPageSCLogo').setAttribute('src', '../assets/STARCITIZEN_WHITE.png');
+  document.getElementById('introPageMyLogo').setAttribute('src', '../assets/logo_white.png');
   localStorage.setItem('theme', 'light');
 }
 
@@ -182,9 +182,9 @@ function switchToDark() {
   document.getElementById('lightModeButton').style.display = "initial";
   document.getElementById('darkModeButton').style.pointerEvents = "none";
   document.getElementById('lightModeButton').style.pointerEvents = "all";
-  document.getElementById('endSCLogo').setAttribute('src', './assets/STARCITIZEN_WHITE.png');
-  document.getElementById('introPageSCLogo').setAttribute('src', './assets/STARCITIZEN_BLACK.png');
-  document.getElementById('introPageMyLogo').setAttribute('src', './assets/logo_black.png');
+  document.getElementById('endSCLogo').setAttribute('src', '../assets/STARCITIZEN_WHITE.png');
+  document.getElementById('introPageSCLogo').setAttribute('src', '../assets/STARCITIZEN_BLACK.png');
+  document.getElementById('introPageMyLogo').setAttribute('src', '../assets/logo_black.png');
   localStorage.setItem('theme', 'dark');
 }
 

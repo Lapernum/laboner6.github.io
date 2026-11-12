@@ -1,3 +1,11 @@
 my-app/
 test_images/
 node_modules/
+admin/config.json
+admin/media/
+admin/.tmp/
+admin/cache/
+*.log
+.DS_Store
+Thumbs.db
+ImageInfo.json.bak

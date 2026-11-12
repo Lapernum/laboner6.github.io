@@ -1,0 +1,95 @@
+/* Classic-version compatibility layer: version switch + draggable progress rail.
+   Kept separate so the original 1.3 files stay recognisable. */
+
+#scrollbar {
+  cursor: grab;
+  touch-action: none;
+  border-radius: 99px;
+}
+
+#scrollbar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  bottom: -7px;
+}
+
+#scrollbar:active,
+#scrollbar.legacy-dragging {
+  cursor: grabbing;
+}
+
+#scrollbarInside {
+  border-radius: 99px;
+  transition: background-color 0.3s;
+}
+
+#scrollbar:hover #scrollbarInside,
+#scrollbar.legacy-dragging #scrollbarInside {
+  background-color: var(--mainline-color);
+}
+
+.legacy-switch {
+  position: fixed;
+  z-index: 30;
+  top: calc(6vh - 13px);
+  right: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem 0.42rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--main-color) 42%, transparent);
+  border-radius: 99px;
+  color: var(--main-color);
+  background-color: color-mix(in srgb, var(--background-color) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  font-family: "Outfit", "Noto Sans SC", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s, border-color 0.25s,
+    background-color 0.25s;
+}
+
+.legacy-switch.legacy-switch-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.legacy-switch:hover {
+  border-color: var(--main-color);
+  background-color: color-mix(in srgb, var(--main-color) 14%, var(--background-color));
+}
+
+.legacy-switch svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+.legacy-switch span {
+  white-space: nowrap;
+}
+
+@media (orientation: portrait) {
+  .legacy-switch {
+    top: auto;
+    bottom: 2.2rem;
+    right: 1rem;
+    font-size: 0.62rem;
+    padding: 0.35rem 0.7rem 0.35rem 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legacy-switch {
+    transition: none;
+  }
+}

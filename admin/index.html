@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>内容管理 · 影記 LAPERGRAPHY</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="../assets/lapernum_logo.ico">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var theme = saved === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <header class="studio-header">
+    <a class="studio-brand" href="/" title="打开网站预览">
+      <span class="studio-mark">影記</span>
+      <span class="studio-sub">CONTENT STUDIO <b>v2.0</b></span>
+    </a>
+    <div class="studio-status" id="headerStatus">
+      <span class="dot"></span><span id="headerStatusText">连接中…</span>
+    </div>
+    <div class="studio-actions">
+      <a class="ghost-btn" href="/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5h7v2H7v10h10v-5h2v7H5V5Zm9 0h5v5h-2V7.4l-7.3 7.3-1.4-1.4L15.6 7H14V5Z"/></svg>
+        打开网站
+      </a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 17q-2.075 0-3.537-1.463Q7 14.075 7 12t1.463-3.538Q9.925 7 12 7t3.538 1.462Q17 9.925 17 12q0 2.075-1.462 3.537Q14.075 17 12 17Zm0-2q1.25 0 2.125-.875T15 12q0-1.25-.875-2.125T12 9q-1.25 0-2.125.875T9 12q0 1.25.875 2.125T12 15Zm0-11.5 1.55 2.7h-3.1L12 3.5ZM3.5 12l2.7-1.55v3.1L3.5 12Zm17 0-2.7 1.55v-3.1L20.5 12ZM12 20.5l-1.55-2.7h3.1L12 20.5Z"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.1 20.5q-3.55 0-6.025-2.475Q3.6 15.55 3.6 12q0-3.55 2.475-6.025Q8.55 3.5 12.1 3.5q.325 0 .65.025t.65.075q-1.75 1.25-2.775 3.2T9.6 11q0 2.225 1.025 4.175t2.775 3.2q-.325.05-.65.075t-.65.05Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="studio">
+    <div class="studio-main">
+      <section class="panel setup-panel" id="setupPanel" hidden>
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">FIRST RUN / 首次配置</p>
+            <h1>连接你的图片仓库</h1>
+            <p class="lede">图片本体上传到 Backblaze B2，作品索引 <code>ImageInfo.json</code> 提交到 GitHub。密钥只保存在本机的 <code>admin/config.json</code>，不会进入网站或仓库。</p>
+          </div>
+          <button class="icon-btn small" id="setupClose" type="button" aria-label="收起配置" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m6.4 19-1.4-1.4 5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19Z"/></svg>
+          </button>
+        </div>
+
+        <div class="setup-grid">
+          <form class="setup-form" id="setupForm">
+            <div class="field-row two">
+              <label class="field">
+                <span>B2 Key ID</span>
+                <input id="b2KeyId" type="text" autocomplete="off" spellcheck="false" placeholder="005xxxxxxxxxxxxxxxxxxxxx">
+              </label>
+              <label class="field">
+                <span>Application Key</span>
+                <input id="b2AppKey" type="password" autocomplete="new-password" spellcheck="false" placeholder="仅保存在本机配置中">
+              </label>
+            </div>
+            <div class="field-row two">
+              <label class="field">
+                <span>Bucket 名称</span>
+                <input id="b2Bucket" type="text" autocomplete="off" spellcheck="false" placeholder="lapernum">
+              </label>
+              <label class="field">
+                <span>公开访问前缀</span>
+                <input id="b2PublicBase" type="url" autocomplete="off" spellcheck="false" placeholder="https://img.lapernum.site">
+              </label>
+            </div>
+            <details class="advanced">
+              <summary>存储路径与 Git 选项</summary>
+              <div class="field-row two">
+                <label class="field">
+                  <span>缩略图前缀</span>
+                  <input id="b2ThumbPrefix" type="text" value="jpg/" spellcheck="false">
+                </label>
+                <label class="field">
+                  <span>原图前缀</span>
+                  <input id="b2FullPrefix" type="text" value="full/" spellcheck="false">
+                </label>
+              </div>
+              <div class="field-row two">
+                <label class="field">
+                  <span>Git remote</span>
+                  <input id="gitRemote" type="text" value="origin" spellcheck="false">
+                </label>
+                <label class="field">
+                  <span>Git branch</span>
+                  <input id="gitBranch" type="text" value="master" spellcheck="false">
+                </label>
+              </div>
+              <label class="check"><input id="gitEnabled" type="checkbox" checked> 上传后允许提交 ImageInfo.json</label>
+              <label class="check"><input id="gitPush" type="checkbox" checked> 提交后执行 git push</label>
+            </details>
+
+            <div class="setup-note">
+              <strong>B2 密钥权限：</strong>创建 Application Key 时勾选 <code>listBuckets</code> 与 <code>writeFiles</code>，并限制到图片 bucket。公开读取由 Cloudflare / B2 公开 bucket 负责，不需要把密钥给前端。
+            </div>
+
+            <p class="form-error" id="setupError" hidden></p>
+            <div class="form-actions">
+              <button class="primary" id="setupSave" type="submit">保存并测试连接</button>
+              <button class="ghost-btn" id="modeLocal" type="button">改用本地预览模式</button>
+            </div>
+          </form>
+
+          <aside class="setup-aside">
+            <h2>工作流</h2>
+            <ol class="steps">
+              <li><b>拖入照片</b><span>自动读取 EXIF 拍摄时间、尺寸，并在浏览器里生成缩略图。</span></li>
+              <li><b>自动上传</b><span>原图与缩略图进入 B2，ID 接续 Star_Citizen_XXXXX。</span></li>
+              <li><b>自动排版</b><span>按原来的算法重算 Flow / Num / Position，两行保持平衡。</span></li>
+              <li><b>一键发布</b><span>提交 ImageInfo.json 并 push，GitHub Pages 自动更新。</span></li>
+            </ol>
+            <p class="hint">本地预览模式会把图片写到 <code>admin/media/</code>，只用于试排版，不会部署。</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel drop-panel" id="dropPanel">
+        <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="拖入或选择照片">
+          <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple hidden>
+          <div class="drop-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 15h2V9.85l2.1 2.1 1.4-1.4L12 6l-4.5 4.55 1.4 1.4L11 9.85V15Zm-5 4q-.825 0-1.412-.587Q4 17.825 4 17v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 19 18 19H6Z"/></svg>
+          </div>
+          <h1>把新照片拖进来</h1>
+          <p>支持 JPG / PNG / WebP / AVIF，可多选或直接粘贴。会自动读取拍摄时间与尺寸。</p>
+          <button class="primary" id="pickBtn" type="button">选择照片</button>
+          <p class="tiny">新作品会追加到时间轴最左侧，ID 继续 <span id="nextIdHint">Star_Citizen_00366</span></p>
+        </div>
+
+        <div class="queue-head" id="queueHead" hidden>
+          <h2>待上传 <span id="queueCount">0</span></h2>
+          <div class="queue-actions">
+            <button class="ghost-btn small" id="sortQueue" type="button">按拍摄时间排序</button>
+            <button class="ghost-btn small" id="clearQueue" type="button">清空</button>
+          </div>
+        </div>
+        <div class="queue" id="queue"></div>
+
+        <div class="upload-bar" id="uploadBar" hidden>
+          <label class="check"><input id="autoPublish" type="checkbox" checked> 上传后自动发布到 GitHub</label>
+          <div class="upload-bar-right">
+            <span class="upload-summary" id="uploadSummary"></span>
+            <button class="primary" id="uploadBtn" type="button">开始上传</button>
+          </div>
+        </div>
+        <div class="publish-result" id="publishResult" hidden></div>
+      </section>
+
+      <section class="panel tips-panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">SHORTCUTS / 快捷</p>
+            <h2>更快的上传</h2>
+          </div>
+        </div>
+        <div class="tips-grid">
+          <div><b>拖入 / 粘贴</b><span>直接把多张照片拖进来，或在页面里 Ctrl+V 粘贴截图。</span></div>
+          <div><b>自动 ID</b><span>继续 Star_Citizen_XXXXX 编号，分享链接仍用 ?targetId=。</span></div>
+          <div><b>自动排版</b><span>按原算法重算两行位置，新照片进入当前较短的一行。</span></div>
+          <div><b>一键发布</b><span>上传后自动 commit + push，GitHub Pages 通常 1 分钟内更新。</span></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="studio-side">
+      <section class="panel status-panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">STATUS / 状态</p>
+            <h2>发布链路</h2>
+          </div>
+          <button class="ghost-btn small" id="refreshStatus" type="button">刷新</button>
+        </div>
+        <dl class="status-list">
+          <div><dt>存储</dt><dd id="statusStorage">—</dd></div>
+          <div><dt>Bucket</dt><dd id="statusBucket">—</dd></div>
+          <div><dt>作品数</dt><dd id="statusCount">—</dd></div>
+          <div><dt>最新 ID</dt><dd id="statusLastId">—</dd></div>
+          <div><dt>最新日期</dt><dd id="statusLastDate">—</dd></div>
+          <div><dt>Git 仓库</dt><dd id="statusGit">—</dd></div>
+          <div><dt>上次发布</dt><dd id="statusPublish">—</dd></div>
+        </dl>
+        <div class="status-actions">
+          <button class="ghost-btn small" id="testStorage" type="button">测试存储连接</button>
+          <button class="ghost-btn small" id="reconfigureBtn" type="button">重新配置</button>
+        </div>
+        <p class="hint" id="storageHint"></p>
+      </section>
+
+      <section class="panel recent-panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">RECENT / 最近</p>
+            <h2>最新作品</h2>
+          </div>
+        </div>
+        <div class="recent-list" id="recentList">
+          <p class="empty">加载中…</p>
+        </div>
+      </section>
+
+      <section class="panel local-note">
+        <h2>只在本机运行</h2>
+        <p>管理服务器只监听 <code>127.0.0.1</code>。公网访客看不到这个页面，也无法调用上传接口。关闭终端或按 <kbd>Ctrl</kbd>+<kbd>C</kbd> 即可停止。</p>
+      </section>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>

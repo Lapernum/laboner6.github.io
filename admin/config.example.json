@@ -1,0 +1,21 @@
+{
+  "port": 8787,
+  "storage": {
+    "mode": "b2",
+    "keyId": "YOUR_B2_KEY_ID",
+    "appKey": "YOUR_B2_APPLICATION_KEY",
+    "bucketId": "",
+    "bucketName": "your-bucket-name",
+    "publicBaseUrl": "https://img.lapernum.site",
+    "thumbPrefix": "jpg/",
+    "fullPrefix": "full/",
+    "apiBase": "https://api.backblazeb2.com"
+  },
+  "git": {
+    "enabled": true,
+    "push": true,
+    "remote": "origin",
+    "branch": "master"
+  },
+  "autoPublish": true
+}

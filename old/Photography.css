@@ -24,24 +24,24 @@
 
 @font-face {
     font-family: 'Noto Sans SC';
-    src: url('assets/fonts/NotoSansSC-VariableFont_wght.ttf') format('ttf');
-    font-weight: normal;
+    src: url('../assets/fonts/NotoSansSC.woff2') format('woff2');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'Outfit';
-    src: url('assets/fonts/Outfit-VariableFont_wght.ttf') format('ttf');
-    font-weight: normal;
+    src: url('../assets/fonts/Outfit.woff2') format('woff2');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'Noto Sans TC';
-    src: url('assets/fonts/NotoSansTC-VariableFont_wght.ttf') format('ttf');
-    font-weight: normal;
+    src: url('../assets/fonts/NotoSansTC.woff2') format('woff2');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }

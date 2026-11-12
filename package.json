@@ -1,5 +1,13 @@
 {
-  "dependencies": {
-    "firebase": "^9.12.1"
+  "name": "laboner6.github.io",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lapernum's Star Citizen in-game photography portfolio",
+  "scripts": {
+    "start": "node admin/server.mjs",
+    "fonts": "python tools/subset-fonts.py"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

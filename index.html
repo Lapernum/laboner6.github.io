@@ -1,253 +1,239 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN" data-theme="dark">
 <head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>影記 · LAPERGRAPHY — 拉邦那的星际公民摄影</title>
+  <meta name="description" content="拉邦那（Lapernum）的星际公民游戏内摄影作品集。A Star Citizen in-game photography portfolio by Lapernum.">
+  <meta name="theme-color" content="#15181c">
+  <meta name="color-scheme" content="dark light">
   <link rel="icon" href="./assets/lapernum_logo.ico">
-  <meta name="description" content="This is Lapernum's Photography Portfolio. I'm a Star Citizen who loves Virtual Photography.">
-  <meta property="og:image" content="https://img.lapernum.site/lapernum_logo.jpg" />
-  <title>Lapernum</title>
-  <link rel="stylesheet" href="./Photography.css">
-  <script src="./index.js"></script>
-  <script type="module" src="./module.js"></script>
+  <link rel="canonical" href="https://lapernum.site/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="影記 · LAPERGRAPHY">
+  <meta property="og:description" content="拉邦那的星际公民游戏内摄影作品集。A Star Citizen in-game photography portfolio by Lapernum.">
+  <meta property="og:image" content="https://img.lapernum.site/lapernum_logo.jpg">
+  <meta property="og:url" content="https://lapernum.site/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var theme = saved === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.style.colorScheme = 'dark';
+      }
+    })();
+  </script>
+
+  <link rel="preload" href="./assets/fonts/Outfit.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./css/site.css">
+  <link rel="modulepreload" href="./js/main.js">
 </head>
 
-<body onload="init()">
-  <div class="largeImage">
-    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#FFF" class="bi bi-x largeImageCloseButton" viewBox="0 0 16 16" onclick="closeLargeImage()">
-      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-    </svg>
-    <div id="largeImageLoadingText">
-      <svg id="arc0Loading" class="arcsLoading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <defs> 
-          <style>
-            .cls-1 {
-              fill-rule: evenodd;
-            }
-          </style>
-        </defs>
-        <path id="arc0p" class="cls-1" d="M208,255.422V239.2A40.012,40.012,0,0,0,240,200h16A56,56,0,0,1,208,255.422ZM160,200a40.012,40.012,0,0,0,32,39.2v16.224a55.993,55.993,0,0,1-20-103.914l8,13.855A39.976,39.976,0,0,0,160,200Z"/>
-      </svg>
-      <svg id="arc1Loading" class="arcsLoading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <defs>
-          <style>
-            .cls-1 {
-              fill-rule: evenodd;
-            }
-          </style>
-        </defs>
-        <path id="arc1p" class="cls-1" d="M200,320A120,120,0,0,1,80.272,208H96.337a103.987,103.987,0,0,0,205.67,12.29l15.7,3.124A120.036,120.036,0,0,1,200,320ZM96.337,192H80.272A120,120,0,0,1,200,80V96A103.985,103.985,0,0,0,96.337,192Z"/>
-      </svg>
-      <svg id="arc2Loading" class="arcsLoading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <defs>
-          <style>
-            .cls-1 {
-              fill-rule: evenodd;
-            }
-          </style>
-        </defs>
-        <path id="arc2p" class="cls-1" d="M312.984,301.67l-11.333-11.333A135.478,135.478,0,0,0,336,200h16A151.43,151.43,0,0,1,312.984,301.67ZM64,200a135.417,135.417,0,0,0,14.406,60.964l-13.886,8.017A152.052,152.052,0,0,1,200,48V64A136,136,0,0,0,64,200ZM200,336a135.478,135.478,0,0,0,90.337-34.349l11.333,11.333A152,152,0,0,1,72.539,282.827l13.881-8.014A135.867,135.867,0,0,0,200,336Z"/>
-      </svg>
-      <svg id="arc3Loading" class="arcsLoading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <defs>
-          <style>
-            .cls-1 {
-              fill-rule: evenodd;
-            }
-          </style>
-        </defs>
-        <path id="arc3p" class="cls-1" d="M200,400a199.2,199.2,0,0,1-85.842-19.318l8.032-13.911A184.058,184.058,0,0,0,384,200h16C400,310.457,310.457,400,200,400ZM164.1,19.512C79.667,36.213,16,110.666,16,200A183.773,183.773,0,0,0,94.49,350.749l-8.028,13.9A199.767,199.767,0,0,1,0,200C0,101.623,71.029,19.835,164.6,3.123l-3.619.72Z"/>
-      </svg>
-    </div>
+<body class="is-booting">
+  <a class="skip-link" href="#gallery">跳到作品 / Skip to photographs</a>
+
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <div class="boot-mark" id="bootArcs" aria-hidden="true"></div>
+    <p class="boot-text" id="bootText">正在整理作品 · LOADING ARCHIVE</p>
+    <p class="boot-error" id="bootError" hidden></p>
   </div>
-  <div class="cover"></div>
-  <div class="Photography">
-    <div class="logoPage">
-      <!-- <img src="./assets/logo_transparent_blue.png" width="100px" class="logoImg" /> -->
-      <div class="logoImg">
-        <svg id="arc0" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc0p" class="cls-1" d="M208,255.422V239.2A40.012,40.012,0,0,0,240,200h16A56,56,0,0,1,208,255.422ZM160,200a40.012,40.012,0,0,0,32,39.2v16.224a55.993,55.993,0,0,1-20-103.914l8,13.855A39.976,39.976,0,0,0,160,200Z"/>
-        </svg>
-        <svg id="arc1" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc1p" class="cls-1" d="M200,320A120,120,0,0,1,80.272,208H96.337a103.987,103.987,0,0,0,205.67,12.29l15.7,3.124A120.036,120.036,0,0,1,200,320ZM96.337,192H80.272A120,120,0,0,1,200,80V96A103.985,103.985,0,0,0,96.337,192Z"/>
-        </svg>
-        <svg id="arc2" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc2p" class="cls-1" d="M312.984,301.67l-11.333-11.333A135.478,135.478,0,0,0,336,200h16A151.43,151.43,0,0,1,312.984,301.67ZM64,200a135.417,135.417,0,0,0,14.406,60.964l-13.886,8.017A152.052,152.052,0,0,1,200,48V64A136,136,0,0,0,64,200ZM200,336a135.478,135.478,0,0,0,90.337-34.349l11.333,11.333A152,152,0,0,1,72.539,282.827l13.881-8.014A135.867,135.867,0,0,0,200,336Z"/>
-        </svg>
-        <svg id="arc3" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc3p" class="cls-1" d="M200,400a199.2,199.2,0,0,1-85.842-19.318l8.032-13.911A184.058,184.058,0,0,0,384,200h16C400,310.457,310.457,400,200,400ZM164.1,19.512C79.667,36.213,16,110.666,16,200A183.773,183.773,0,0,0,94.49,350.749l-8.028,13.9A199.767,199.767,0,0,1,0,200C0,101.623,71.029,19.835,164.6,3.123l-3.619.72Z"/>
-        </svg>
+
+  <div class="app" id="app">
+    <header class="chrome" id="chrome">
+      <a class="brand" id="brand" href="#top" aria-label="回到开头">
+        <span class="brand-cn">影記</span>
+        <span class="brand-en">LAPERGRAPHY</span>
+      </a>
+
+      <div class="rail-wrap">
+        <div class="rail" id="rail" role="slider" tabindex="0" aria-label="浏览进度，可拖动" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="rail-track" aria-hidden="true"></span>
+          <span class="rail-thumb" id="railThumb" aria-hidden="true"><span class="rail-grip"></span></span>
+        </div>
+        <span class="rail-tip" id="railTip">拖动快速浏览 · DRAG TO EXPLORE</span>
       </div>
-      <h1 class="mainline"><span style="font-weight: 400;">「</span>影記<span style="font-weight: 400;">」</span></h1>
-      <h1 class="subline englishMainTitle">LAPERGRAPHY</h1>
-      <h1 class="subline"><br>拉邦那</h1>
-      <h1 class="subline">星际公民游戏内摄影</h1>
-      <h1 class="subline englishTitle"><br>A Star Citizen In-Game Photography,</h1>
-      <h1 class="subline englishTitle">By Lapernum.</h1>
-      <div class="introPageContainer">
-        <div class="introPage">
-          <div class="introArrowContainer" onclick="toggleIntro()">
-            <svg id="introOpener" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-              class="bi bi-arrow-up-short introArrow" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
-            </svg>
-          </div>
-          <div class='introText' style="user-select:none">
-            <div style="display: flex; align-items: center; gap: 40px;">
-              <img id="introPageMyLogo" src="./assets/logo_black.png" width="50px" class="introLogoImg" style="flex-shrink: 0;" />
-              <img id="introPageSCLogo" src="./assets/STARCITIZEN_BLACK.png" width="50px" class="introLogoImg" style="flex-shrink: 0;" />
+
+      <div class="chrome-actions">
+        <button class="icon-btn admin-only" id="adminOpen" type="button" hidden aria-label="打开图片上传" title="上传图片 / Upload">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 15h2V9.85l2.1 2.1 1.4-1.4L12 6l-4.5 4.55 1.4 1.4L11 9.85V15Zm-5 4q-.825 0-1.412-.587Q4 17.825 4 17v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 19 18 19H6Z"/></svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 17q-2.075 0-3.537-1.463Q7 14.075 7 12t1.463-3.538Q9.925 7 12 7t3.538 1.462Q17 9.925 17 12q0 2.075-1.462 3.537Q14.075 17 12 17Zm0-2q1.25 0 2.125-.875T15 12q0-1.25-.875-2.125T12 9q-1.25 0-2.125.875T9 12q0 1.25.875 2.125T12 15Zm0-11.5 1.55 2.7h-3.1L12 3.5ZM3.5 12l2.7-1.55v3.1L3.5 12Zm17 0-2.7 1.55v-3.1L20.5 12ZM12 20.5l-1.55-2.7h3.1L12 20.5ZM5.3 5.3l3.1-.35-1.3 2.85-1.8-2.5Zm13.4 13.4-3.1.35 1.3-2.85 1.8 2.5Zm0-13.4-2.5 1.8-.35-3.1 2.85 1.3ZM5.3 18.7l2.5-1.8.35 3.1-2.85-1.3Z"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.1 20.5q-3.55 0-6.025-2.475Q3.6 15.55 3.6 12q0-3.55 2.475-6.025Q8.55 3.5 12.1 3.5q.325 0 .65.025t.65.075q-1.75 1.25-2.775 3.2T9.6 11q0 2.225 1.025 4.175t2.775 3.2q-.325.05-.65.075t-.65.05Z"/></svg>
+        </button>
+        <a class="version-pill" href="./old/" title="切换到经典版 v1.3 / Open classic version">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.6 3.4 7.3v9.4L12 21.4l8.6-4.7V7.3L12 2.6Zm0 1.9 6.9 3.8-6.9 3.8-6.9-3.8L12 4.5Zm-6.9 5.4 6.2 3.4v6.4l-6.2-3.4V9.9Zm7.8 9.8v-6.4l6.2-3.4v6.4l-6.2 3.4Z"/></svg>
+          <span>经典版</span><small>v1.3</small>
+        </a>
+      </div>
+    </header>
+
+    <main class="stage" id="top">
+      <section class="intro" id="intro" aria-label="标题与简介">
+        <div class="intro-main">
+          <div class="intro-logo" id="introArcs" aria-hidden="true"></div>
+          <h1 class="hero-title" aria-label="影記"><span class="hero-bracket">「</span>影記<span class="hero-bracket">」</span></h1>
+          <p class="hero-en">LAPERGRAPHY</p>
+          <p class="hero-cn">拉邦那 · 星际公民游戏内摄影</p>
+          <p class="hero-en2">A Star Citizen In-Game Photography, By Lapernum.</p>
+          <button class="about-toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">
+            <span>关于 / ABOUT</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 16.5 6.5 11l1.4-1.4 4.1 4.1 4.1-4.1L17.5 11 12 16.5Z"/></svg>
+          </button>
+        </div>
+
+        <div class="about-panel" id="aboutPanel" role="dialog" aria-modal="false" aria-labelledby="aboutTitle" aria-hidden="true">
+          <button class="about-close" id="aboutClose" type="button" aria-label="关闭简介">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m6.4 19-1.4-1.4 5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19Z"/></svg>
+          </button>
+
+          <div class="about-scroll">
+            <p class="about-kicker">PROFILE / 简介 <span>v2.0</span></p>
+            <div class="about-logos" aria-hidden="true">
+              <img class="logo-when-dark" src="./assets/logo_black.png" alt="" width="42" height="42">
+              <img class="logo-when-light" src="./assets/logo_white.png" alt="" width="42" height="42">
+              <img class="logo-when-dark" src="./assets/STARCITIZEN_BLACK.png" alt="" width="42" height="42">
+              <img class="logo-when-light" src="./assets/STARCITIZEN_WHITE.png" alt="" width="42" height="42">
             </div>
-            <p>我是拉邦那。</p>
-            <p class='englishIntro'>I'm Lapernum.</p>
-            <br />
-            <p>一名星际公民，一位游戏摄影师，一位up主。</p>
-            <p class='englishIntro'>A Star Citizen, A Virtual Photographer, A Content Creator.</p>
-            <br />
-            <p>哔哩哔哩</p>
-            <p class='englishIntro'>Bilibili</p>
-            <a target='_blank' href='https://space.bilibili.com/57234212'>@拉邦那Lapernum</a>
-            <p><br />YouTube</p>
-            <a target='_blank' href='https://www.youtube.com/channel/UCPEzUOCC_9COTUwx4HA5_Gw'>@Lapernum</a>
-            <p><br />推特</p>
-            <p class='englishIntro'>Twitter</p>
-            <a target='_blank' href='https://twitter.com/lapernum'>@lapernum</a>
-            <p><br />QQ讨论群</p>
-            <p class='englishIntro'>QQ Group Chat</p>
-            <p>1004915015</p>
-            <p><br />对外使用此网站作品时请标明作者和此网站链接，请勿商用。</p>
-            <p class='englishIntro'>Please credit me and link back to this website if you want to use these shots.</p>
-            <p><br />感谢 <a target='_blank' href='https://grakep.ch'>GrakePCH</a>，<a target='_blank' href='https://bofone.space/'>BoFone</a>，和<a target='_blank' href='https://github.com/CxJuice'>澄风拌果汁</a>对于本网站的制作与设计指导。</p>
-            <p class='englishIntro'>Thanks to <a target='_blank' href='https://grakep.ch'>GrakePCH</a>, <a target='_blank' href='https://bofone.space/'>BoFone</a>, and <a target='_blank' href='https://github.com/CxJuice'>CxJuice</a> for this website's design suggestions.</p>
-            <p><br />*此网站为非官方粉丝作品。</p>
-            <p class='englishIntro'>*This is an unofficial Fansite.</p>
-            <!-- <p class='englishIntro'><br /><a target='_blank' href="https://github.com/Lapernum/laboner6.github.io">v1.3</a></p> -->
-            <p class='englishIntro'><br />v1.3</p>
+
+            <h2 id="aboutTitle">我是拉邦那。</h2>
+            <p class="about-en">I'm Lapernum.</p>
+            <p>一名星际公民，一位游戏摄影师，一位 up 主。</p>
+            <p class="about-en">A Star Citizen, a virtual photographer, a content creator.</p>
+
+            <div class="about-links">
+              <a href="https://space.bilibili.com/57234212" target="_blank" rel="noopener">
+                <span class="link-label">哔哩哔哩 · Bilibili</span>
+                <span class="link-value">@拉邦那Lapernum</span>
+              </a>
+              <a href="https://www.youtube.com/channel/UCPEzUOCC_9COTUwx4HA5_Gw" target="_blank" rel="noopener">
+                <span class="link-label">YouTube</span>
+                <span class="link-value">@Lapernum</span>
+              </a>
+              <a href="https://twitter.com/lapernum" target="_blank" rel="noopener">
+                <span class="link-label">Twitter / X</span>
+                <span class="link-value">@lapernum</span>
+              </a>
+              <span class="about-link-static">
+                <span class="link-label">QQ 讨论群 · Group</span>
+                <span class="link-value">1004915015</span>
+              </span>
+            </div>
+
+            <div class="about-note">
+              <p>对外使用此网站作品时请标明作者和此网站链接，请勿商用。</p>
+              <p class="about-en">Please credit me and link back to this website if you want to use these shots. No commercial use.</p>
+            </div>
+
+            <p class="about-thanks">
+              感谢 <a href="https://grakep.ch" target="_blank" rel="noopener">GrakePCH</a>、<a href="https://bofone.space/" target="_blank" rel="noopener">BoFone</a> 和 <a href="https://github.com/CxJuice" target="_blank" rel="noopener">澄风拌果汁</a> 对于本网站的制作与设计指导。
+            </p>
+            <p class="about-en">Thanks to GrakePCH, BoFone and CxJuice for this website's design suggestions.</p>
+
+            <p class="about-fine">* 此网站为非官方粉丝作品。This is an unofficial fansite.</p>
+
+            <div class="about-version">
+              <span>影記 v2.0 · 纯手写 HTML / CSS / JavaScript</span>
+              <a href="./old/" title="打开经典版">返回经典版 v1.3 →</a>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="photoFlow">
-      <div id="topbar">
-        <div id="scrollbar">
-          <div id="scrollbarInside"></div>
+      </section>
+
+      <section class="gallery" id="gallery" aria-label="摄影作品">
+        <div class="gallery-inner">
+          <div class="flow flow-1" id="flow1"></div>
+          <div class="flow flow-2" id="flow2"></div>
         </div>
-        <svg id="lightModeButton" onclick="switchToLight()" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#7598b9"><path d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
-        <svg id="darkModeButton" onclick="switchToDark()" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#335778"><path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
-      </div>
-      <div id="mouseReminder">
-        <p>对外使用此网站作品时请标明作者和此网站链接</p>
-        <p>Please credit me and link back to this website if you want to use these shots</p>
-      </div>
-      <div id="flow1">
-        <div class="placeholder" style="height: 35vh;"></div>
-      </div>
-      <div id="flow2">
-        <div class="placeholder" style="height: 35vh;"></div>
-      </div>
-      <div id="dateDisplay">
-        <svg xmlns="http://www.w3.org/2000/svg" id="dateArrowLeft2" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-chevron-double-left dateArrow dateArrowLeft" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-          <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="dateArrowLeft1" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-chevron-left dateArrow dateArrowLeft" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-        </svg>
-        <h2 id="dateDisplayText"></h2>
-        <svg xmlns="http://www.w3.org/2000/svg" id="dateArrowRight1" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-chevron-right dateArrow dateArrowRight" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="dateArrowRight2" width="1.5rem" height="1.5rem" fill="currentColor" class="bi bi-chevron-double-right dateArrow dateArrowRight" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-          <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-      </div>
+        <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+          <span class="scroll-hint-line"></span>
+          <span>滚动 · SCROLL</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 6v9.2l3.6-3.6L18 13l-6 6-6-6 1.4-1.4 3.6 3.6V6h2Z"/></svg>
+        </div>
+      </section>
+
+      <section class="outro" id="outro" aria-label="结尾">
+        <div class="outro-logo" id="outroArcs" aria-hidden="true"></div>
+        <h2 class="outro-title"><span class="hero-bracket">「</span>影記<span class="hero-bracket">」</span></h2>
+        <p class="outro-en">LAPERGRAPHY</p>
+        <p class="outro-line">感谢观看 · Thanks for watching</p>
+        <div class="outro-badges">
+          <img class="logo-when-dark" src="./assets/STARCITIZEN_WHITE.png" alt="Star Citizen" height="64">
+          <img class="logo-when-light" src="./assets/STARCITIZEN_BLACK.png" alt="Star Citizen" height="64">
+          <img src="./assets/MadeByTheCommunity_White.png" alt="Made by the community" height="64">
+        </div>
+        <button class="back-to-start" id="backToStart" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4 4 12l1.4 1.4L11 7.8V20h2V7.8l5.6 5.6L20 12 12 4Z"/></svg>
+          回到开头 · Back to start
+        </button>
+        <p class="outro-fine">© 2020–2026 Lapernum · Unofficial Star Citizen fansite</p>
+      </section>
+    </main>
+
+    <div class="date-hud" id="dateHud" aria-live="polite">
+      <button class="date-arrow" id="datePrev" type="button" aria-label="较新的月份" title="较新的月份">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.6 6.4 8 13l6.6 6.6L16 18.2 10.8 13 16 7.8l-1.4-1.4Z"/></svg>
+      </button>
+      <div class="date-read"><span id="dateYear">2026</span><b id="dateMonth">08</b></div>
+      <button class="date-arrow" id="dateNext" type="button" aria-label="较早的月份" title="较早的月份">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.4 6.4 8 7.8 13.2 13 8 18.2l1.4 1.4L16 13l-6.6-6.6Z"/></svg>
+      </button>
+      <span class="counter" id="counter">00366 / 00366</span>
     </div>
-    <div class="logoPage" id="endPage">
-      <!-- <img src="./assets/logo_transparent_blue.png" width="100px" class="logoImg" /> -->
-      <div class="logoImg">
-        <svg id="arc0" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc0p" class="cls-1" d="M208,255.422V239.2A40.012,40.012,0,0,0,240,200h16A56,56,0,0,1,208,255.422ZM160,200a40.012,40.012,0,0,0,32,39.2v16.224a55.993,55.993,0,0,1-20-103.914l8,13.855A39.976,39.976,0,0,0,160,200Z"/>
-        </svg>
-        <svg id="arc1" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc1p" class="cls-1" d="M200,320A120,120,0,0,1,80.272,208H96.337a103.987,103.987,0,0,0,205.67,12.29l15.7,3.124A120.036,120.036,0,0,1,200,320ZM96.337,192H80.272A120,120,0,0,1,200,80V96A103.985,103.985,0,0,0,96.337,192Z"/>
-        </svg>
-        <svg id="arc2" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc2p" class="cls-1" d="M312.984,301.67l-11.333-11.333A135.478,135.478,0,0,0,336,200h16A151.43,151.43,0,0,1,312.984,301.67ZM64,200a135.417,135.417,0,0,0,14.406,60.964l-13.886,8.017A152.052,152.052,0,0,1,200,48V64A136,136,0,0,0,64,200ZM200,336a135.478,135.478,0,0,0,90.337-34.349l11.333,11.333A152,152,0,0,1,72.539,282.827l13.881-8.014A135.867,135.867,0,0,0,200,336Z"/>
-        </svg>
-        <svg id="arc3" class="arcsLarge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <style>
-              .cls-1 {
-                fill-rule: evenodd;
-              }
-            </style>
-          </defs>
-          <path id="arc3p" class="cls-1" d="M200,400a199.2,199.2,0,0,1-85.842-19.318l8.032-13.911A184.058,184.058,0,0,0,384,200h16C400,310.457,310.457,400,200,400ZM164.1,19.512C79.667,36.213,16,110.666,16,200A183.773,183.773,0,0,0,94.49,350.749l-8.028,13.9A199.767,199.767,0,0,1,0,200C0,101.623,71.029,19.835,164.6,3.123l-3.619.72Z"/>
-        </svg>
-      </div>
-      <h1 class="mainline"><span style="font-weight: 400;">「</span>影記<span style="font-weight: 400;">」</span></h1>
-      <h1 class="subline englishMainTitle">LAPERGRAPHY</h1>
-      <h1 class="subline"><br>拉邦那</h1>
-      <h1 class="subline">星际公民摄影</h1>
-      <h1 class="subline englishTitle"><br>A Star Citizen Photography,</h1>
-      <h1 class="subline englishTitle">By Lapernum.</h1>
-      <div id="endPageStarCitizenLogo">
-        <img id="endSCLogo" src="./assets/STARCITIZEN_WHITE.png" height="80px" style="margin-right: 16px;" />
-        <img src="./assets/MadeByTheCommunity_White.png" height="80px" />
-      </div>
+
+    <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="作品大图">
+      <div class="lb-backdrop" data-close></div>
+      <button class="lb-close" id="lbClose" type="button" aria-label="关闭大图" data-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m6.4 19-1.4-1.4 5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19Z"/></svg>
+      </button>
+      <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="较新的一张">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.6 6.4 8 13l6.6 6.6L16 18.2 10.8 13 16 7.8l-1.4-1.4Z"/></svg>
+      </button>
+      <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="较早的一张">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.4 6.4 8 7.8 13.2 13 8 18.2l1.4 1.4L16 13l-6.6-6.6Z"/></svg>
+      </button>
+
+      <figure class="lb-stage" id="lbStage">
+        <div class="lb-media">
+          <div class="lb-loader" id="lbLoader">
+            <div class="lb-arcs" id="lbArcs" aria-hidden="true"></div>
+            <span>正在载入原图 · LOADING</span>
+          </div>
+          <p class="lb-error" id="lbError" hidden>原图加载失败。 <a id="lbErrorLink" href="#" target="_blank" rel="noopener">在新窗口打开</a></p>
+          <img class="lb-image" id="lbImage" alt="">
+        </div>
+        <figcaption class="lb-caption">
+          <div class="lb-headline">
+            <span class="lb-date" id="lbDate">—</span>
+            <span class="lb-time" id="lbTime">—</span>
+            <span class="lb-name" id="lbName">—</span>
+          </div>
+          <div class="lb-details">
+            <span><i>尺寸</i><b id="lbResolution">—</b></span>
+            <span><i>比例</i><b id="lbRatio">—</b></span>
+          </div>
+          <div class="lb-actions">
+            <a class="lb-action" id="lbDownload" href="#" download>下载原图</a>
+            <a class="lb-action" id="lbOpen" href="#" target="_blank" rel="noopener">新窗口打开</a>
+            <button class="lb-action" id="lbShare" type="button">复制分享链接</button>
+          </div>
+        </figcaption>
+      </figure>
     </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
 
-</body>
+  <noscript>
+    <div class="noscript">这个作品集需要 JavaScript 才能浏览。<br>This portfolio needs JavaScript to browse.</div>
+  </noscript>
 
+  <script type="module" src="./js/main.js"></script>
+</body>
 </html>
