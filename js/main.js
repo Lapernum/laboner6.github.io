@@ -159,7 +159,7 @@ async function boot() {
     },
     onOpen: (index) => {
       const image = data.images[index];
-      hud.update(image);
+      hud.update(image, true);
       gallery.preloadAround(index, 2);
       document.body.classList.add("lightbox-open");
     },
@@ -168,12 +168,13 @@ async function boot() {
       if (lastIndex !== gallery.currentIndex) {
         gallery.scrollToIndex(lastIndex, {
           behavior: prefersReducedMotion() ? "auto" : "smooth",
-          align: "center",
+          align: "left",
+          offset: 0,
         });
       }
     },
     onNavigate: (index) => {
-      hud.update(data.images[index]);
+      hud.update(data.images[index], true);
       gallery.preloadAround(index, 2);
     },
   });
@@ -403,8 +404,12 @@ function handleDeepLink() {
   if (params.has("pos")) {
     const targetIndex = findImageIndexByTarget(data, params.get("pos"));
     if (targetIndex >= 0) {
-      gallery.scrollToIndex(targetIndex, { behavior: "auto", align: "center" });
-      hud.update(data.images[targetIndex]);
+      gallery.scrollToIndex(targetIndex, {
+        behavior: "auto",
+        align: "left",
+        offset: 0,
+      });
+      hud.update(data.images[targetIndex], true);
       gallery.updateCurrent();
       return;
     }
@@ -416,8 +421,8 @@ function handleDeepLink() {
     toast("没有找到对应的作品 / Photograph not found");
     return;
   }
-  gallery.scrollToIndex(index, { behavior: "auto", align: "center" });
-  hud.update(data.images[index]);
+  gallery.scrollToIndex(index, { behavior: "auto", align: "left", offset: 0 });
+  hud.update(data.images[index], true);
   window.setTimeout(() => {
     lightbox.openAt(index, { fromHash: true });
   }, 300);

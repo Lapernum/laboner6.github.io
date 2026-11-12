@@ -207,11 +207,10 @@ export function createGallery({ data, flow1, flow2, onCurrentChange }) {
     return axis.find((entry) => entry.index === index) || null;
   }
 
-  function indexAt(x) {
-    const axis = geometry.flow1.length ? geometry.flow1 : geometry.flow2;
-    if (!axis.length) return -1;
-    if (x <= axis[0].start) return axis[0].index;
-    if (x >= axis[axis.length - 1].end) return axis[axis.length - 1].index;
+  function entryAt(axis, x) {
+    if (!axis.length) return null;
+    if (x <= axis[0].start) return axis[0];
+    if (x >= axis[axis.length - 1].end) return axis[axis.length - 1];
     let low = 0;
     let high = axis.length - 1;
     let found = 0;
@@ -224,12 +223,27 @@ export function createGallery({ data, flow1, flow2, onCurrentChange }) {
         high = mid - 1;
       }
     }
-    return axis[found].index;
+    return axis[found];
   }
 
-  function currentIndexAt(offset = null) {
-    const focal = offset == null ? clamp(window.innerWidth * 0.06, 24, 120) : offset;
-    return indexAt(window.scrollX + focal);
+  /**
+   * The date HUD must follow both rows, not just the top row: some months only
+   * have photographs in the lower row. Pick the photograph whose left edge is
+   * closest to (but not past) the focal point, i.e. the last one to enter the
+   * viewport. This also makes "next month" stop targeting a position that is
+   * already on screen.
+   */
+  function indexAt(x) {
+    const top = entryAt(geometry.flow1, x);
+    const bottom = entryAt(geometry.flow2, x);
+    if (!top) return bottom ? bottom.index : -1;
+    if (!bottom) return top.index;
+    if (bottom.start > top.start + 0.5) return bottom.index;
+    return top.index;
+  }
+
+  function currentIndexAt(offset = 0) {
+    return indexAt(window.scrollX + offset);
   }
 
   function updateCurrent(force = false) {
@@ -253,7 +267,10 @@ export function createGallery({ data, flow1, flow2, onCurrentChange }) {
         : align === "left"
         ? Math.min(72, window.innerWidth * 0.04)
         : 0;
-    let target = entry.start - margin;
+    // Overshoot by 2px when aligning to the left edge. Fractional layout
+    // positions can otherwise round back to the current scroll position, so
+    // the target image never becomes the "current" one and the HUD freezes.
+    let target = entry.start - margin + (margin <= 0 ? 2 : 0);
     if (align === "center") {
       target = entry.start + entry.width / 2 - window.innerWidth / 2;
     }
