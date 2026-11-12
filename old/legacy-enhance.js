@@ -57,10 +57,10 @@
     if (!Number.isInteger(index) || index < 0) return;
     var target = document.getElementById("photoContainer" + index);
     if (!target) {
-      if (attempt < 20) {
+      if (attempt < 30) {
         setTimeout(function () {
           applyPosFromUrl(attempt + 1);
-        }, 150);
+        }, 60);
       }
       return;
     }
@@ -195,10 +195,10 @@
   }
 
   if (document.readyState === "complete") {
-    setTimeout(boot, 900);
+    setTimeout(boot, 100);
   } else {
     window.addEventListener("load", function () {
-      setTimeout(boot, 900);
+      setTimeout(boot, 100);
     });
   }
 })();

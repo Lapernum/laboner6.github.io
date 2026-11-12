@@ -176,15 +176,8 @@ async function boot() {
       gallery.preloadAround(index, 2);
       document.body.classList.add("lightbox-open");
     },
-    onClose: (lastIndex) => {
+    onClose: () => {
       document.body.classList.remove("lightbox-open");
-      if (lastIndex !== gallery.currentIndex) {
-        gallery.scrollToIndex(lastIndex, {
-          behavior: prefersReducedMotion() ? "auto" : "smooth",
-          align: "left",
-          offset: 0,
-        });
-      }
     },
     onNavigate: (index) => {
       hud.update(data.images[index], true);
@@ -204,15 +197,16 @@ async function boot() {
 
   wireInteractions();
 
+  // Position the gallery while the boot overlay still covers the page, so a
+  // shared ?pos / ?targetId link never flashes at the first photograph first.
+  gallery.measure();
+  progress.measure();
+  hud.update(data.images[initialIndex]);
+  handleDeepLink();
+
   document.body.classList.remove("is-booting");
   requestAnimationFrame(() => {
     document.body.classList.add("is-ready");
-    requestAnimationFrame(() => {
-      gallery.measure();
-      progress.measure();
-      hud.update(data.images[gallery.currentIndex >= 0 ? gallery.currentIndex : initialIndex]);
-      handleDeepLink();
-    });
   });
 
   if (document.fonts && document.fonts.ready) {
