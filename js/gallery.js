@@ -2,6 +2,7 @@
  * they approach the viewport, and exposes lightweight geometry queries. */
 
 import { clamp, prefersReducedMotion } from "./config.js";
+import { t } from "./i18n.js";
 import { insertArcs } from "./logo.js";
 
 const EXPAND_ICON =
@@ -56,12 +57,18 @@ export function createGallery({ data, flow1, flow2, onCurrentChange }) {
       anchor.style.setProperty("--ratio", String(image.ratio));
       anchor.setAttribute(
         "aria-label",
-        `查看作品 ${image.name}，${image.date || "日期未知"}`
+        t(
+          `查看作品 ${image.name}，${image.date || "日期未知"}`,
+          `View photograph ${image.name}, ${image.date || "date unknown"}`
+        )
       );
       anchor.innerHTML =
         '<span class="photo-media">' +
         '<span class="photo-skeleton" aria-hidden="true"></span>' +
-        `<img class="photo-img" alt="Lapernum 的星际公民游戏摄影作品 ${image.index}" decoding="async" draggable="false">` +
+        `<img class="photo-img" alt="${t(
+          `Lapernum 的星际公民游戏摄影作品 ${image.index}`,
+          `Star Citizen photograph ${image.index} by Lapernum`
+        )}" decoding="async" draggable="false">` +
         '<span class="photo-fallback" aria-hidden="true"></span>' +
         "</span>" +
         '<span class="photo-ui" aria-hidden="true">' +

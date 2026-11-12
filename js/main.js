@@ -15,7 +15,8 @@ import { createProgress } from "./progress.js";
 import { createDateHud } from "./datehud.js";
 import { createLightbox } from "./lightbox.js";
 import { initIntro } from "./intro.js";
-import { initLogoEgg } from "./logo-egg.js?v=20261112-9";
+import { initLanguage, t } from "./i18n.js";
+import { initLogoEgg } from "./logo-egg.js?v=20261113-1";
 import { initTheme } from "./theme.js";
 import { initAdminLink } from "./admin.js";
 import { readTargetFromUrl, toast } from "./ui.js";
@@ -76,6 +77,7 @@ insertArcs(els.lbArcs, "arcs");
 initLogoEgg(introArcs);
 
 initTheme(els.themeBtn);
+initLanguage();
 const intro = initIntro({
   intro: els.intro,
   toggle: els.aboutToggle,
@@ -96,11 +98,19 @@ let lightbox = null;
 
 boot().catch((error) => {
   console.error(error);
-  els.bootText.textContent = "作品数据加载失败 · COULD NOT LOAD ARCHIVE";
+  els.bootText.textContent = t(
+    "作品数据加载失败",
+    "COULD NOT LOAD THE ARCHIVE"
+  );
   els.bootError.hidden = false;
   els.bootError.innerHTML =
-    "无法读取 <code>ImageInfo.json</code>。请确认文件存在并刷新重试。" +
-    '<br><a href="">重新加载 / Reload</a>';
+    t(
+      "无法读取 <code>ImageInfo.json</code>。请确认文件存在并刷新重试。",
+      "Could not read <code>ImageInfo.json</code>. Check the file and reload."
+    ) +
+    '<br><a href="">' +
+    t("重新加载", "Reload") +
+    "</a>";
   document.body.classList.add("has-error");
 });
 
@@ -441,7 +451,7 @@ function handleDeepLink() {
   if (raw == null) return;
   const index = findImageIndexByTarget(data, raw);
   if (index < 0) {
-    toast("没有找到对应的作品 / Photograph not found");
+    toast(t("没有找到对应的作品", "Photograph not found"));
     return;
   }
   gallery.scrollToIndex(index, { behavior: "auto", align: "left", offset: 0 });

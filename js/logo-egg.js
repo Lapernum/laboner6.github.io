@@ -2,6 +2,8 @@
  * cap, clicks do nothing; three seconds later the rings ease back to their
  * base speed. Clicks during the slow-down add speed again. */
 
+import { t } from "./i18n.js";
+
 const BASE_DEGREES_PER_SECOND = [45, -22.5, 11.25, -5.625];
 const MAX_RATE = 128;
 const HOLD_MS = 3000;
@@ -26,7 +28,10 @@ export function initLogoEgg(element) {
 
   element.setAttribute("role", "button");
   element.setAttribute("tabindex", "0");
-  element.setAttribute("aria-label", "点击加速旋转 Logo");
+  element.setAttribute(
+    "aria-label",
+    t("点击加速旋转 Logo", "Click to spin the logo faster")
+  );
 
   const arcs = [0, 1, 2, 3]
     .map((index) => element.querySelector(`.arc-${index}`))

@@ -1,6 +1,7 @@
 /* Accessible full-resolution viewer with keyboard, swipe and deep-link support. */
 
 import { formatDateParts, ratioLabel } from "./config.js";
+import { t } from "./i18n.js";
 import { copyText, setTargetInUrl, shareUrlFor, toast } from "./ui.js";
 
 const CLOSE_MS = 320;
@@ -72,7 +73,7 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
     date.textContent = parts.date;
     time.textContent = parts.time;
     name.textContent = image.name;
-    resolution.textContent = "读取尺寸…";
+    resolution.textContent = t("读取尺寸…", "Reading size…");
     ratio.textContent = ratioLabel(image.ratio);
     download.href = image.full;
     download.setAttribute("download", image.full.split("/").pop() || image.name);
@@ -103,9 +104,12 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
       if (token !== loadToken) return;
       loader.classList.add("is-hidden");
       error.hidden = false;
-      resolution.textContent = "原图加载失败";
+      resolution.textContent = t("原图加载失败", "Could not load original");
     };
-    img.alt = `Lapernum 的星际公民摄影作品 ${image.name}，${parts.date}`;
+    img.alt = t(
+      `Lapernum 的星际公民摄影作品 ${image.name}，${parts.date}`,
+      `Star Citizen photograph ${image.name} by Lapernum, ${parts.date}`
+    );
     img.src = image.full;
     if (img.complete && img.naturalWidth > 0) finish();
 
@@ -160,7 +164,11 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
       }
     }
     const ok = await copyText(url);
-    toast(ok ? "分享链接已复制 / Link copied" : "复制失败，请手动复制地址栏");
+    toast(
+      ok
+        ? t("分享链接已复制", "Link copied")
+        : t("复制失败，请手动复制地址栏", "Copy failed; copy the address bar")
+    );
   }
 
   function trapFocus(event) {

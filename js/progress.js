@@ -1,6 +1,7 @@
 /* Draggable progress rail. Replaces the old position-only indicator. */
 
 import { clamp } from "./config.js";
+import { t } from "./i18n.js";
 
 export function createProgress({ rail, thumb, tip, onSeek }) {
   let dragging = false;
@@ -66,7 +67,10 @@ export function createProgress({ rail, thumb, tip, onSeek }) {
     rail.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
     rail.setAttribute(
       "aria-valuetext",
-      `${Math.round(ratio * 100)}%，${metrics.scrollWidth} 像素宽`
+      t(
+        `${Math.round(ratio * 100)}%，${metrics.scrollWidth} 像素宽`,
+        `${Math.round(ratio * 100)}%, ${metrics.scrollWidth}px wide`
+      )
     );
     rail.classList.toggle("is-at-start", ratio <= 0.0001);
     rail.classList.toggle("is-at-end", ratio >= 0.9999);

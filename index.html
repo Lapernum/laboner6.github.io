@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="dark" data-lang="both">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>影記 · LAPERGRAPHY — 拉邦那的星际公民摄影</title>
+  <title>影記 · LAPERGRAPHY — 拉邦那的星际公民摄影 / Star Citizen Photography</title>
   <meta name="description" content="拉邦那（Lapernum）的星际公民游戏内摄影作品集。A Star Citizen in-game photography portfolio by Lapernum.">
   <meta name="theme-color" content="#15181c">
   <meta name="color-scheme" content="dark light">
@@ -18,83 +18,116 @@
 
   <script>
     (function () {
+      var theme = 'dark';
+      var lang = 'both';
       try {
-        var saved = localStorage.getItem('theme');
-        var theme = saved === 'light' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = theme;
-        document.documentElement.style.colorScheme = theme;
-      } catch (error) {
-        document.documentElement.dataset.theme = 'dark';
-        document.documentElement.style.colorScheme = 'dark';
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') theme = 'light';
+        var savedLang = localStorage.getItem('lang');
+        if (savedLang === 'zh' || savedLang === 'en') lang = savedLang;
+      } catch (error) {}
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+      document.documentElement.dataset.lang = lang;
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      if (lang === 'en') {
+        document.title = '影記 · LAPERGRAPHY — Star Citizen Photography by Lapernum';
+      } else if (lang === 'zh') {
+        document.title = '影記 · LAPERGRAPHY — 拉邦那的星际公民摄影';
       }
     })();
   </script>
 
-  <link rel="preload" href="./assets/fonts/Outfit.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./css/site.css?v=20261112-9">
-  <link rel="modulepreload" href="./js/main.js?v=20261112-9">
+  <link rel="preload" href="./assets/fonts/Outfit.woff2?v=20261113-1" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./css/site.css?v=20261113-1">
+  <link rel="modulepreload" href="./js/main.js?v=20261113-1">
 </head>
 
 <body class="is-booting">
-  <a class="skip-link" href="#gallery">跳到作品 / Skip to photographs</a>
+  <a class="skip-link" href="#gallery">
+    <span data-zh>跳到作品</span><span class="i18n-sep"> / </span><span data-en>Skip to photographs</span>
+  </a>
 
   <div class="boot" id="boot" role="status" aria-live="polite">
     <div class="boot-mark" id="bootArcs" aria-hidden="true"></div>
-    <p class="boot-text" id="bootText">正在整理作品 · LOADING ARCHIVE</p>
+    <p class="boot-text" id="bootText">
+      <span data-zh>正在整理作品</span><span class="i18n-sep"> · </span><span data-en>LOADING ARCHIVE</span>
+    </p>
     <p class="boot-error" id="bootError" hidden></p>
   </div>
 
   <div class="app" id="app">
     <header class="chrome" id="chrome">
-      <a class="brand" id="brand" href="#top" aria-label="回到开头">
+      <a class="brand" id="brand" href="#top" aria-label="回到开头 / Back to top">
         <span class="brand-cn">影記</span>
         <span class="brand-en">LAPERGRAPHY</span>
       </a>
 
       <div class="rail-wrap">
-        <div class="rail" id="rail" role="slider" tabindex="0" aria-label="浏览进度，可拖动" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="rail" id="rail" role="slider" tabindex="0" aria-label="浏览进度，可拖动 / Browsing progress, draggable" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <span class="rail-track" aria-hidden="true"></span>
           <span class="rail-thumb" id="railThumb" aria-hidden="true"><span class="rail-grip"></span></span>
         </div>
-        <span class="rail-tip" id="railTip">拖动快速浏览 · DRAG TO EXPLORE</span>
+        <span class="rail-tip" id="railTip">
+          <span data-zh>拖动快速浏览</span><span class="i18n-sep"> · </span><span data-en>DRAG TO EXPLORE</span>
+        </span>
       </div>
 
       <div class="chrome-actions">
-        <button class="icon-btn admin-only" id="adminOpen" type="button" hidden aria-label="打开图片上传" title="上传图片 / Upload">
+        <button class="icon-btn admin-only" id="adminOpen" type="button" hidden aria-label="打开图片上传 / Open uploader" title="上传图片 / Upload">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 15h2V9.85l2.1 2.1 1.4-1.4L12 6l-4.5 4.55 1.4 1.4L11 9.85V15Zm-5 4q-.825 0-1.412-.587Q4 17.825 4 17v-3h2v3h12v-3h2v3q0 .825-.587 1.413Q18.825 19 18 19H6Z"/></svg>
         </button>
-        <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">
+
+        <div class="lang-switch" id="langSwitch">
+          <button class="icon-btn lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="语言 / Language">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.93 6h-2.6a15.7 15.7 0 0 0-1.2-3.1A8.03 8.03 0 0 1 18.93 8ZM12 4c.8 1.1 1.43 2.4 1.84 4h-3.68C10.57 6.4 11.2 5.1 12 4ZM4.26 14a8.2 8.2 0 0 1 0-4h3.02a17.2 17.2 0 0 0 0 4H4.26Zm.81 2h2.6c.3 1.1.7 2.15 1.2 3.1A8.03 8.03 0 0 1 5.07 16Zm2.6-8h-2.6a8.03 8.03 0 0 1 3.8-3.1A15.7 15.7 0 0 0 7.67 8ZM12 20c-.8-1.1-1.43-2.4-1.84-4h3.68c-.41 1.6-1.04 2.9-1.84 4Zm2.26-6H9.74a15.1 15.1 0 0 1 0-4h4.52a15.1 15.1 0 0 1 0 4Zm.47 6.1c.5-.95.9-2 1.2-3.1h2.6a8.03 8.03 0 0 1-3.8 3.1Zm1.73-5.1a17.2 17.2 0 0 0 0-4h3.02a8.2 8.2 0 0 1 0 4h-3.02Zm-.4-9c-.3-1.1-.7-2.15-1.2-3.1a8.03 8.03 0 0 1 3.8 3.1h-2.6Z"/></svg>
+            <span class="lang-mode lang-mode-zh">中</span>
+            <span class="lang-mode lang-mode-en">EN</span>
+            <span class="lang-mode lang-mode-both">中英</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="listbox" aria-label="语言 / Language" hidden>
+            <button type="button" role="option" data-lang-option="zh" aria-selected="false"><span data-zh>中文</span><span class="i18n-sep"> / </span><span data-en>Chinese</span></button>
+            <button type="button" role="option" data-lang-option="en" aria-selected="false"><span>English</span></button>
+            <button type="button" role="option" data-lang-option="both" aria-selected="false"><span data-zh>中英双语</span><span class="i18n-sep"> / </span><span data-en>Bilingual</span></button>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题 / Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 17q-2.075 0-3.537-1.463Q7 14.075 7 12t1.463-3.538Q9.925 7 12 7t3.538 1.462Q17 9.925 17 12q0 2.075-1.462 3.537Q14.075 17 12 17Zm0-2q1.25 0 2.125-.875T15 12q0-1.25-.875-2.125T12 9q-1.25 0-2.125.875T9 12q0 1.25.875 2.125T12 15Zm0-11.5 1.55 2.7h-3.1L12 3.5ZM3.5 12l2.7-1.55v3.1L3.5 12Zm17 0-2.7 1.55v-3.1L20.5 12ZM12 20.5l-1.55-2.7h3.1L12 20.5ZM5.3 5.3l3.1-.35-1.3 2.85-1.8-2.5Zm13.4 13.4-3.1.35 1.3-2.85 1.8 2.5Zm0-13.4-2.5 1.8-.35-3.1 2.85 1.3ZM5.3 18.7l2.5-1.8.35 3.1-2.85-1.3Z"/></svg>
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.1 20.5q-3.55 0-6.025-2.475Q3.6 15.55 3.6 12q0-3.55 2.475-6.025Q8.55 3.5 12.1 3.5q.325 0 .65.025t.65.075q-1.75 1.25-2.775 3.2T9.6 11q0 2.225 1.025 4.175t2.775 3.2q-.325.05-.65.075t-.65.05Z"/></svg>
         </button>
+
         <a class="version-pill" href="./old/" title="切换到经典版 v1.3 / Open classic version">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.6 3.4 7.3v9.4L12 21.4l8.6-4.7V7.3L12 2.6Zm0 1.9 6.9 3.8-6.9 3.8-6.9-3.8L12 4.5Zm-6.9 5.4 6.2 3.4v6.4l-6.2-3.4V9.9Zm7.8 9.8v-6.4l6.2-3.4v6.4l-6.2 3.4Z"/></svg>
-          <span>经典版</span><small>v1.3</small>
+          <span data-zh>经典版</span><span class="i18n-sep"> / </span><span data-en>Classic</span><small>v1.3</small>
         </a>
       </div>
     </header>
 
     <main class="stage" id="top">
-      <section class="intro" id="intro" aria-label="标题与简介">
+      <section class="intro" id="intro" aria-label="标题与简介 / Title and profile">
         <div class="intro-main">
           <div class="intro-logo" id="introArcs" aria-hidden="true"></div>
           <h1 class="hero-title" aria-label="影記"><span class="hero-bracket">「</span>影記<span class="hero-bracket">」</span></h1>
           <p class="hero-en">LAPERGRAPHY</p>
-          <p class="hero-cn">拉邦那 · 星际公民游戏内摄影</p>
-          <p class="hero-en2">A Star Citizen In-Game Photography, By Lapernum.</p>
+          <p class="hero-cn" data-zh>拉邦那 · 星际公民游戏内摄影</p>
+          <p class="hero-en2" data-en>A Star Citizen In-Game Photography, By Lapernum.</p>
           <button class="about-toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">
-            <span>关于 / ABOUT</span>
+            <span><span data-zh>关于</span><span class="i18n-sep"> / </span><span data-en>ABOUT</span></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 16.5 6.5 11l1.4-1.4 4.1 4.1 4.1-4.1L17.5 11 12 16.5Z"/></svg>
           </button>
         </div>
 
         <div class="about-panel" id="aboutPanel" role="dialog" aria-modal="false" aria-labelledby="aboutTitle" aria-hidden="true">
-          <button class="about-close" id="aboutClose" type="button" aria-label="关闭简介">
+          <button class="about-close" id="aboutClose" type="button" aria-label="关闭简介 / Close profile">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m6.4 19-1.4-1.4 5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19Z"/></svg>
           </button>
 
           <div class="about-scroll">
-            <p class="about-kicker">PROFILE / 简介 <span>v2.0</span></p>
+            <p class="about-kicker">
+              <span data-en>PROFILE</span><span class="i18n-sep"> / </span><span data-zh>简介</span>
+              <span class="about-kicker-badge">v2.0</span>
+            </p>
             <div class="about-logos" aria-hidden="true">
               <img class="logo-when-dark" src="./assets/logo_black.png" alt="" width="42" height="42">
               <img class="logo-when-light" src="./assets/logo_white.png" alt="" width="42" height="42">
@@ -102,14 +135,14 @@
               <img class="logo-when-light" src="./assets/STARCITIZEN_WHITE.png" alt="" width="42" height="42">
             </div>
 
-            <h2 id="aboutTitle">我是拉邦那。</h2>
-            <p class="about-en">I'm Lapernum.</p>
-            <p>一名星际公民，一位游戏摄影师，一位 up 主。</p>
-            <p class="about-en">A Star Citizen, a virtual photographer, a content creator.</p>
+            <h2 id="aboutTitle" data-zh>我是拉邦那。</h2>
+            <p class="about-en about-title-en" data-en>I'm Lapernum.</p>
+            <p data-zh>一名星际公民，一位游戏摄影师，一位 up 主。</p>
+            <p class="about-en" data-en>A Star Citizen, a virtual photographer, a content creator.</p>
 
             <div class="about-links">
               <a href="https://space.bilibili.com/57234212" target="_blank" rel="noopener">
-                <span class="link-label">哔哩哔哩 · Bilibili</span>
+                <span class="link-label"><span data-zh>哔哩哔哩</span><span class="i18n-sep"> · </span><span data-en>Bilibili</span></span>
                 <span class="link-value">@拉邦那Lapernum</span>
               </a>
               <a href="https://www.youtube.com/channel/UCPEzUOCC_9COTUwx4HA5_Gw" target="_blank" rel="noopener">
@@ -121,48 +154,53 @@
                 <span class="link-value">@lapernum</span>
               </a>
               <span class="about-link-static">
-                <span class="link-label">QQ 讨论群 · Group</span>
+                <span class="link-label"><span data-zh>QQ 讨论群</span><span class="i18n-sep"> · </span><span data-en>QQ Group</span></span>
                 <span class="link-value">1004915015</span>
               </span>
             </div>
 
             <div class="about-note">
-              <p>对外使用此网站作品时请标明作者和此网站链接，请勿商用。</p>
-              <p class="about-en">Please credit me and link back to this website if you want to use these shots. No commercial use.</p>
+              <p data-zh>对外使用此网站作品时请标明作者和此网站链接，请勿商用。</p>
+              <p class="about-en" data-en>Please credit me and link back to this website if you want to use these shots. No commercial use.</p>
             </div>
 
-            <p class="about-thanks">
+            <p class="about-thanks" data-zh>
               感谢 <a href="https://grakep.ch" target="_blank" rel="noopener">GrakePCH</a>、<a href="https://bofone.space/" target="_blank" rel="noopener">BoFone</a> 和 <a href="https://github.com/CxJuice" target="_blank" rel="noopener">澄风拌果汁</a> 对于本网站的制作与设计指导。
             </p>
-            <p class="about-en">Thanks to GrakePCH, BoFone and CxJuice for this website's design suggestions.</p>
+            <p class="about-en" data-en>Thanks to GrakePCH, BoFone and CxJuice for this website's design suggestions.</p>
 
-            <p class="about-fine">* 此网站为非官方粉丝作品。This is an unofficial fansite.</p>
+            <p class="about-fine">
+              <span data-zh>* 此网站为非官方粉丝作品。</span><span class="i18n-sep"> </span><span data-en>* This is an unofficial fansite.</span>
+            </p>
 
             <div class="about-version">
-              <span>影記 v2.0 · 纯手写 HTML / CSS / JavaScript</span>
-              <a href="./old/" title="打开经典版">返回经典版 v1.3 →</a>
+              <span data-zh>影記 v2.0 · 纯手写 HTML / CSS / JavaScript</span>
+              <span data-en>影記 v2.0 · Hand-written HTML / CSS / JavaScript</span>
+              <a href="./old/" title="打开经典版 / Open classic version">
+                <span data-zh>返回经典版 v1.3 →</span><span class="i18n-sep"> / </span><span data-en>Open classic v1.3 →</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="gallery" id="gallery" aria-label="摄影作品">
+      <section class="gallery" id="gallery" aria-label="摄影作品 / Photographs">
         <div class="gallery-inner">
           <div class="flow flow-1" id="flow1"></div>
           <div class="flow flow-2" id="flow2"></div>
         </div>
         <div class="scroll-hint" id="scrollHint" aria-hidden="true">
           <span class="scroll-hint-line"></span>
-          <span>滚动 · SCROLL</span>
+          <span><span data-zh>滚动</span><span class="i18n-sep"> · </span><span data-en>SCROLL</span></span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 6v9.2l3.6-3.6L18 13l-6 6-6-6 1.4-1.4 3.6 3.6V6h2Z"/></svg>
         </div>
       </section>
 
-      <section class="outro" id="outro" aria-label="结尾">
+      <section class="outro" id="outro" aria-label="结尾 / End">
         <div class="outro-logo" id="outroArcs" aria-hidden="true"></div>
         <h2 class="outro-title"><span class="hero-bracket">「</span>影記<span class="hero-bracket">」</span></h2>
         <p class="outro-en">LAPERGRAPHY</p>
-        <p class="outro-line">感谢观看 · Thanks for watching</p>
+        <p class="outro-line"><span data-zh>感谢观看</span><span class="i18n-sep"> · </span><span data-en>Thanks for watching</span></p>
         <div class="outro-badges">
           <img class="logo-when-dark" src="./assets/STARCITIZEN_WHITE.png" alt="Star Citizen" height="64">
           <img class="logo-when-light" src="./assets/STARCITIZEN_BLACK.png" alt="Star Citizen" height="64">
@@ -170,32 +208,34 @@
         </div>
         <button class="back-to-start" id="backToStart" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4 4 12l1.4 1.4L11 7.8V20h2V7.8l5.6 5.6L20 12 12 4Z"/></svg>
-          回到开头 · Back to start
+          <span data-zh>回到开头</span><span class="i18n-sep"> · </span><span data-en>Back to start</span>
         </button>
-        <p class="outro-fine">© 2020–2026 Lapernum · Unofficial Star Citizen fansite</p>
+        <p class="outro-fine">
+          <span>© 2020–2026 Lapernum</span><span class="i18n-sep"> · </span><span data-zh>非官方星际公民粉丝站</span><span class="i18n-sep"> · </span><span data-en>Unofficial Star Citizen fansite</span>
+        </p>
       </section>
     </main>
 
     <div class="date-hud" id="dateHud" aria-live="polite">
-      <button class="date-arrow" id="datePrev" type="button" aria-label="较新的月份" title="较新的月份">
+      <button class="date-arrow" id="datePrev" type="button" aria-label="较新的月份 / Newer month" title="较新的月份 / Newer month">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.6 6.4 8 13l6.6 6.6L16 18.2 10.8 13 16 7.8l-1.4-1.4Z"/></svg>
       </button>
       <div class="date-read"><span id="dateYear">2026</span><b id="dateMonth">08</b></div>
-      <button class="date-arrow" id="dateNext" type="button" aria-label="较早的月份" title="较早的月份">
+      <button class="date-arrow" id="dateNext" type="button" aria-label="较早的月份 / Older month" title="较早的月份 / Older month">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.4 6.4 8 7.8 13.2 13 8 18.2l1.4 1.4L16 13l-6.6-6.6Z"/></svg>
       </button>
       <span class="counter" id="counter">00366 / 00366</span>
     </div>
 
-    <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="作品大图">
+    <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="作品大图 / Photograph viewer">
       <div class="lb-backdrop" data-close></div>
-      <button class="lb-close" id="lbClose" type="button" aria-label="关闭大图" data-close>
+      <button class="lb-close" id="lbClose" type="button" aria-label="关闭大图 / Close viewer" data-close>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m6.4 19-1.4-1.4 5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19Z"/></svg>
       </button>
-      <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="较新的一张">
+      <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="较新的一张 / Newer photograph">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.6 6.4 8 13l6.6 6.6L16 18.2 10.8 13 16 7.8l-1.4-1.4Z"/></svg>
       </button>
-      <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="较早的一张">
+      <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="较早的一张 / Older photograph">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.4 6.4 8 7.8 13.2 13 8 18.2l1.4 1.4L16 13l-6.6-6.6Z"/></svg>
       </button>
 
@@ -203,9 +243,14 @@
         <div class="lb-media">
           <div class="lb-loader" id="lbLoader">
             <div class="lb-arcs" id="lbArcs" aria-hidden="true"></div>
-            <span>正在载入原图 · LOADING</span>
+            <span><span data-zh>正在载入原图</span><span class="i18n-sep"> · </span><span data-en>LOADING ORIGINAL</span></span>
           </div>
-          <p class="lb-error" id="lbError" hidden>原图加载失败。 <a id="lbErrorLink" href="#" target="_blank" rel="noopener">在新窗口打开</a></p>
+          <p class="lb-error" id="lbError" hidden>
+            <span data-zh>原图加载失败。</span><span class="i18n-sep"> </span><span data-en>Could not load the original.</span>
+            <a id="lbErrorLink" href="#" target="_blank" rel="noopener">
+              <span data-zh>在新窗口打开</span><span class="i18n-sep"> / </span><span data-en>Open in new window</span>
+            </a>
+          </p>
           <img class="lb-image" id="lbImage" alt="">
         </div>
         <figcaption class="lb-caption">
@@ -215,13 +260,19 @@
             <span class="lb-name" id="lbName">—</span>
           </div>
           <div class="lb-details">
-            <span><i>尺寸</i><b id="lbResolution">—</b></span>
-            <span><i>比例</i><b id="lbRatio">—</b></span>
+            <span><i><span data-zh>尺寸</span><span class="i18n-sep"> / </span><span data-en>Size</span></i><b id="lbResolution">—</b></span>
+            <span><i><span data-zh>比例</span><span class="i18n-sep"> / </span><span data-en>Ratio</span></i><b id="lbRatio">—</b></span>
           </div>
           <div class="lb-actions">
-            <a class="lb-action" id="lbDownload" href="#" download>下载原图</a>
-            <a class="lb-action" id="lbOpen" href="#" target="_blank" rel="noopener">新窗口打开</a>
-            <button class="lb-action" id="lbShare" type="button">复制分享链接</button>
+            <a class="lb-action" id="lbDownload" href="#" download>
+              <span data-zh>下载原图</span><span class="i18n-sep"> / </span><span data-en>Download original</span>
+            </a>
+            <a class="lb-action" id="lbOpen" href="#" target="_blank" rel="noopener">
+              <span data-zh>新窗口打开</span><span class="i18n-sep"> / </span><span data-en>Open in new window</span>
+            </a>
+            <button class="lb-action" id="lbShare" type="button">
+              <span data-zh>复制分享链接</span><span class="i18n-sep"> / </span><span data-en>Copy share link</span>
+            </button>
           </div>
         </figcaption>
       </figure>
@@ -231,9 +282,11 @@
   </div>
 
   <noscript>
-    <div class="noscript">这个作品集需要 JavaScript 才能浏览。<br>This portfolio needs JavaScript to browse.</div>
+    <div class="noscript">
+      <span data-zh>这个作品集需要 JavaScript 才能浏览。</span><span class="i18n-sep"> </span><span data-en>This portfolio needs JavaScript to browse.</span>
+    </div>
   </noscript>
 
-  <script type="module" src="./js/main.js?v=20261112-9"></script>
+  <script type="module" src="./js/main.js?v=20261113-1"></script>
 </body>
 </html>
