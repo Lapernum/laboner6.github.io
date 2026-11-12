@@ -591,21 +591,39 @@ html[data-theme="light"] .icon-btn .icon-sun {
 }
 
 .intro-logo {
+  position: relative;
   width: clamp(68px, 6vw, 100px);
   height: clamp(68px, 6vw, 100px);
   margin-bottom: clamp(1.4rem, 3vh, 2.6rem);
   color: var(--accent);
   cursor: pointer;
-  transition: scale 0.35s var(--ease-spring), filter 0.45s var(--ease);
 }
 
-.intro-logo:hover {
-  scale: 1.03;
+.intro-logo::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 38%, transparent) 0%,
+    transparent 68%
+  );
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  pointer-events: none;
 }
 
-.intro-logo.is-poked {
-  scale: 1.12;
-  filter: drop-shadow(0 0 18px var(--accent));
+.intro-logo.is-poked::before {
+  opacity: 1;
+  transform: none;
+}
+
+.intro-logo > svg {
+  position: relative;
+  z-index: 1;
 }
 
 .intro-logo:focus-visible {

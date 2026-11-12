@@ -45,7 +45,7 @@ export function initLogoEgg(element) {
     window.clearTimeout(pokeTimer);
     pokeTimer = window.setTimeout(() => {
       element.classList.remove("is-poked");
-    }, 180);
+    }, 520);
   }
 
   function cancelDecel() {

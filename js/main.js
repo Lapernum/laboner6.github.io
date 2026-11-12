@@ -15,7 +15,7 @@ import { createProgress } from "./progress.js";
 import { createDateHud } from "./datehud.js";
 import { createLightbox } from "./lightbox.js";
 import { initIntro } from "./intro.js";
-import { initLogoEgg } from "./logo-egg.js";
+import { initLogoEgg } from "./logo-egg.js?v=20261112-5";
 import { initTheme } from "./theme.js";
 import { initAdminLink } from "./admin.js";
 import { readTargetFromUrl, toast } from "./ui.js";
