@@ -592,6 +592,12 @@ body.is-ready:not(.is-scrolled) .rail-tip {
   transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
+.lang-option-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
 .lang-menu button:hover {
   color: var(--ink);
   background: var(--bg-elev);
