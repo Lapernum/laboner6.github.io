@@ -178,6 +178,8 @@ async function boot() {
     },
     onClose: () => {
       document.body.classList.remove("lightbox-open");
+      const index = gallery.currentIndex;
+      if (index >= 0) hud.update(data.images[index], true);
     },
     onNavigate: (index) => {
       hud.update(data.images[index], true);
