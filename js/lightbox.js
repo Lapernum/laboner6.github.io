@@ -2,7 +2,7 @@
 
 import { formatDateParts, ratioLabel } from "./config.js";
 import { t } from "./i18n.js";
-import { copyText, setTargetInUrl, shareUrlFor, toast } from "./ui.js";
+import { copyText, shareUrlFor, toast } from "./ui.js";
 
 const CLOSE_MS = 320;
 
@@ -55,7 +55,6 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
     }
     window.clearTimeout(closeTimer);
     render(index);
-    setTargetInUrl(index);
     if (typeof onOpen === "function") onOpen(index);
     if (!fromHash) {
       // Keep the viewer's own focus inside the dialog.
@@ -129,7 +128,6 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
     const target = index + direction;
     if (target < 0 || target >= data.total) return;
     render(target);
-    setTargetInUrl(target);
     if (typeof onNavigate === "function") onNavigate(target);
   }
 
@@ -139,7 +137,6 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
     document.documentElement.classList.remove("lb-open");
-    setTargetInUrl(null);
     if (typeof onClose === "function") onClose(index);
     closeTimer = window.setTimeout(() => {
       root.hidden = true;
@@ -216,7 +213,6 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
       event.preventDefault();
       if (index !== 0) {
         render(0);
-        setTargetInUrl(0);
         if (typeof onNavigate === "function") onNavigate(0);
       }
     } else if (event.key === "End") {
@@ -224,7 +220,6 @@ export function createLightbox({ data, elements, onOpen, onClose, onNavigate }) 
       const last = data.total - 1;
       if (index !== last) {
         render(last);
-        setTargetInUrl(last);
         if (typeof onNavigate === "function") onNavigate(last);
       }
     } else {

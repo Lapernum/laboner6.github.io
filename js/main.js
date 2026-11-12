@@ -13,7 +13,7 @@ import {
 import { createGallery } from "./gallery.js";
 import { createProgress } from "./progress.js";
 import { createDateHud } from "./datehud.js";
-import { createLightbox } from "./lightbox.js";
+import { createLightbox } from "./lightbox.js?v=20261113-6";
 import { initIntro } from "./intro.js";
 import { initLanguage, t } from "./i18n.js";
 import { initLogoEgg } from "./logo-egg.js?v=20261113-1";

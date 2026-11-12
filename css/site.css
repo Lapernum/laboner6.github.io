@@ -505,7 +505,7 @@ body.is-ready:not(.is-scrolled) .rail-tip {
   height: 38px;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 50%;
+  border-radius: 10px;
   background: var(--glass);
   color: var(--ink-soft);
   cursor: pointer;
@@ -541,6 +541,7 @@ body.is-ready:not(.is-scrolled) .rail-tip {
   min-width: 38px;
   padding: 0 10px;
   gap: 6px;
+  border-radius: 10px;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -653,7 +654,7 @@ html[data-theme="light"] .icon-btn .icon-sun {
   height: 38px;
   padding: 0 14px 0 12px;
   border: 1px solid var(--line);
-  border-radius: 99px;
+  border-radius: 10px;
   background: var(--glass);
   color: var(--ink-soft);
   font-size: 10px;
