@@ -1586,6 +1586,13 @@ body.is-ready:not(.is-scrolled) .scroll-hint {
   backdrop-filter: blur(10px);
 }
 
+.date-hud,
+.date-hud * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 body.is-ready .date-hud {
   opacity: 1;
   transform: translate(-50%, 0);
