@@ -6,6 +6,10 @@
 (function () {
   "use strict";
 
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
   var SWITCH_HTML =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 3.4 7.3v9.4L12 21.4l8.6-4.7V7.3L12 2.6Zm0 1.9 6.9 3.8-6.9 3.8-6.9-3.8L12 4.5Zm-6.9 5.4 6.2 3.4v6.4l-6.2-3.4V9.9Zm7.8 9.8v-6.4l6.2-3.4v6.4l-6.2 3.4Z"/></svg>' +
     "<span>新版 v2.0</span>";
@@ -19,52 +23,11 @@
     a.setAttribute("aria-label", "切换到新版网站");
     a.innerHTML = SWITCH_HTML;
     document.body.appendChild(a);
-    a.addEventListener("click", function (e) {
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      e.preventDefault();
-      location.href = "../?pos=" + currentIndex();
-    });
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         a.classList.add("legacy-switch-visible");
       });
     });
-  }
-
-  function currentIndex() {
-    var containers = document.querySelectorAll(".photoContainer");
-    if (!containers.length) return 0;
-    var focal = Math.max(60, window.innerWidth * 0.06);
-    var best = null;
-    var bestDistance = Infinity;
-    Array.prototype.forEach.call(containers, function (el) {
-      var left = el.getBoundingClientRect().left;
-      var distance = Math.abs(left - focal);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        best = el;
-      }
-    });
-    if (!best) return 0;
-    return parseInt(best.id.substring("photoContainer".length), 10) || 0;
-  }
-
-  function applyPosFromUrl(attempt) {
-    attempt = attempt || 0;
-    var params = new URLSearchParams(window.location.search);
-    if (!params.has("pos")) return;
-    var index = Number(params.get("pos"));
-    if (!Number.isInteger(index) || index < 0) return;
-    var target = document.getElementById("photoContainer" + index);
-    if (!target) {
-      if (attempt < 30) {
-        setTimeout(function () {
-          applyPosFromUrl(attempt + 1);
-        }, 60);
-      }
-      return;
-    }
-    window.scrollTo(target.offsetLeft, 0);
   }
 
   function addDrag() {
@@ -191,7 +154,6 @@
   function boot() {
     addSwitch();
     addDrag();
-    applyPosFromUrl();
   }
 
   if (document.readyState === "complete") {

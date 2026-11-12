@@ -199,8 +199,8 @@ async function boot() {
 
   wireInteractions();
 
-  // Position the gallery while the boot overlay still covers the page, so a
-  // shared ?pos / ?targetId link never flashes at the first photograph first.
+  // Position a shared ?targetId link while the boot overlay still covers the
+  // page, so it never flashes at the first photograph first.
   gallery.measure();
   progress.measure();
   hud.update(data.images[initialIndex]);
@@ -368,29 +368,6 @@ function wireInteractions() {
     });
   });
 
-  const versionLink = $(".version-pill");
-  if (versionLink) {
-    const updateVersionLink = () => {
-      const current =
-        lightbox && lightbox.isOpen()
-          ? lightbox.index
-          : gallery
-          ? gallery.currentIndex
-          : -1;
-      if (current >= 0) versionLink.href = `./old/?pos=${current}`;
-    };
-    versionLink.addEventListener("click", updateVersionLink);
-    versionLink.addEventListener("pointerenter", updateVersionLink);
-    // Keep the classic link on the same photograph while browsing. The rAF
-    // runs after the scroll handler has refreshed gallery.currentIndex.
-    window.addEventListener(
-      "scroll",
-      () => requestAnimationFrame(updateVersionLink),
-      { passive: true }
-    );
-    updateVersionLink();
-  }
-
   $("#brand").addEventListener("click", (event) => {
     event.preventDefault();
     window.scrollTo({
@@ -429,20 +406,6 @@ function wireInteractions() {
 }
 
 function handleDeepLink() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.has("pos")) {
-    const targetIndex = findImageIndexByTarget(data, params.get("pos"));
-    if (targetIndex >= 0) {
-      gallery.scrollToIndex(targetIndex, {
-        behavior: "auto",
-        align: "left",
-        offset: 0,
-      });
-      hud.update(data.images[targetIndex], true);
-      gallery.updateCurrent();
-      return;
-    }
-  }
   const raw = readTargetFromUrl();
   if (raw == null) return;
   const index = findImageIndexByTarget(data, raw);
