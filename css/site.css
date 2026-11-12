@@ -268,16 +268,16 @@ body.has-error .boot {
 }
 
 .arc-0 {
-  animation: arc-spin 8s linear infinite;
+  animation: arc-spin var(--arc0-duration, 8s) linear infinite;
 }
 .arc-1 {
-  animation: arc-spin 16s linear infinite reverse;
+  animation: arc-spin var(--arc1-duration, 16s) linear infinite reverse;
 }
 .arc-2 {
-  animation: arc-spin 32s linear infinite;
+  animation: arc-spin var(--arc2-duration, 32s) linear infinite;
 }
 .arc-3 {
-  animation: arc-spin 64s linear infinite reverse;
+  animation: arc-spin var(--arc3-duration, 64s) linear infinite reverse;
 }
 
 .arcs-small {
@@ -585,6 +585,9 @@ html[data-theme="light"] .icon-btn .icon-sun {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .intro-logo {
@@ -592,6 +595,22 @@ html[data-theme="light"] .icon-btn .icon-sun {
   height: clamp(68px, 6vw, 100px);
   margin-bottom: clamp(1.4rem, 3vh, 2.6rem);
   color: var(--accent);
+  cursor: pointer;
+  transition: scale 0.35s var(--ease-spring);
+}
+
+.intro-logo:hover {
+  scale: 1.03;
+}
+
+.intro-logo.is-poked {
+  scale: 1.07;
+}
+
+.intro-logo:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 6px;
+  border-radius: 50%;
 }
 
 .intro-main > * {

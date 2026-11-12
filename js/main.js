@@ -15,6 +15,7 @@ import { createProgress } from "./progress.js";
 import { createDateHud } from "./datehud.js";
 import { createLightbox } from "./lightbox.js";
 import { initIntro } from "./intro.js";
+import { initLogoEgg } from "./logo-egg.js";
 import { initTheme } from "./theme.js";
 import { initAdminLink } from "./admin.js";
 import { readTargetFromUrl, toast } from "./ui.js";
@@ -68,9 +69,11 @@ const els = {
 };
 
 insertArcs(els.bootArcs, "arcs");
-insertArcs($("#introArcs"), "arcs");
+const introArcs = $("#introArcs");
+insertArcs(introArcs, "arcs");
 insertArcs($("#outroArcs"), "arcs");
 insertArcs(els.lbArcs, "arcs");
+initLogoEgg(introArcs);
 
 initTheme(els.themeBtn);
 const intro = initIntro({
