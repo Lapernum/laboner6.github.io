@@ -8,9 +8,20 @@ export function createDateHud({ data, elements, gallery, onNavigate }) {
   let pendingIndex = null;
   let pendingTimer = 0;
   let suppressUntil = 0;
+  let lastMonthKey = "";
+  const readout = hud.querySelector(".date-read");
 
   function setDisplay(image) {
     if (!image) return;
+    const monthKey = `${image.year}-${image.month}`;
+    if (monthKey !== lastMonthKey) {
+      lastMonthKey = monthKey;
+      if (readout) {
+        readout.classList.remove("is-ticking");
+        void readout.offsetWidth;
+        readout.classList.add("is-ticking");
+      }
+    }
     year.textContent = String(image.year || "----");
     month.textContent = String(image.month || "--").padStart(2, "0");
     counter.textContent = `${String(image.index + 1).padStart(5, "0")} / ${String(

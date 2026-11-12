@@ -41,6 +41,9 @@ export function initTheme(button) {
   apply(theme, false);
   button.addEventListener("click", () => {
     apply(theme === "light" ? "dark" : "light", true);
+    button.classList.remove("is-theme-ticking");
+    void button.offsetWidth;
+    button.classList.add("is-theme-ticking");
   });
 
   // Enable colour transitions only after the first paint.

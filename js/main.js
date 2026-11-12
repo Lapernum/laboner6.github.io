@@ -391,6 +391,26 @@ function wireInteractions() {
     });
   });
 
+  const outro = $("#outro");
+  if (outro) {
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              outro.classList.add("is-visible");
+              observer.disconnect();
+            }
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(outro);
+    } else {
+      outro.classList.add("is-visible");
+    }
+  }
+
   window.addEventListener("load", () => {
     if (!gallery) return;
     gallery.measure();
